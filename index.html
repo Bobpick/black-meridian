@@ -318,6 +318,14 @@
     .order-item h4 { margin: 0 0 6px; font-size: 13px; }
     .order-item p { color: #bfccd8; margin: 3px 0; font-size: 11px; }
     .empty-state { color: var(--faint); border: 1px dashed var(--line); border-radius: 8px; padding: 20px; text-align: center; font-size: 12px; }
+    .clock-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+    .clock-card { border: 1px solid var(--line-soft); background: var(--panel); border-radius: var(--radius-sm); padding: 14px; }
+    .clock-card h3 { margin: 6px 0 8px; font-size: 14px; }
+    .clock-card p { margin: 0; font-size: 12px; color: #c1ccd8; }
+    .commit-item { border: 1px solid var(--line-soft); border-left: 3px solid var(--teal); background: var(--bg-soft); border-radius: 8px; padding: 12px; font-size: 12px; }
+    .roster-item { border: 1px solid var(--line-soft); background: var(--bg-soft); border-radius: 8px; padding: 11px 12px; font-size: 12px; }
+    @media (max-width: 1050px) { .clock-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 760px) { .clock-grid { grid-template-columns: 1fr; } }
 
     .footer { border-top: 1px solid var(--line-soft); color: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: .06em; padding: 22px 30px; text-align: center; text-transform: uppercase; }
     .muted { color: var(--muted); }
@@ -376,7 +384,7 @@
         <div class="brand-mark">BM</div>
         <div class="brand-text">
           <div class="brand-title">BLACK MERIDIAN // EXERCISE CONTROL</div>
-          <div class="brand-subtitle">Synthetic campaign simulation · fictional training material</div>
+          <div class="brand-subtitle">Free home-front tabletop · fictional campaign · live, don’t score-kill</div>
         </div>
       </div>
       <div class="top-actions">
@@ -391,16 +399,17 @@
         <div>
           <div class="sidebar-label">Exercise control</div>
           <nav class="nav-list" id="mainNav" aria-label="Scenario sections">
-            <button class="nav-button active" data-view-target="brief" type="button"><span class="nav-icon">01</span>Exercise brief</button>
-            <button class="nav-button" data-view-target="campaign" type="button"><span class="nav-icon">02</span>Campaign timeline</button>
-            <button class="nav-button" data-view-target="forces" type="button"><span class="nav-icon">03</span>Force posture</button>
-            <button class="nav-button" data-view-target="adjudication" type="button"><span class="nav-icon">04</span>Adjudication</button>
-            <button class="nav-button" data-view-target="injects" type="button"><span class="nav-icon">05</span>Inject library</button>
-            <button class="nav-button" data-view-target="evaluation" type="button"><span class="nav-icon">06</span>Evaluation</button>
-            <button class="nav-button" data-view-target="orders" type="button"><span class="nav-icon">07</span>Orders &amp; logs</button>
-            <button class="nav-button" data-view-target="reality" type="button"><span class="nav-icon">08</span>U.S. reality layer</button>
-            <button class="nav-button" data-view-target="regions" type="button"><span class="nav-icon">09</span>Regional planner</button>
-            <button class="nav-button" data-view-target="manual" type="button"><span class="nav-icon">10</span>Instruction manual</button>
+            <button class="nav-button active" data-view-target="session" type="button"><span class="nav-icon">01</span>Home-front session</button>
+            <button class="nav-button" data-view-target="brief" type="button"><span class="nav-icon">02</span>Exercise brief</button>
+            <button class="nav-button" data-view-target="campaign" type="button"><span class="nav-icon">03</span>Campaign timeline</button>
+            <button class="nav-button" data-view-target="forces" type="button"><span class="nav-icon">04</span>Force posture</button>
+            <button class="nav-button" data-view-target="adjudication" type="button"><span class="nav-icon">05</span>Adjudication</button>
+            <button class="nav-button" data-view-target="injects" type="button"><span class="nav-icon">06</span>Inject library</button>
+            <button class="nav-button" data-view-target="evaluation" type="button"><span class="nav-icon">07</span>Evaluation</button>
+            <button class="nav-button" data-view-target="orders" type="button"><span class="nav-icon">08</span>Orders &amp; logs</button>
+            <button class="nav-button" data-view-target="reality" type="button"><span class="nav-icon">09</span>U.S. reality layer</button>
+            <button class="nav-button" data-view-target="regions" type="button"><span class="nav-icon">10</span>Regional planner</button>
+            <button class="nav-button" data-view-target="manual" type="button"><span class="nav-icon">11</span>Instruction manual</button>
           </nav>
         </div>
         <div class="sidebar-foot">
@@ -412,16 +421,85 @@
       <main class="content">
         <div class="page-head">
           <div>
-            <div class="kicker" id="pageKicker">Exercise brief / 01</div>
-            <h1 id="pageTitle">Command the campaign</h1>
+            <div class="kicker" id="pageKicker">Home-front session / 01</div>
+            <h1 id="pageTitle">Practice so people live</h1>
           </div>
           <div class="live-pill">Draft workspace</div>
         </div>
 
-        <section class="view active" id="view-brief" data-view="brief">
+        <section class="view active" id="view-session" data-view="session">
+          <div class="hero">
+            <div>
+              <div class="eyebrow">Free group tabletop · version 0.2</div>
+              <h2>The war is overseas.<br>The test is at home.</h2>
+              <p>Run a 90-minute session. Couple each campaign phase to a civilian effect—power, water, fuel, comms, medicine, payments—then close three gaps. This game is free. The score is living people, not a sale.</p>
+            </div>
+            <div class="hero-mark">90<br><span>MIN</span></div>
+          </div>
+          <div class="callout">
+            <div class="callout-icon">!</div>
+            <div><strong>Effects, not targeting:</strong> describe services failing. Do not name real plants, bases, bridges, or hospitals as targets. Do not store real names or addresses. Official alerts override this tool.</div>
+          </div>
+          <div class="clock-grid top-space" id="sessionClock"></div>
+          <div class="grid-two top-space">
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Roles</div><h3>Who does what in the room</h3></div><span class="tag teal">Group</span></div>
+              <div id="sessionRoles"></div>
+            </article>
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Ethics</div><h3>Rules that keep this a survival tool</h3></div><span class="tag amber">Non-negotiable</span></div>
+              <ul class="check-list" id="sessionEthics"></ul>
+            </article>
+          </div>
+          <article class="panel top-space">
+            <div class="section-head"><div><div class="eyebrow">Roster</div><h3>Households in this session</h3><p>Callsigns only. No names, streets, or medical details.</p></div><span class="tag blue">Local only</span></div>
+            <form id="rosterForm">
+              <div class="form-grid">
+                <div class="form-field"><label for="rosterCallsign">Callsign</label><input id="rosterCallsign" required maxlength="24" placeholder="e.g., River-2" /></div>
+                <div class="form-field"><label for="rosterPeople">People in household</label><input id="rosterPeople" type="number" min="1" max="20" value="2" /></div>
+                <div class="form-field"><label for="rosterWater">Water days</label><input id="rosterWater" type="number" min="0" max="90" placeholder="e.g., 3" /></div>
+                <div class="form-field"><label for="rosterShare">Can share this week</label><select id="rosterShare"><option value="check-in">Check-in / information</option><option value="transport">Transport seat</option><option value="water">Water or sanitation</option><option value="none">Nothing spare yet</option></select></div>
+              </div>
+              <div class="form-actions"><button class="primary" type="submit">Add household</button><button class="ghost" id="exportSession" type="button">Export session log</button><button class="danger" id="clearRoster" type="button">Clear roster</button></div>
+            </form>
+            <div class="order-log top-space" id="rosterList"></div>
+          </article>
+          <article class="panel top-space">
+            <div class="toolbar">
+              <div><div class="eyebrow">Coupled injects</div><h3 style="margin:5px 0 0;font-size:18px;">Theater event → home-front decision</h3><p class="muted small" style="margin:5px 0 0;">Recommended path: H-01, H-03, H-04, H-05. Each card names the overseas inject it mirrors.</p></div>
+              <div class="toolbar-group" id="homeInjectFilters"></div>
+            </div>
+            <div class="inject-list" id="homeInjectList"></div>
+          </article>
+          <div class="grid-two top-space">
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">After-action</div><h3>Close three gaps in 14 days</h3><p>A commitment is a test, not a shopping list.</p></div><span class="tag teal">Survival score</span></div>
+              <form id="commitForm">
+                <div class="form-grid">
+                  <div class="form-field"><label for="commitOwner">Owner callsign</label><input id="commitOwner" required maxlength="24" placeholder="River-2" /></div>
+                  <div class="form-field"><label for="commitDue">Due (within 14 days)</label><input id="commitDue" type="date" required /></div>
+                  <div class="form-field full"><label for="commitGap">Gap to close</label><input id="commitGap" required placeholder="e.g., Test weather radio at 21:00 family check-in" /></div>
+                  <div class="form-field full"><label for="commitTest">How we will know it worked</label><textarea id="commitTest" required placeholder="We reached the out-of-area contact twice without using cellular data."></textarea></div>
+                </div>
+                <div class="form-actions"><button class="primary" type="submit">Save commitment</button></div>
+              </form>
+              <p class="small muted top-space" id="commitLimit"></p>
+              <div class="order-log top-space" id="commitList"></div>
+            </article>
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">From this room</div><h3>Gaps the planner already sees</h3></div><span class="tag amber">Household form</span></div>
+              <p class="small muted">Complete the Regional planner household baseline. High-consequence items appear here so the group can pick three.</p>
+              <div id="sessionGapMirror" class="empty-state">No household baseline saved yet. Open Regional planner.</div>
+              <ul class="rule-list" id="closeRules"></ul>
+              <div class="form-actions"><button class="ghost" type="button" data-view-target="regions">Open regional planner</button></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-brief" data-view="brief">
           <div class="hero hero-art">
             <div>
-              <div class="eyebrow">Fictional training material · version 0.1-draft</div>
+              <div class="eyebrow">Fictional training material · version 0.2 · free to run</div>
               <h2>I need to play this game<br>to protect my family.</h2>
               <p>Practice decisions before a crisis makes them for you. BLACK MERIDIAN turns uncertainty into a structured, calm, and repeatable planning exercise.</p>
             </div>
@@ -768,18 +846,18 @@
 
         <section class="view" id="view-manual" data-view="manual">
           <div class="hero">
-            <div><div class="eyebrow">Operator guide / version 0.1-draft</div><h2>Run the model.<br>Record the assumptions.</h2><p>The full instruction manual is stored as a separate portable HTML file alongside the dashboard.</p></div>
+            <div><div class="eyebrow">Operator guide / version 0.2</div><h2>Run the model.<br>Record the assumptions.</h2><p>Start with the Home-front session. The full instruction manual is stored as a separate portable HTML file alongside the dashboard.</p></div>
             <div class="hero-mark">OPS<br><span>GUIDE</span></div>
           </div>
           <div class="grid-two top-space">
-            <article class="panel"><div class="section-head"><div><div class="eyebrow">Start here</div><h3>Recommended workflow</h3></div><span class="tag teal">8 steps</span></div><ol class="rule-list" style="list-style:none;counter-reset:step;"><li>Read the scope and limitations.</li><li>Select a broad region.</li><li>Complete the household baseline without entering sensitive identifiers.</li><li>Review the 72-hour, 14-day, and months-long horizons.</li><li>Run one scenario inject at a time.</li><li>Record decisions and assumptions in Orders &amp; logs.</li><li>Score the exercise in Evaluation.</li><li>Export the scenario, profile, orders, and scorecard to storage/.</li></ol><div class="form-actions"><a class="primary" href="instruction-manual.html" target="_blank" rel="noopener" style="text-decoration:none;">Open full instruction manual</a></div></article>
+            <article class="panel"><div class="section-head"><div><div class="eyebrow">Start here</div><h3>Recommended workflow</h3></div><span class="tag teal">8 steps</span></div><ol class="rule-list" style="list-style:none;counter-reset:step;"><li>Read the ethics list on Home-front session.</li><li>Select a broad region and fill household baselines.</li><li>Run H-01, H-03, H-04, and H-05 as a 90-minute tabletop.</li><li>Answer stay / move / share / wait after each inject.</li><li>Record three 14-day commitments with a test, not just a purchase.</li><li>Use Orders &amp; logs only if you also run the overseas campaign staff.</li><li>Export the session log into storage/.</li><li>Re-run after 14 days and count closed gaps.</li></ol><div class="form-actions"><a class="primary" href="instruction-manual.html" target="_blank" rel="noopener" style="text-decoration:none;">Open full instruction manual</a></div></article>
             <article class="panel"><div class="section-head"><div><div class="eyebrow">Operating boundary</div><h3>What this tool is—and is not</h3></div><span class="tag amber">Read first</span></div><ul class="check-list"><li>A structured way to explore uncertainty and household continuity.</li><li>A place to make assumptions visible and revise them.</li><li>A scenario-planning aid that uses public aggregate information.</li><li>Not an intelligence product, threat warning, evacuation order, or personal safety guarantee.</li><li>Not a substitute for official emergency alerts or local authorities.</li></ul></article>
           </div>
         </section>
       </main>
     </div>
 
-    <footer class="footer">BLACK MERIDIAN · FICTIONAL SYNTHETIC CAMPAIGN SIMULATION · VERSION 0.1-DRAFT · 2026-09-06</footer>
+    <footer class="footer">BLACK MERIDIAN · FREE HOME-FRONT TABLETOP · FICTIONAL CAMPAIGN · VERSION 0.2 · 2026-09-06</footer>
   </div>
 
   <script id="scenario-data" type="application/json">
@@ -787,7 +865,7 @@
   "meta": {
     "title": "Exercise BLACK MERIDIAN",
     "subtitle": "Synthetic campaign simulation",
-    "version": "0.1-draft",
+    "version": "0.2",
     "date": "2026-09-06",
     "classification": "FICTIONAL TRAINING MATERIAL",
     "audience": "Battalion and brigade tactical commanders",
@@ -987,30 +1065,159 @@
 
   </script>
 
+  <script id="home-front-data" type="application/json">
+{
+  "meta": {
+    "title": "Home-front session",
+    "version": "0.2",
+    "date": "2026-09-06",
+    "purpose": "Help a free preparedness group practice continuity when a distant high-end war degrades services at home.",
+    "licenseNote": "BLACK MERIDIAN is free. The intended outcome is living people and closed planning gaps, not a product sale."
+  },
+  "ethics": [
+    "Talk about services failing, not how to break them.",
+    "Do not name real plants, bases, bridges, hospitals, or warehouses as targets.",
+    "Do not store names, addresses, account numbers, or medical identifiers.",
+    "Official alerts beat this dashboard in a real event.",
+    "Plans that help in storms, outages, and pharmacy delays still help if the extreme case never happens."
+  ],
+  "roles": [
+    { "id": "facilitator", "title": "Facilitator", "job": "Keep time, release one inject at a time, stop targeting talk, write the three commitments." },
+    { "id": "households", "title": "Households", "job": "Each person or pair represents one household. Use a callsign, not a real name." },
+    { "id": "mutual-aid", "title": "Mutual-aid cell", "job": "Track what the group can share without collapsing: water, transport, check-ins, spare meds knowledge (not actual prescriptions)." },
+    { "id": "info", "title": "Information cell", "job": "Say what is confirmed, rumored, or unknown. Prefer official public sources." },
+    { "id": "civil", "title": "Civil picture", "job": "Track power, water, fuel, comms, medical access, and payments as effects on people, not as attack surfaces." }
+  ],
+  "session": [
+    { "minutes": "0–10", "title": "Boundary and region", "do": "Read the ethics list. Pick one U.S. planning region. State that the overseas campaign is fictional context." },
+    { "minutes": "10–25", "title": "Baselines", "do": "Each household fills the planner. Mutual-aid cell records surplus and shortages without addresses." },
+    { "minutes": "25–70", "title": "Four home-front injects", "do": "Run H-01, H-03, H-04, and H-05 (or swap H-02 / H-06). After each inject, every household answers: stay, move, share, or wait — and why." },
+    { "minutes": "70–90", "title": "Close three gaps", "do": "Group picks three high-consequence gaps to close in the next 14 days. Export the session log." }
+  ],
+  "injects": [
+    {
+      "id": "H-01",
+      "phase": "P0",
+      "time": "D-8 · 72-hour window",
+      "severity": "HIGH",
+      "title": "Warning without certainty",
+      "theaterLink": "I-01",
+      "theater": "Overseas: intelligence streams disagree on whether open conflict is coming.",
+      "home": "News and social feeds disagree. Stores are still open. Neighbors ask what you are doing. Nothing official has ordered you to leave.",
+      "decision": "What does each household do in the next 24 hours without treating rumor as fact?",
+      "effect": "Early choices spend cash, fuel, attention, and trust. Panic buying can empty a town faster than a real shortage.",
+      "gapKeys": ["contactPlan", "documentsPlan", "alternateComms"],
+      "facilitator": "Reward a written contact tree and a buy-list cap. Punish certainty theater. Do not discuss attacking infrastructure."
+    },
+    {
+      "id": "H-02",
+      "phase": "P0",
+      "time": "D-5 · 72-hour window",
+      "severity": "MEDIUM",
+      "title": "Movement gets expensive",
+      "theaterLink": "I-02",
+      "theater": "Overseas: a neutral actor limits military transit and asks for humanitarian guarantees.",
+      "home": "Fuel prices jump. Some long-haul goods arrive late. A relative in another region wants a ride or a spare room. Roads are open.",
+      "decision": "Do you travel, host, stay put, or split the household? What is the fuel and cash limit?",
+      "effect": "Distance becomes a resource. Unwritten hosting rules create conflict inside the group.",
+      "gapKeys": ["transportPlan", "shelterPlan", "contactPlan"],
+      "facilitator": "Force a number: gallons or dollars they will spend this week. No real addresses."
+    },
+    {
+      "id": "H-03",
+      "phase": "P1",
+      "time": "D+1 · 72-hour window",
+      "severity": "CRITICAL",
+      "title": "Phones and data go ugly",
+      "theaterLink": "I-03",
+      "theater": "Overseas: reporting channels become intermittent and contradictory.",
+      "home": "Cellular data is congested. Some texts go through hours late. Television and a weather radio still work. Rumors fill the gap.",
+      "decision": "How does the group check on each other tonight if apps fail? Who is the out-of-area relay?",
+      "effect": "Untested backup comms are not comms. Isolated people make worse shelter and medical choices.",
+      "gapKeys": ["alternateComms", "contactPlan"],
+      "facilitator": "Have them actually write the check-in hour and the backup method. If it is untested, mark it as a gap."
+    },
+    {
+      "id": "H-04",
+      "phase": "P1",
+      "time": "D+2 · days 4–14",
+      "severity": "HIGH",
+      "title": "Clinics and pharmacies slow down",
+      "theaterLink": "I-04",
+      "theater": "Overseas: civilian displacement strains transport and medical networks.",
+      "home": "Routine appointments slip. A pharmacy is out of one common medication. Emergency rooms are busy. Power is still mostly on.",
+      "decision": "Who in the group has a time-critical medical need, and what is the 14-day workaround that does not require a hospital?",
+      "effect": "Medical delay, not battlefield injury, is how many households fail first.",
+      "gapKeys": ["medicationPlan", "dependentsPlan", "transportPlan"],
+      "facilitator": "No diagnosis details. Status only: confirmed / partial / none. Point people to their clinician and official public-health guidance."
+    },
+    {
+      "id": "H-05",
+      "phase": "P2",
+      "time": "D+8 · days 4–14",
+      "severity": "HIGH",
+      "title": "Pay, fuel, and restock lag",
+      "theaterLink": "I-05",
+      "theater": "Overseas: maintenance and sustainment were overstated; tempo cannot be kept.",
+      "home": "Card payments flake at some stores. Cash still works. One grocer is short on staples. Fuel is available with longer lines. Work schedules slip.",
+      "decision": "What does the group share, what do they not share, and how many days of water and food remain after helping?",
+      "effect": "Mutual aid without a floor bankrupts the givers. Hoarding without a neighbor plan isolates the takers.",
+      "gapKeys": ["waterDays", "foodDays", "documentsPlan"],
+      "facilitator": "Ask for a sharing rule: keep X days, share the rest. Never inventory someone else's real address or stash."
+    },
+    {
+      "id": "H-06",
+      "phase": "P3",
+      "time": "D+18 · weeks to months",
+      "severity": "HIGH",
+      "title": "The story and the bill",
+      "theaterLink": "I-08",
+      "theater": "Overseas: a viral video contradicts the official account of a contested incident.",
+      "home": "Local arguments get bitter. Insurance, rent, and work paperwork still matter. Some people want to relocate; others cannot. Officials ask the public to ignore unverified clips.",
+      "decision": "What sources will this group trust, and what 30-day housing / income / care plan survives if the argument never resolves?",
+      "effect": "Narrative shock splits groups that never wrote a recovery plan.",
+      "gapKeys": ["shelterPlan", "documentsPlan", "dependentsPlan"],
+      "facilitator": "Do not wargame information operations. Reward a short source list: local EM, NWS, utility, Ready.gov, and one out-of-area human."
+    }
+  ],
+  "closeRules": [
+    "Pick at most three gaps. More than three is a wishlist, not a plan.",
+    "Each commitment needs an owner callsign, a due date within 14 days, and a test (not a purchase alone).",
+    "A test means you used the radio, drove the fallback, filled water, or called the out-of-area contact.",
+    "Re-run the session after the 14 days. The score is closed gaps, not battlefield victory."
+  ]
+}
+
+  </script>
+
   <script>
     (function () {
       "use strict";
 
       const DATA = JSON.parse(document.getElementById("scenario-data").textContent);
       const REGIONS = JSON.parse(document.getElementById("regional-data").textContent);
+      const HOME = JSON.parse(document.getElementById("home-front-data").textContent);
       const STORAGE = {
         orders: "black-meridian.orders.v1",
         scores: "black-meridian.scores.v1",
         notes: "black-meridian.notes.v1",
-        family: "black-meridian.family.v1"
+        family: "black-meridian.family.v1",
+        roster: "black-meridian.roster.v1",
+        commits: "black-meridian.commits.v1"
       };
 
       const viewMeta = {
-        brief: ["Exercise brief / 01", "Command the campaign"],
-        campaign: ["Campaign timeline / 02", "The campaign unfolds in phases"],
-        forces: ["Situation framework / 03", "Force posture"],
-        adjudication: ["Exercise-control model / 04", "Adjudication"],
-        injects: ["Exercise-control library / 05", "Inject library"],
-        evaluation: ["After-action review / 06", "Evaluation scorecard"],
-        orders: ["Tactical decision record / 07", "Orders & logs"],
-        reality: ["Public-source planning baseline / 08", "U.S. reality layer"],
-        regions: ["Regional planning / 09", "Regional planner"],
-        manual: ["Operator guide / 10", "Instruction manual"]
+        session: ["Home-front session / 01", "Practice so people live"],
+        brief: ["Exercise brief / 02", "Command the campaign"],
+        campaign: ["Campaign timeline / 03", "The campaign unfolds in phases"],
+        forces: ["Situation framework / 04", "Force posture"],
+        adjudication: ["Exercise-control model / 05", "Adjudication"],
+        injects: ["Exercise-control library / 06", "Inject library"],
+        evaluation: ["After-action review / 07", "Evaluation scorecard"],
+        orders: ["Tactical decision record / 08", "Orders & logs"],
+        reality: ["Public-source planning baseline / 09", "U.S. reality layer"],
+        regions: ["Regional planning / 10", "Regional planner"],
+        manual: ["Operator guide / 11", "Instruction manual"]
       };
 
       const $ = (selector, root = document) => root.querySelector(selector);
@@ -1045,6 +1252,103 @@
 
       function renderBrief() {
         $("#missionText").textContent = DATA.mission;
+      }
+
+      let activeHomeFilter = "ALL";
+      function getRoster() { return safeGet(STORAGE.roster, []); }
+      function getCommits() { return safeGet(STORAGE.commits, []); }
+
+      function renderSessionChrome() {
+        $("#sessionClock").innerHTML = HOME.session.map((block) => `<div class="clock-card"><div class="eyebrow">${esc(block.minutes)}</div><h3>${esc(block.title)}</h3><p>${esc(block.do)}</p></div>`).join("");
+        $("#sessionRoles").innerHTML = HOME.roles.map((role) => `<div class="roster-item" style="margin-bottom:8px;"><strong>${esc(role.title)}.</strong> ${esc(role.job)}</div>`).join("");
+        $("#sessionEthics").innerHTML = HOME.ethics.map((rule) => `<li>${esc(rule)}</li>`).join("");
+        $("#closeRules").innerHTML = HOME.closeRules.map((rule) => `<li>${esc(rule)}</li>`).join("");
+        const due = $("#commitDue");
+        if (due && !due.value) {
+          const next = new Date();
+          next.setDate(next.getDate() + 14);
+          due.value = next.toISOString().slice(0, 10);
+        }
+      }
+
+      function renderRoster() {
+        const roster = getRoster();
+        $("#rosterList").innerHTML = roster.length ? roster.map((row, index) => `
+          <div class="roster-item"><strong>${esc(row.callsign)}</strong> · ${esc(row.people)} people · ${esc(row.water || "0")} water-days · can share: ${esc(row.share)}
+            <button class="text-button" type="button" data-drop-roster="${index}" style="float:right;">Remove</button>
+          </div>`).join("") : `<div class="empty-state">No households yet. Add callsigns only.</div>`;
+        $$("[data-drop-roster]").forEach((button) => button.addEventListener("click", () => {
+          const list = getRoster();
+          list.splice(Number(button.dataset.dropRoster), 1);
+          safeSet(STORAGE.roster, list);
+          renderRoster();
+        }));
+      }
+
+      function renderCommits() {
+        const commits = getCommits();
+        $("#commitLimit").textContent = commits.length >= 3
+          ? "Three commitments recorded. That is the cap for this session."
+          : `${commits.length} of 3 commitments recorded.`;
+        $("#commitList").innerHTML = commits.length ? commits.map((row, index) => `
+          <div class="commit-item"><strong>${esc(row.owner)}</strong> by ${esc(row.due)}<p>${esc(row.gap)}</p><p class="muted">Test: ${esc(row.test)}</p>
+            <button class="text-button" type="button" data-drop-commit="${index}">Remove</button>
+          </div>`).join("") : `<div class="empty-state">No commitments yet. Pick the three highest-consequence gaps.</div>`;
+        $$("[data-drop-commit]").forEach((button) => button.addEventListener("click", () => {
+          const list = getCommits();
+          list.splice(Number(button.dataset.dropCommit), 1);
+          safeSet(STORAGE.commits, list);
+          renderCommits();
+        }));
+      }
+
+      function renderHomeInjectFilters() {
+        const filters = ["ALL", ...DATA.phases.map((phase) => phase.id)];
+        $("#homeInjectFilters").innerHTML = filters.map((filter) => `<button class="filter-button ${activeHomeFilter === filter ? "active" : ""}" data-home-filter="${filter}" type="button">${filter === "ALL" ? "All phases" : esc(filter)}</button>`).join("");
+        $$("[data-home-filter]").forEach((button) => button.addEventListener("click", () => {
+          activeHomeFilter = button.dataset.homeFilter;
+          renderHomeInjectFilters();
+          renderHomeInjects();
+        }));
+      }
+
+      function renderHomeInjects() {
+        const items = activeHomeFilter === "ALL" ? HOME.injects : HOME.injects.filter((item) => item.phase === activeHomeFilter);
+        $("#homeInjectList").innerHTML = items.map((item, index) => `
+          <details class="inject-card" ${index === 0 ? "open" : ""}>
+            <summary>
+              <span class="inject-id">${esc(item.id)}</span>
+              <span class="inject-time">${esc(item.time)}</span>
+              <span class="inject-title">${esc(item.title)}</span>
+              <span class="tag ${item.severity === "CRITICAL" ? "red" : item.severity === "HIGH" ? "amber" : "gray"}">${esc(item.severity)}</span>
+            </summary>
+            <div class="inject-detail">
+              <div><h4>Theater (fictional)</h4><p>${esc(item.theater)} <span class="muted">(${esc(item.theaterLink)})</span></p></div>
+              <div><h4>At home</h4><p>${esc(item.home)}</p><div class="top-space"><h4>Group decision</h4><p>${esc(item.decision)}</p></div></div>
+              <div><h4>If you get this wrong</h4><p>${esc(item.effect)}</p><div class="facilitator-only facilitator-note top-space"><h4>Facilitator note</h4><p>${esc(item.facilitator)}</p></div></div>
+            </div>
+          </details>`).join("") || `<div class="empty-state">No home-front injects match this filter.</div>`;
+      }
+
+      function renderSessionGapMirror() {
+        const target = $("#sessionGapMirror");
+        if (!target) return;
+        const source = $("#familyGaps");
+        target.innerHTML = source ? source.innerHTML : `<div class="empty-state">Open Regional planner to generate gaps.</div>`;
+      }
+
+      function exportSessionLog() {
+        const payload = {
+          exercise: DATA.meta.title,
+          layer: HOME.meta.title,
+          exportedAt: new Date().toISOString(),
+          ethics: HOME.ethics,
+          roster: getRoster(),
+          commitments: getCommits(),
+          householdProfile: getFamilyProfile(),
+          note: "Callsigns only. Effects, not targeting. Free tabletop — the score is closed gaps."
+        };
+        download(`black-meridian-session-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(payload, null, 2));
       }
 
       function renderPhases() {
@@ -1089,7 +1393,9 @@
 
       function renderInjects() {
         const items = activeInjectFilter === "ALL" ? DATA.injects : DATA.injects.filter((item) => item.phase === activeInjectFilter);
-        $("#injectList").innerHTML = items.map((item, index) => `
+        $("#injectList").innerHTML = items.map((item, index) => {
+        const home = HOME.injects.find((card) => card.theaterLink === item.id);
+        return `
           <details class="inject-card" ${index === 0 ? "open" : ""}>
             <summary>
               <span class="inject-id">${esc(item.id)}</span>
@@ -1100,9 +1406,9 @@
             <div class="inject-detail">
               <div><h4>Signal</h4><p>${esc(item.signal)}</p></div>
               <div><h4>Player decision</h4><p>${esc(item.decision)}</p><div class="top-space"><h4>Expected effect</h4><p>${esc(item.effect)}</p></div></div>
-              <div class="facilitator-only facilitator-note"><h4>Facilitator note</h4><p>${esc(item.facilitator)}</p></div>
+              <div>${home ? `<h4>Home-front couple</h4><p><strong>${esc(home.id)} ${esc(home.title)}.</strong> ${esc(home.home)}</p>` : `<h4>Home-front couple</h4><p>No civilian card is paired to this inject. Use the Home-front session for household effects.</p>`}<div class="facilitator-only facilitator-note top-space"><h4>Facilitator note</h4><p>${esc(item.facilitator)}</p></div></div>
             </div>
-          </details>`).join("") || `<div class="empty-state">No injects match this filter.</div>`;
+          </details>`; }).join("") || `<div class="empty-state">No injects match this filter.</div>`;
       }
 
       function getFamilyProfile() { return safeGet(STORAGE.family, { regionId: REGIONS.regions[0].id }); }
@@ -1157,6 +1463,7 @@
         const band = !profile.familySize && !profile.waterDays && !profile.foodDays ? "Complete the baseline" : gaps.length <= 2 ? "Baseline established — close remaining gaps" : gaps.length <= 5 ? "Developing — several priority gaps" : "Priority worklist — address fundamentals first";
         $("#planningBand").textContent = band;
         $("#familyGaps").innerHTML = gaps.length ? `<div class="small muted" style="margin-bottom:10px;">${gaps.length} planning gap${gaps.length === 1 ? "" : "s"} identified · ${high} high-consequence item${high === 1 ? "" : "s"}</div><ul class="rule-list">${gaps.map((gap) => `<li><strong>${esc(gap.label)}:</strong> ${esc(gap.advice)}</li>`).join("")}</ul>` : `<div class="small" style="color:var(--teal);">No gaps identified in the current form. Revisit the plan seasonally and after household changes.</div>`;
+        renderSessionGapMirror();
       }
 
       function renderRegions() {
@@ -1254,6 +1561,48 @@
       }
 
       $$("[data-view-target]").forEach((button) => button.addEventListener("click", () => activateView(button.dataset.viewTarget)));
+      $("#rosterForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const row = {
+          callsign: $("#rosterCallsign").value.trim(),
+          people: $("#rosterPeople").value,
+          water: $("#rosterWater").value,
+          share: $("#rosterShare").value
+        };
+        if (!row.callsign) return;
+        const list = getRoster();
+        list.push(row);
+        safeSet(STORAGE.roster, list);
+        event.target.reset();
+        $("#rosterPeople").value = "2";
+        renderRoster();
+      });
+      $("#commitForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (getCommits().length >= 3) {
+          window.alert("This session caps at three commitments. Remove one, or run a new session in 14 days.");
+          return;
+        }
+        const row = {
+          owner: $("#commitOwner").value.trim(),
+          due: $("#commitDue").value,
+          gap: $("#commitGap").value.trim(),
+          test: $("#commitTest").value.trim()
+        };
+        const list = getCommits();
+        list.push(row);
+        safeSet(STORAGE.commits, list);
+        event.target.reset();
+        renderSessionChrome();
+        renderCommits();
+      });
+      $("#exportSession").addEventListener("click", exportSessionLog);
+      $("#clearRoster").addEventListener("click", () => {
+        if (window.confirm("Clear the callsign roster for this browser?")) {
+          safeSet(STORAGE.roster, []);
+          renderRoster();
+        }
+      });
       $("#facilitatorToggle").addEventListener("click", () => {
         document.body.classList.toggle("facilitator-mode");
         const active = document.body.classList.contains("facilitator-mode");
@@ -1297,6 +1646,11 @@
       });
 
       renderBrief();
+      renderSessionChrome();
+      renderRoster();
+      renderCommits();
+      renderHomeInjectFilters();
+      renderHomeInjects();
       renderPhases();
       renderForces();
       renderInjectFilters();
@@ -1304,6 +1658,7 @@
       renderMetrics();
       renderOrders();
       renderRegions();
+      renderSessionGapMirror();
     })();
   </script>
 </body>

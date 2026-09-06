@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "title": "Home-front session",
+    "version": "0.2",
+    "date": "2026-09-06",
+    "purpose": "Help a free preparedness group practice continuity when a distant high-end war degrades services at home.",
+    "licenseNote": "BLACK MERIDIAN is free. The intended outcome is living people and closed planning gaps, not a product sale."
+  },
+  "ethics": [
+    "Talk about services failing, not how to break them.",
+    "Do not name real plants, bases, bridges, hospitals, or warehouses as targets.",
+    "Do not store names, addresses, account numbers, or medical identifiers.",
+    "Official alerts beat this dashboard in a real event.",
+    "Plans that help in storms, outages, and pharmacy delays still help if the extreme case never happens."
+  ],
+  "roles": [
+    { "id": "facilitator", "title": "Facilitator", "job": "Keep time, release one inject at a time, stop targeting talk, write the three commitments." },
+    { "id": "households", "title": "Households", "job": "Each person or pair represents one household. Use a callsign, not a real name." },
+    { "id": "mutual-aid", "title": "Mutual-aid cell", "job": "Track what the group can share without collapsing: water, transport, check-ins, spare meds knowledge (not actual prescriptions)." },
+    { "id": "info", "title": "Information cell", "job": "Say what is confirmed, rumored, or unknown. Prefer official public sources." },
+    { "id": "civil", "title": "Civil picture", "job": "Track power, water, fuel, comms, medical access, and payments as effects on people, not as attack surfaces." }
+  ],
+  "session": [
+    { "minutes": "0–10", "title": "Boundary and region", "do": "Read the ethics list. Pick one U.S. planning region. State that the overseas campaign is fictional context." },
+    { "minutes": "10–25", "title": "Baselines", "do": "Each household fills the planner. Mutual-aid cell records surplus and shortages without addresses." },
+    { "minutes": "25–70", "title": "Four home-front injects", "do": "Run H-01, H-03, H-04, and H-05 (or swap H-02 / H-06). After each inject, every household answers: stay, move, share, or wait — and why." },
+    { "minutes": "70–90", "title": "Close three gaps", "do": "Group picks three high-consequence gaps to close in the next 14 days. Export the session log." }
+  ],
+  "injects": [
+    {
+      "id": "H-01",
+      "phase": "P0",
+      "time": "D-8 · 72-hour window",
+      "severity": "HIGH",
+      "title": "Warning without certainty",
+      "theaterLink": "I-01",
+      "theater": "Overseas: intelligence streams disagree on whether open conflict is coming.",
+      "home": "News and social feeds disagree. Stores are still open. Neighbors ask what you are doing. Nothing official has ordered you to leave.",
+      "decision": "What does each household do in the next 24 hours without treating rumor as fact?",
+      "effect": "Early choices spend cash, fuel, attention, and trust. Panic buying can empty a town faster than a real shortage.",
+      "gapKeys": ["contactPlan", "documentsPlan", "alternateComms"],
+      "facilitator": "Reward a written contact tree and a buy-list cap. Punish certainty theater. Do not discuss attacking infrastructure."
+    },
+    {
+      "id": "H-02",
+      "phase": "P0",
+      "time": "D-5 · 72-hour window",
+      "severity": "MEDIUM",
+      "title": "Movement gets expensive",
+      "theaterLink": "I-02",
+      "theater": "Overseas: a neutral actor limits military transit and asks for humanitarian guarantees.",
+      "home": "Fuel prices jump. Some long-haul goods arrive late. A relative in another region wants a ride or a spare room. Roads are open.",
+      "decision": "Do you travel, host, stay put, or split the household? What is the fuel and cash limit?",
+      "effect": "Distance becomes a resource. Unwritten hosting rules create conflict inside the group.",
+      "gapKeys": ["transportPlan", "shelterPlan", "contactPlan"],
+      "facilitator": "Force a number: gallons or dollars they will spend this week. No real addresses."
+    },
+    {
+      "id": "H-03",
+      "phase": "P1",
+      "time": "D+1 · 72-hour window",
+      "severity": "CRITICAL",
+      "title": "Phones and data go ugly",
+      "theaterLink": "I-03",
+      "theater": "Overseas: reporting channels become intermittent and contradictory.",
+      "home": "Cellular data is congested. Some texts go through hours late. Television and a weather radio still work. Rumors fill the gap.",
+      "decision": "How does the group check on each other tonight if apps fail? Who is the out-of-area relay?",
+      "effect": "Untested backup comms are not comms. Isolated people make worse shelter and medical choices.",
+      "gapKeys": ["alternateComms", "contactPlan"],
+      "facilitator": "Have them actually write the check-in hour and the backup method. If it is untested, mark it as a gap."
+    },
+    {
+      "id": "H-04",
+      "phase": "P1",
+      "time": "D+2 · days 4–14",
+      "severity": "HIGH",
+      "title": "Clinics and pharmacies slow down",
+      "theaterLink": "I-04",
+      "theater": "Overseas: civilian displacement strains transport and medical networks.",
+      "home": "Routine appointments slip. A pharmacy is out of one common medication. Emergency rooms are busy. Power is still mostly on.",
+      "decision": "Who in the group has a time-critical medical need, and what is the 14-day workaround that does not require a hospital?",
+      "effect": "Medical delay, not battlefield injury, is how many households fail first.",
+      "gapKeys": ["medicationPlan", "dependentsPlan", "transportPlan"],
+      "facilitator": "No diagnosis details. Status only: confirmed / partial / none. Point people to their clinician and official public-health guidance."
+    },
+    {
+      "id": "H-05",
+      "phase": "P2",
+      "time": "D+8 · days 4–14",
+      "severity": "HIGH",
+      "title": "Pay, fuel, and restock lag",
+      "theaterLink": "I-05",
+      "theater": "Overseas: maintenance and sustainment were overstated; tempo cannot be kept.",
+      "home": "Card payments flake at some stores. Cash still works. One grocer is short on staples. Fuel is available with longer lines. Work schedules slip.",
+      "decision": "What does the group share, what do they not share, and how many days of water and food remain after helping?",
+      "effect": "Mutual aid without a floor bankrupts the givers. Hoarding without a neighbor plan isolates the takers.",
+      "gapKeys": ["waterDays", "foodDays", "documentsPlan"],
+      "facilitator": "Ask for a sharing rule: keep X days, share the rest. Never inventory someone else's real address or stash."
+    },
+    {
+      "id": "H-06",
+      "phase": "P3",
+      "time": "D+18 · weeks to months",
+      "severity": "HIGH",
+      "title": "The story and the bill",
+      "theaterLink": "I-08",
+      "theater": "Overseas: a viral video contradicts the official account of a contested incident.",
+      "home": "Local arguments get bitter. Insurance, rent, and work paperwork still matter. Some people want to relocate; others cannot. Officials ask the public to ignore unverified clips.",
+      "decision": "What sources will this group trust, and what 30-day housing / income / care plan survives if the argument never resolves?",
+      "effect": "Narrative shock splits groups that never wrote a recovery plan.",
+      "gapKeys": ["shelterPlan", "documentsPlan", "dependentsPlan"],
+      "facilitator": "Do not wargame information operations. Reward a short source list: local EM, NWS, utility, Ready.gov, and one out-of-area human."
+    }
+  ],
+  "closeRules": [
+    "Pick at most three gaps. More than three is a wishlist, not a plan.",
+    "Each commitment needs an owner callsign, a due date within 14 days, and a test (not a purchase alone).",
+    "A test means you used the radio, drove the fallback, filled water, or called the out-of-area contact.",
+    "Re-run the session after the 14 days. The score is closed gaps, not battlefield victory."
+  ]
+}

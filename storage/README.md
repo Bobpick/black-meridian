@@ -10,3 +10,4 @@ Suggested filenames:
 - `orders-YYYY-MM-DD.json`
 - `scorecard-YYYY-MM-DD.json`
 - `facilitator-notes-YYYY-MM-DD.md`
+- `black-meridian-session-YYYY-MM-DD.json`

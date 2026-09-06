@@ -1,6 +1,6 @@
 # Exercise BLACK MERIDIAN
 
-**A portable, offline HTML dashboard for a fictional professional campaign simulation and civilian resilience planning.**
+**A free, portable, offline HTML tabletop for preparedness groups: a fictional overseas campaign coupled to home-front continuity so people practice living through service failures—not selling a product.**
 
 [Open the dashboard](index.html) · [Read the instruction manual](instruction-manual.html)
 
@@ -10,19 +10,31 @@
 
 ## Overview
 
-BLACK MERIDIAN is designed to help users explore difficult decisions under uncertainty. It combines:
+BLACK MERIDIAN is free. The intended outcome is closed planning gaps and living people. It combines:
 
+- A 90-minute **home-front session** that couples each campaign phase to a civilian effect (comms, medicine, fuel, payments, rumor)
+- Group roster by callsign, mutual-aid roles, and a hard cap of three 14-day commitments
 - A fictional high-end conventional campaign simulation
 - Tactical commander decision records
 - Fog-of-war and adjudication concepts
 - Public-source U.S. force-scale context
 - Broad regional civilian-resilience planning modules
 - Household continuity planning across 72-hour, two-week, and longer recovery horizons
-- Browser-local orders, scorecards, and household-profile drafts
+- Browser-local orders, scorecards, household-profile drafts, and session logs
 
 The project is intentionally **operating-system agnostic**. It uses static HTML, CSS, JavaScript, SVG, and JSON files. No installation, package manager, database, external library, or backend service is required.
 
 ## Features
+
+### Home-front session (start here)
+
+- 90-minute clock: ethics, baselines, four injects, three commitments
+- Group roles: facilitator, households, mutual-aid, information, civil picture
+- Callsign roster (no names or addresses)
+- Six civilian injects coupled to the fictional campaign (H-01–H-06)
+- Recommended path H-01, H-03, H-04, H-05
+- Hard cap of three 14-day commitments, each requiring a test
+- Session-log export
 
 ### Fictional campaign dashboard
 
@@ -123,6 +135,7 @@ black-meridian/
 │   └── black-meridian-poster.svg  # Scalable version of the graphic
 ├── data/
 │   ├── scenario.json          # Fictional campaign source data
+│   ├── home-front.json        # 90-minute civilian session, coupled injects
 │   ├── us-reality.json        # Public-source U.S. reference data
 │   └── us-regions.json        # Broad regional planning modules
 └── storage/
@@ -131,16 +144,14 @@ black-meridian/
 
 ## Recommended workflow
 
-1. Read the scope and limitations in the instruction manual.
-2. Review the **Exercise brief**.
-3. Review the **U.S. reality layer** without treating force totals as deployable strength.
-4. Open **Regional planner** and select the closest planning region.
-5. Complete the household baseline using non-sensitive information.
-6. Review the resulting planning gaps.
-7. Use **Orders & logs** to record assumptions and decisions.
-8. Use **Evaluation** to record lessons and after-action observations.
-9. Export important drafts and move them into `storage/`.
-10. Validate broad assumptions with official local, state, tribal, and federal sources.
+1. Open **Home-front session** and read the ethics list (effects, not targeting).
+2. Pick a region and fill household baselines without names or addresses.
+3. Add group callsigns to the roster.
+4. Run H-01, H-03, H-04, and H-05 (90 minutes). After each inject, each household says stay, move, share, or wait.
+5. Record **three** 14-day commitments, each with a test.
+6. Export the session log into `storage/`.
+7. Optionally run the overseas campaign staff tools (orders, evaluation).
+8. Re-run after 14 days and count closed gaps.
 
 ## Storage and browser behavior
 
@@ -155,6 +166,7 @@ The browser cannot reliably write directly into an arbitrary folder when an HTML
 The editable reference files are in `data/`:
 
 - `scenario.json` — fictional campaign data
+- `home-front.json` — 90-minute home-front session and coupled injects
 - `us-reality.json` — public-source U.S. context
 - `us-regions.json` — regional planning modules
 
@@ -196,7 +208,7 @@ These links are starting points. Local emergency-management agencies, utilities,
 
 This repository should not be used to:
 
-- Identify real-world targets or vulnerabilities
+- Identify real-world targets, plants, bases, bridges, or hospitals as attack surfaces
 - Produce attack plans or weapons-employment instructions
 - Infer that a real-world conflict is imminent
 - Replace emergency alerts or instructions from public authorities
@@ -206,7 +218,7 @@ For an immediate real-world emergency, follow official alerts and contact local 
 
 ## Project status
 
-**Version:** 0.1-draft  
+**Version:** 0.2  
 **Date:** 2026-09-06  
 **Format:** Static offline web application  
 **Build step:** None required
