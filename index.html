@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Exercise BLACK MERIDIAN: fictional professional campaign simulation dashboard">
+  <title>BLACK MERIDIAN // Exercise Control</title>
+  <style>
+    :root {
+      --bg: #0a0f16;
+      --bg-soft: #0f1722;
+      --panel: #121d2a;
+      --panel-2: #172434;
+      --line: #2a3a4e;
+      --line-soft: #203044;
+      --text: #e7edf4;
+      --muted: #94a6b9;
+      --faint: #687c91;
+      --blue: #58a6ff;
+      --blue-soft: #142e49;
+      --red: #ff7773;
+      --red-soft: #421f25;
+      --amber: #f3bd64;
+      --amber-soft: #3a2b16;
+      --teal: #5dd6c0;
+      --teal-soft: #113732;
+      --gray-soft: #202b38;
+      --shadow: 0 14px 40px rgba(0,0,0,.24);
+      --radius: 14px;
+      --radius-sm: 9px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.55;
+      min-width: 320px;
+    }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--blue); }
+
+    .app-shell { min-height: 100vh; }
+    .topbar {
+      min-height: 72px;
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(10,15,22,.92);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+    }
+    .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -.08em;
+      transform: skew(-8deg);
+    }
+    .brand-text { min-width: 0; }
+    .brand-title {
+      font-family: var(--mono);
+      font-size: 15px;
+      letter-spacing: .08em;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      white-space: nowrap;
+    }
+    .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+    .layout { display: grid; grid-template-columns: 236px minmax(0, 1fr); min-height: calc(100vh - 72px); }
+    .sidebar {
+      border-right: 1px solid var(--line-soft);
+      background: #0d151f;
+      padding: 25px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sidebar-label, .eyebrow, .kicker {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .sidebar-label { padding: 0 12px 10px; }
+    .nav-list { display: grid; gap: 3px; }
+    .nav-button {
+      appearance: none;
+      border: 1px solid transparent;
+      color: var(--muted);
+      background: transparent;
+      width: 100%;
+      border-radius: 9px;
+      padding: 11px 12px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-align: left;
+      font-size: 13px;
+      transition: .18s ease;
+    }
+    .nav-button:hover { background: var(--panel); color: var(--text); }
+    .nav-button.active {
+      background: var(--panel-2);
+      border-color: var(--line);
+      color: var(--text);
+      box-shadow: inset 3px 0 0 var(--amber);
+    }
+    .nav-icon { width: 18px; color: var(--faint); font-family: var(--mono); font-size: 11px; text-align: center; }
+    .nav-button.active .nav-icon { color: var(--amber); }
+    .sidebar-foot {
+      border-top: 1px solid var(--line-soft);
+      padding: 17px 12px 0;
+      color: var(--faint);
+      font-size: 11px;
+    }
+    .sidebar-foot p { margin: 9px 0 0; line-height: 1.55; }
+    .status-line { display: flex; align-items: center; gap: 7px; color: var(--teal); font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(93,214,192,.09); }
+
+    .content { width: 100%; max-width: 1440px; padding: 36px clamp(22px, 4vw, 66px) 70px; margin: 0 auto; }
+    .page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 25px; }
+    .page-head h1 { margin: 5px 0 0; font-size: clamp(25px, 3vw, 37px); line-height: 1.1; letter-spacing: -.035em; }
+    .live-pill { color: var(--teal); border: 1px solid rgba(93,214,192,.32); background: var(--teal-soft); border-radius: 999px; padding: 7px 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .live-pill::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); margin: 0 7px 1px 0; }
+
+    .view { display: none; animation: fade-in .22s ease-out; }
+    .view.active { display: block; }
+    @keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero {
+      background: linear-gradient(120deg, #17283a 0%, #10212e 45%, #241d16 100%);
+      border: 1px solid #31465b;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 4vw, 43px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero::after { content: ""; position: absolute; width: 320px; height: 320px; border: 1px solid rgba(243,189,100,.13); border-radius: 50%; right: -100px; top: -145px; box-shadow: 0 0 0 28px rgba(243,189,100,.03), 0 0 0 56px rgba(243,189,100,.025); }
+    .hero h2 { font-size: clamp(26px, 4vw, 46px); line-height: 1.03; max-width: 730px; margin: 11px 0 14px; letter-spacing: -.05em; }
+    .hero p { color: #b9c9d9; max-width: 735px; margin: 0; font-size: 15px; }
+    .hero-mark { position: relative; z-index: 1; flex: 0 0 116px; height: 116px; display: grid; place-items: center; border: 1px solid rgba(243,189,100,.6); color: var(--amber); font-family: var(--mono); font-size: 35px; line-height: .85; letter-spacing: -.12em; transform: rotate(-7deg); }
+    .hero-mark span { font-size: 11px; letter-spacing: .12em; margin-left: 4px; }
+    .hero-art { background-image: linear-gradient(90deg, rgba(7,14,24,.92) 0%, rgba(7,14,24,.74) 43%, rgba(7,14,24,.18) 100%), url("assets/black-meridian-hero.png"); background-size: cover; background-position: center; }
+    .hero-art h2 { max-width: 680px; text-transform: none; }
+    .hero-art p { max-width: 610px; color: #d0dbe5; }
+
+    .callout { margin: 18px 0 0; border: 1px solid #5a4930; background: var(--amber-soft); border-radius: var(--radius-sm); color: #e6c995; padding: 13px 16px; display: flex; gap: 12px; align-items: flex-start; font-size: 12px; }
+    .callout-icon { color: var(--amber); border: 1px solid var(--amber); width: 18px; height: 18px; line-height: 16px; text-align: center; border-radius: 50%; font-family: var(--mono); font-size: 11px; flex: 0 0 auto; }
+    .stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 18px 0; }
+    .stat { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: 16px; }
+    .stat-value { font-family: var(--mono); color: var(--text); font-size: 24px; font-weight: 700; letter-spacing: -.06em; }
+    .stat-label { color: var(--muted); margin-top: 2px; font-size: 11px; }
+
+    .grid-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+    .grid-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .panel { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 21px; box-shadow: 0 8px 22px rgba(0,0,0,.08); }
+    .panel + .panel { margin-top: 18px; }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin-bottom: 15px; }
+    .section-head h3 { margin: 5px 0 0; font-size: 18px; letter-spacing: -.02em; }
+    .section-head p { color: var(--muted); font-size: 12px; margin: 5px 0 0; }
+    .panel p { color: #bac7d4; font-size: 13px; }
+    .panel p:last-child { margin-bottom: 0; }
+    .tag { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 4px 8px; font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .tag.blue { border-color: rgba(88,166,255,.4); color: var(--blue); background: var(--blue-soft); }
+    .tag.red { border-color: rgba(255,119,115,.42); color: var(--red); background: var(--red-soft); }
+    .tag.amber { border-color: rgba(243,189,100,.4); color: var(--amber); background: var(--amber-soft); }
+    .tag.teal { border-color: rgba(93,214,192,.4); color: var(--teal); background: var(--teal-soft); }
+    .tag.gray { background: var(--gray-soft); }
+    .rule-list, .check-list { display: grid; gap: 9px; padding: 0; margin: 14px 0 0; list-style: none; }
+    .rule-list li, .check-list li { display: flex; gap: 10px; color: #c1ccd8; font-size: 12px; }
+    .rule-list li::before { content: "//"; color: var(--amber); font-family: var(--mono); font-weight: 700; }
+    .check-list li::before { content: "✓"; color: var(--teal); font-family: var(--mono); font-weight: 700; }
+
+    .map-panel { margin-top: 18px; }
+    .map-wrap { background: #0b141d; border: 1px solid var(--line-soft); border-radius: 10px; overflow: hidden; }
+    .map-wrap svg { display: block; width: 100%; height: auto; min-height: 295px; }
+    .map-legend { display: flex; gap: 15px; flex-wrap: wrap; padding: 11px 13px; border-top: 1px solid var(--line-soft); color: var(--muted); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+    .legend-item { display: inline-flex; gap: 6px; align-items: center; }
+    .legend-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+    .swatch-blue { background: var(--blue); }
+    .swatch-red { background: var(--red); }
+    .swatch-gray { background: var(--faint); }
+    .swatch-amber { background: var(--amber); }
+
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 17px; }
+    .toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+    .filter-button, .ghost, .primary, .danger, .text-button {
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-size: 11px;
+      transition: .18s ease;
+    }
+    .ghost, .filter-button { background: var(--panel); border: 1px solid var(--line); color: var(--muted); }
+    .ghost:hover, .filter-button:hover { border-color: #49627d; color: var(--text); }
+    .filter-button.active { color: var(--text); border-color: var(--amber); background: var(--amber-soft); }
+    .primary { background: var(--amber); border: 1px solid var(--amber); color: #21180b; font-weight: 800; }
+    .primary:hover { background: #ffd084; }
+    .danger { background: transparent; border: 1px solid #68343b; color: var(--red); }
+    .danger:hover { background: var(--red-soft); }
+    .text-button { padding: 0; border: 0; background: transparent; color: var(--blue); }
+    .text-button:hover { color: #a6d2ff; text-decoration: underline; }
+
+    .timeline { display: grid; gap: 12px; }
+    .phase-card { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius); overflow: hidden; }
+    .phase-card summary { list-style: none; cursor: pointer; padding: 18px 20px; display: grid; grid-template-columns: 104px minmax(0,1fr) auto; align-items: center; gap: 16px; }
+    .phase-card summary::-webkit-details-marker { display: none; }
+    .phase-card summary:hover { background: rgba(255,255,255,.02); }
+    .phase-code { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; }
+    .phase-title { font-size: 16px; font-weight: 700; }
+    .phase-window { color: var(--muted); font-family: var(--mono); font-size: 10px; margin-top: 2px; }
+    .phase-arrow { color: var(--faint); font-family: var(--mono); transition: transform .2s; }
+    details[open] .phase-arrow { transform: rotate(90deg); color: var(--amber); }
+    .phase-body { border-top: 1px solid var(--line-soft); padding: 18px 20px 20px; display: grid; grid-template-columns: minmax(0,1.25fr) minmax(0,.75fr); gap: 24px; }
+    .phase-body p { color: #c1ccd8; font-size: 13px; margin-top: 0; }
+    .phase-body h4 { color: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; }
+    .chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { color: var(--muted); background: var(--gray-soft); border: 1px solid var(--line); border-radius: 6px; padding: 4px 7px; font-size: 11px; }
+
+    .force-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .force-card { border: 1px solid var(--line-soft); border-top: 3px solid var(--faint); background: var(--panel); border-radius: var(--radius); padding: 19px; }
+    .force-card.blue { border-top-color: var(--blue); }
+    .force-card.red { border-top-color: var(--red); }
+    .force-card.gray { border-top-color: var(--faint); }
+    .force-card h3 { font-size: 16px; margin: 9px 0 7px; line-height: 1.25; }
+    .force-card p { color: var(--muted); font-size: 12px; margin: 0 0 15px; }
+    .force-card h4 { color: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; margin: 15px 0 7px; }
+    .force-card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
+    .force-card li { color: #becbd7; font-size: 11px; padding-left: 13px; position: relative; }
+    .force-card li::before { content: ""; position: absolute; left: 0; top: .65em; width: 5px; height: 5px; background: var(--faint); border-radius: 1px; }
+    .health-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .health-table th { color: var(--faint); font-family: var(--mono); text-transform: uppercase; letter-spacing: .09em; font-size: 9px; text-align: left; padding: 9px 0; border-bottom: 1px solid var(--line); }
+    .health-table td { padding: 10px 0; border-bottom: 1px solid var(--line-soft); color: #c6d2de; vertical-align: top; }
+    .health-table td:first-child { color: var(--text); font-weight: 600; width: 24%; }
+
+    .adjudication-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .75fr); gap: 18px; }
+    .model-card { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line-soft); }
+    .model-card:last-child { border-bottom: 0; }
+    .model-number { color: var(--amber); font-family: var(--mono); font-size: 12px; font-weight: 700; padding-top: 2px; }
+    .model-card h4 { margin: 0 0 3px; font-size: 13px; }
+    .model-card p { margin: 0; font-size: 12px; }
+    .state-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .state-table th, .state-table td { border-bottom: 1px solid var(--line-soft); text-align: left; padding: 9px 7px; }
+    .state-table th { color: var(--faint); text-transform: uppercase; letter-spacing: .08em; font-size: 9px; }
+    .state-table td:first-child { color: var(--text); font-weight: 600; }
+    .state-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+    .state-effective { background: var(--teal); }
+    .state-strained { background: var(--amber); }
+    .state-degraded { background: #e78c65; }
+    .state-critical { background: var(--red); }
+
+    .inject-list { display: grid; gap: 11px; }
+    .inject-card { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); overflow: hidden; }
+    .inject-card summary { cursor: pointer; list-style: none; display: grid; grid-template-columns: 56px 84px minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 14px 16px; }
+    .inject-card summary::-webkit-details-marker { display: none; }
+    .inject-card summary:hover { background: rgba(255,255,255,.02); }
+    .inject-id { color: var(--amber); font-family: var(--mono); font-size: 10px; font-weight: 700; }
+    .inject-time { color: var(--muted); font-family: var(--mono); font-size: 10px; }
+    .inject-title { font-size: 13px; font-weight: 700; }
+    .inject-detail { border-top: 1px solid var(--line-soft); padding: 15px 16px 17px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 15px; }
+    .inject-detail h4 { color: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: .11em; text-transform: uppercase; margin: 0 0 6px; }
+    .inject-detail p { color: #c4d0db; font-size: 12px; margin: 0; }
+    .facilitator-only { display: none; }
+    .facilitator-mode .facilitator-only { display: block; }
+    .facilitator-note { background: #101a25; border: 1px dashed #476077; border-radius: 7px; padding: 9px; }
+
+    .scorecard { display: grid; gap: 0; }
+    .metric-row { display: grid; grid-template-columns: minmax(0,1fr) 118px; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line-soft); }
+    .metric-name { font-weight: 700; font-size: 13px; }
+    .metric-evidence { color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .score-select { width: 100%; background: var(--bg-soft); color: var(--text); border: 1px solid var(--line); border-radius: 7px; padding: 8px; }
+    .score-key { display: flex; flex-wrap: wrap; gap: 9px 15px; color: var(--muted); font-family: var(--mono); font-size: 10px; margin-top: 14px; }
+    .score-key span strong { color: var(--text); }
+
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px; }
+    .form-field { display: grid; gap: 6px; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label { color: var(--faint); font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+    .form-field input, .form-field textarea, .form-field select, .notes-area { width: 100%; border: 1px solid var(--line); background: #0d1621; color: var(--text); border-radius: 7px; padding: 10px 11px; outline: none; }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus, .notes-area:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(243,189,100,.09); }
+    .form-field textarea, .notes-area { resize: vertical; min-height: 78px; }
+    .form-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .order-log { display: grid; gap: 10px; }
+    .order-item { border: 1px solid var(--line-soft); border-left: 3px solid var(--blue); background: var(--bg-soft); border-radius: 8px; padding: 13px; }
+    .order-item-head { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-family: var(--mono); font-size: 10px; margin-bottom: 7px; }
+    .order-item h4 { margin: 0 0 6px; font-size: 13px; }
+    .order-item p { color: #bfccd8; margin: 3px 0; font-size: 11px; }
+    .empty-state { color: var(--faint); border: 1px dashed var(--line); border-radius: 8px; padding: 20px; text-align: center; font-size: 12px; }
+
+    .footer { border-top: 1px solid var(--line-soft); color: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: .06em; padding: 22px 30px; text-align: center; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+    .small { font-size: 11px; }
+    .stack { display: grid; gap: 18px; }
+    .top-space { margin-top: 18px; }
+    .subtle-rule { border: 0; border-top: 1px solid var(--line-soft); margin: 18px 0; }
+
+    @media (max-width: 1050px) {
+      .layout { grid-template-columns: 190px minmax(0,1fr); }
+      .force-grid { grid-template-columns: 1fr; }
+      .adjudication-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .topbar { position: static; padding: 14px 18px; align-items: flex-start; flex-direction: column; }
+      .top-actions { justify-content: flex-start; }
+      .layout { display: block; }
+      .sidebar { border-right: 0; border-bottom: 1px solid var(--line-soft); padding: 11px 12px; display: block; }
+      .sidebar-label, .sidebar-foot { display: none; }
+      .nav-list { display: flex; overflow-x: auto; gap: 5px; padding-bottom: 2px; }
+      .nav-button { min-width: max-content; width: auto; padding: 8px 10px; }
+      .nav-button.active { box-shadow: inset 0 -3px 0 var(--amber); }
+      .content { padding: 26px 16px 48px; }
+      .page-head { margin-bottom: 19px; }
+      .live-pill { display: none; }
+      .hero { align-items: flex-start; }
+      .hero-mark { flex-basis: 75px; height: 75px; font-size: 23px; }
+      .stat-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid-two, .phase-body, .inject-detail { grid-template-columns: 1fr; }
+      .phase-card summary { grid-template-columns: 65px minmax(0,1fr) 15px; gap: 10px; padding: 14px; }
+      .inject-card summary { grid-template-columns: 48px 65px minmax(0,1fr); gap: 8px; }
+      .inject-card summary .tag { grid-column: 3; justify-self: start; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-field.full { grid-column: auto; }
+      .metric-row { grid-template-columns: 1fr 100px; }
+    }
+    @media print {
+      :root { --bg: #fff; --panel: #fff; --panel-2: #f4f6f8; --text: #111; --muted: #445; --faint: #657; --line: #ccd3dc; --line-soft: #e1e6eb; }
+      body { background: #fff; color: #111; }
+      .topbar, .sidebar, .page-head, .top-actions, .toolbar, .form-actions, .footer { display: none !important; }
+      .layout { display: block; min-height: 0; }
+      .content { max-width: none; padding: 0; }
+      .view { display: block !important; page-break-before: always; }
+      .view:first-of-type { page-break-before: auto; }
+      .hero, .panel, .phase-card, .force-card, .inject-card { box-shadow: none; break-inside: avoid; }
+      .hero { color: #111; }
+      .facilitator-only { display: block; }
+      .map-wrap { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">BM</div>
+        <div class="brand-text">
+          <div class="brand-title">BLACK MERIDIAN // EXERCISE CONTROL</div>
+          <div class="brand-subtitle">Synthetic campaign simulation · fictional training material</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="ghost" id="facilitatorToggle" type="button">Show facilitator notes</button>
+        <button class="ghost" id="printBtn" type="button">Print</button>
+        <button class="primary" id="exportScenario" type="button">Export scenario</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div>
+          <div class="sidebar-label">Exercise control</div>
+          <nav class="nav-list" id="mainNav" aria-label="Scenario sections">
+            <button class="nav-button active" data-view-target="brief" type="button"><span class="nav-icon">01</span>Exercise brief</button>
+            <button class="nav-button" data-view-target="campaign" type="button"><span class="nav-icon">02</span>Campaign timeline</button>
+            <button class="nav-button" data-view-target="forces" type="button"><span class="nav-icon">03</span>Force posture</button>
+            <button class="nav-button" data-view-target="adjudication" type="button"><span class="nav-icon">04</span>Adjudication</button>
+            <button class="nav-button" data-view-target="injects" type="button"><span class="nav-icon">05</span>Inject library</button>
+            <button class="nav-button" data-view-target="evaluation" type="button"><span class="nav-icon">06</span>Evaluation</button>
+            <button class="nav-button" data-view-target="orders" type="button"><span class="nav-icon">07</span>Orders &amp; logs</button>
+            <button class="nav-button" data-view-target="reality" type="button"><span class="nav-icon">08</span>U.S. reality layer</button>
+            <button class="nav-button" data-view-target="regions" type="button"><span class="nav-icon">09</span>Regional planner</button>
+            <button class="nav-button" data-view-target="manual" type="button"><span class="nav-icon">10</span>Instruction manual</button>
+          </nav>
+        </div>
+        <div class="sidebar-foot">
+          <div class="status-line"><span class="status-dot"></span> Browser-local draft</div>
+          <p>Exports are portable JSON files. Keep them in the companion <strong>storage/</strong> directory.</p>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="page-head">
+          <div>
+            <div class="kicker" id="pageKicker">Exercise brief / 01</div>
+            <h1 id="pageTitle">Command the campaign</h1>
+          </div>
+          <div class="live-pill">Draft workspace</div>
+        </div>
+
+        <section class="view active" id="view-brief" data-view="brief">
+          <div class="hero hero-art">
+            <div>
+              <div class="eyebrow">Fictional training material · version 0.1-draft</div>
+              <h2>I need to play this game<br>to protect my family.</h2>
+              <p>Practice decisions before a crisis makes them for you. BLACK MERIDIAN turns uncertainty into a structured, calm, and repeatable planning exercise.</p>
+            </div>
+            <div class="hero-mark" aria-label="Black Meridian insignia">BM<br><span>45D</span></div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-icon">!</div>
+            <div><strong>Scenario boundary:</strong> BLACK MERIDIAN uses fictional states, organizations, geography, and force descriptions. It is built for training analysis and decision-quality assessment—not real-world targeting, operational planning, or weapons employment.</div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat"><div class="stat-value">45</div><div class="stat-label">simulated campaign days</div></div>
+            <div class="stat"><div class="stat-value">05</div><div class="stat-label">campaign phases</div></div>
+            <div class="stat"><div class="stat-value">03</div><div class="stat-label">information pictures</div></div>
+            <div class="stat"><div class="stat-value">06</div><div class="stat-label">evaluation measures</div></div>
+          </div>
+
+          <div class="grid-two">
+            <article class="panel">
+              <div class="section-head">
+                <div><div class="eyebrow">Mission</div><h3>Commander’s problem</h3></div>
+                <span class="tag amber">Integrated</span>
+              </div>
+              <p id="missionText"></p>
+              <ul class="rule-list">
+                <li>Win time without spending the force faster than it can regenerate.</li>
+                <li>Make decisions while the enemy picture, political authority, and reporting quality are all imperfect.</li>
+                <li>Connect tactical actions to coalition cohesion, civilian outcomes, and negotiation leverage.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <div class="section-head">
+                <div><div class="eyebrow">End state</div><h3>Success conditions</h3></div>
+                <span class="tag teal">Outcome-based</span>
+              </div>
+              <ul class="check-list">
+                <li>Lydora retains freedom of action and a functioning government.</li>
+                <li>Blue formations remain capable of pursuing the next mission.</li>
+                <li>Essential services and humanitarian access remain viable.</li>
+                <li>The coalition remains politically coherent.</li>
+                <li>Blue enters negotiations with credible leverage and controlled escalation.</li>
+              </ul>
+            </article>
+          </div>
+
+          <article class="panel map-panel">
+            <div class="section-head">
+              <div><div class="eyebrow">Theater schematic</div><h3>Notional operating environment</h3><p>Abstract geometry only. The map is a decision surface, not a real-world geography.</p></div>
+              <span class="tag gray">Fictional</span>
+            </div>
+            <div class="map-wrap">
+              <svg viewBox="0 0 1000 360" role="img" aria-label="Abstract fictional theater schematic showing Karsic, Lydora, Merenne, routes, and the coalition corridor">
+                <defs>
+                  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#1b2a39" stroke-width="1" /></pattern>
+                  <linearGradient id="terrain" x1="0" x2="1"><stop offset="0" stop-color="#10202e"/><stop offset="1" stop-color="#0b151e"/></linearGradient>
+                </defs>
+                <rect width="1000" height="360" fill="url(#terrain)" />
+                <rect width="1000" height="360" fill="url(#grid)" opacity=".5" />
+                <path d="M0,0 L315,0 C343,39 306,76 332,112 C361,152 330,198 346,235 C362,274 330,311 349,360 L0,360 Z" fill="#182735" stroke="#34475a" stroke-width="2" />
+                <path d="M1000,0 L722,0 C694,35 742,71 700,114 C668,148 707,194 675,229 C646,260 686,307 659,360 L1000,360 Z" fill="#2a1e28" stroke="#5a3842" stroke-width="2" />
+                <path d="M315,0 C374,38 398,73 371,118 C348,157 394,199 382,238 C370,281 398,319 389,360 L659,360 C642,320 676,282 649,240 C623,196 656,160 633,120 C611,81 639,40 610,0 Z" fill="#1c2a25" stroke="#425b4e" stroke-width="2" />
+                <path d="M95 291 C245 235 339 259 438 224 C529 192 586 215 723 141 C809 95 873 93 951 62" fill="none" stroke="#f3bd64" stroke-width="4" stroke-dasharray="12 8" opacity=".85" />
+                <path d="M139 74 C273 97 348 98 449 151 C545 201 651 185 795 242" fill="none" stroke="#5dd6c0" stroke-width="3" stroke-dasharray="4 9" opacity=".72" />
+                <path d="M620 28 C596 92 575 145 581 196 C588 252 564 303 541 347" fill="none" stroke="#94a6b9" stroke-width="2" stroke-dasharray="7 7" opacity=".55" />
+                <circle cx="216" cy="176" r="8" fill="#ff7773"/><circle cx="216" cy="176" r="17" fill="none" stroke="#ff7773" opacity=".35"/>
+                <circle cx="786" cy="113" r="8" fill="#58a6ff"/><circle cx="786" cy="113" r="17" fill="none" stroke="#58a6ff" opacity=".35"/>
+                <circle cx="526" cy="261" r="7" fill="#94a6b9"/>
+                <circle cx="457" cy="217" r="6" fill="#f3bd64"/>
+                <text x="28" y="38" fill="#ffb0ab" font-size="13" font-family="monospace" letter-spacing="2">KARSIC FEDERATION</text>
+                <text x="795" y="44" fill="#96c8ff" font-size="13" font-family="monospace" letter-spacing="2">LYDORA</text>
+                <text x="415" y="38" fill="#a7c9ae" font-size="13" font-family="monospace" letter-spacing="2">MERENNE</text>
+                <text x="235" y="171" fill="#e7edf4" font-size="11" font-family="monospace">KARSIC WESTERN HQ</text>
+                <text x="801" y="109" fill="#e7edf4" font-size="11" font-family="monospace">BLUE JT HQ</text>
+                <text x="540" y="258" fill="#c1ccd8" font-size="11" font-family="monospace">MERENNE CIVIL NODE</text>
+                <text x="466" y="212" fill="#f3bd64" font-size="10" font-family="monospace">CORRIDOR</text>
+                <text x="118" y="326" fill="#94a6b9" font-size="10" font-family="monospace">PRESSURE AXIS</text>
+                <text x="722" y="246" fill="#5dd6c0" font-size="10" font-family="monospace">HUMANITARIAN ACCESS</text>
+              </svg>
+              <div class="map-legend">
+                <span class="legend-item"><span class="legend-swatch swatch-red"></span> Red pressure</span>
+                <span class="legend-item"><span class="legend-swatch swatch-blue"></span> Blue command</span>
+                <span class="legend-item"><span class="legend-swatch swatch-gray"></span> Neutral / civil</span>
+                <span class="legend-item"><span class="legend-swatch swatch-amber"></span> Essential corridor</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="view" id="view-campaign" data-view="campaign">
+          <div class="panel">
+            <div class="section-head">
+              <div><div class="eyebrow">45-day campaign</div><h3>Campaign timeline</h3><p>Open a phase to review its purpose, decision points, and stressors.</p></div>
+              <span class="tag amber">D-10 → D+45</span>
+            </div>
+            <div class="timeline" id="phaseList"></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-forces" data-view="forces">
+          <div class="panel">
+            <div class="section-head">
+              <div><div class="eyebrow">Situation framework</div><h3>Force posture</h3><p>Capability bands are deliberately broad. The exercise tests decisions, not false precision.</p></div>
+              <span class="tag gray">Notional order of battle</span>
+            </div>
+            <div class="force-grid" id="forceList"></div>
+          </div>
+          <div class="panel top-space">
+            <div class="section-head">
+              <div><div class="eyebrow">Adjudication reference</div><h3>Force-health bands</h3><p>Use these bands to communicate condition without implying exact combat-power calculations.</p></div>
+            </div>
+            <table class="health-table">
+              <thead><tr><th>Band</th><th>Meaning</th><th>Command implication</th></tr></thead>
+              <tbody>
+                <tr><td><span class="state-dot state-effective"></span>Effective</td><td>Mission-capable with manageable friction.</td><td>Can accept planned risk and preserve options.</td></tr>
+                <tr><td><span class="state-dot state-strained"></span>Strained</td><td>Mission-capable, but throughput or resilience is narrowing.</td><td>Prioritize missions; avoid assuming surge capacity.</td></tr>
+                <tr><td><span class="state-dot state-degraded"></span>Degraded</td><td>Important functions are unreliable or delayed.</td><td>Change the plan, delegate deliberately, and protect recovery.</td></tr>
+                <tr><td><span class="state-dot state-critical"></span>Critical</td><td>Continued tempo risks loss of the formation’s future utility.</td><td>Reconstitute, reduce missions, or accept a decisive risk consciously.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="view" id="view-adjudication" data-view="adjudication">
+          <div class="adjudication-grid">
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Exercise-control model</div><h3>How decisions become outcomes</h3><p>Adjudicate mission effects, not just attrition.</p></div><span class="tag teal">Fog of war</span></div>
+              <div class="model-card"><div class="model-number">01</div><div><h4>Separate the pictures</h4><p>Exercise Control tracks the actual situation, the player’s situation, and the public or political narrative as distinct states.</p></div></div>
+              <div class="model-card"><div class="model-number">02</div><div><h4>Track condition</h4><p>Readiness, C2, intelligence confidence, sustainment, mobility, protection, personnel, maintenance, morale, and political freedom of action move independently.</p></div></div>
+              <div class="model-card"><div class="model-number">03</div><div><h4>Apply friction</h4><p>Delays, misreporting, competing priorities, and recovery requirements alter what a unit can do next—not only what it can do now.</p></div></div>
+              <div class="model-card"><div class="model-number">04</div><div><h4>Resolve intent</h4><p>Orders are evaluated against commander’s intent, assumptions, available information, opposing action, terrain abstraction, and sustainment state.</p></div></div>
+              <div class="model-card"><div class="model-number">05</div><div><h4>Expose consequences</h4><p>Return tactical, operational, political, civil, and sustainment effects. Make second-order effects visible enough for learning.</p></div></div>
+              <div class="form-actions"><button class="primary" data-view-target="orders" type="button">Write a tactical order</button></div>
+            </article>
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Player discipline</div><h3>Minimum order standard</h3></div><span class="tag amber">Required</span></div>
+              <p>Every decision should be traceable. Require the player to state:</p>
+              <ul class="rule-list">
+                <li>Commander’s intent and assigned task</li>
+                <li>Purpose and main effort</li>
+                <li>Assumptions and confidence level</li>
+                <li>Risk accepted and risk reduced</li>
+                <li>Sustainment priority</li>
+                <li>Decision points and conditions for change</li>
+              </ul>
+              <hr class="subtle-rule">
+              <div class="eyebrow">Recommended turn rhythm</div>
+              <table class="state-table top-space">
+                <thead><tr><th>Window</th><th>Resolution</th></tr></thead>
+                <tbody>
+                  <tr><td>Routine campaign</td><td>12–24 simulated hours</td></tr>
+                  <tr><td>High-friction period</td><td>4–6 simulated hours</td></tr>
+                  <tr><td>Critical decision</td><td>Adjudicate by decision point</td></tr>
+                  <tr><td>Political / strategic</td><td>Daily or at major inject</td></tr>
+                </tbody>
+              </table>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-injects" data-view="injects">
+          <div class="panel">
+            <div class="toolbar">
+              <div><div class="eyebrow">Exercise-control library</div><h3 style="margin:5px 0 0;font-size:18px;">Inject library</h3></div>
+              <div class="toolbar-group" id="injectFilters" aria-label="Filter injects"></div>
+            </div>
+            <div class="inject-list" id="injectList"></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-evaluation" data-view="evaluation">
+          <div class="grid-two">
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">After-action review</div><h3>Evaluation scorecard</h3><p>Score observed performance, not intended performance.</p></div><span class="tag teal">1–5 scale</span></div>
+              <div class="scorecard" id="metricList"></div>
+              <div class="score-key"><span><strong>1</strong> not observed</span><span><strong>2</strong> fragile</span><span><strong>3</strong> adequate</span><span><strong>4</strong> strong</span><span><strong>5</strong> repeatable</span></div>
+              <div class="top-space"><label class="eyebrow" for="scorecardNotes">AAR notes</label><textarea class="notes-area top-space" id="scorecardNotes" placeholder="Record evidence, decision points, and recommended changes..."></textarea></div>
+              <div class="form-actions"><button class="primary" id="exportScorecard" type="button">Export scorecard</button><button class="ghost" id="clearScorecard" type="button">Clear scorecard</button></div>
+            </article>
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Evaluation guidance</div><h3>What good looks like</h3></div></div>
+              <ul class="check-list">
+                <li>Commanders identify what they know, what they do not know, and what they will do about the gap.</li>
+                <li>Orders communicate purpose clearly enough for subordinate initiative during C2 disruption.</li>
+                <li>Sustainment and recovery are treated as operational choices, not administrative afterthoughts.</li>
+                <li>Reserves preserve future options instead of merely filling the nearest gap.</li>
+                <li>Civilian and political consequences are included in military risk decisions.</li>
+                <li>Plans change when evidence changes, and the reason for the change is recorded.</li>
+              </ul>
+              <hr class="subtle-rule">
+              <div class="eyebrow">Storage status</div>
+              <p class="small muted" id="storageStatus">Loading browser-local draft status…</p>
+              <p class="small muted">Use <strong>Export scorecard</strong> to create a portable JSON file for the companion <code>storage/</code> directory.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-orders" data-view="orders">
+          <div class="grid-two">
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Tactical decision record</div><h3>Write an order</h3><p>Capture intent, uncertainty, risk, and sustainment before adjudication.</p></div><span class="tag blue">Player tool</span></div>
+              <form id="orderForm">
+                <div class="form-grid">
+                  <div class="form-field"><label for="orderUnit">Command / unit</label><input id="orderUnit" required placeholder="e.g., Blue maneuver HQ" /></div>
+                  <div class="form-field"><label for="orderTime">Effective window</label><input id="orderTime" required placeholder="e.g., D+4 / 0600–1800" /></div>
+                  <div class="form-field full"><label for="orderIntent">Commander’s intent</label><textarea id="orderIntent" required placeholder="What must be true when this action is complete?"></textarea></div>
+                  <div class="form-field full"><label for="orderTask">Task and purpose</label><textarea id="orderTask" required placeholder="What is the unit directed to do, and why?"></textarea></div>
+                  <div class="form-field"><label for="orderAssumptions">Assumptions / confidence</label><textarea id="orderAssumptions" placeholder="What is assumed? How confident are you?"></textarea></div>
+                  <div class="form-field"><label for="orderRisk">Risk accepted</label><textarea id="orderRisk" placeholder="What risk is accepted, reduced, or transferred?"></textarea></div>
+                  <div class="form-field"><label for="orderSustainment">Sustainment priority</label><textarea id="orderSustainment" placeholder="What must be resourced or protected?"></textarea></div>
+                  <div class="form-field"><label for="orderDecision">Decision points</label><textarea id="orderDecision" placeholder="What conditions trigger a change?"></textarea></div>
+                </div>
+                <div class="form-actions"><button class="primary" type="submit">Save order to browser</button><button class="ghost" type="reset">Reset form</button><button class="ghost" id="exportOrders" type="button">Export order log</button></div>
+              </form>
+            </article>
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Local draft log</div><h3>Saved orders</h3><p>Stored in this browser only until exported.</p></div><button class="danger" id="clearOrders" type="button">Clear</button></div>
+              <div class="order-log" id="orderLog"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-reality" data-view="reality">
+          <div class="callout">
+            <div class="callout-icon">i</div>
+            <div><strong>Reality-layer rule:</strong> these are public, aggregate planning references. Authorized end strength is not deployed strength, readiness, availability, or a forecast of what will happen to a household in a crisis.</div>
+          </div>
+
+          <div class="stat-grid top-space">
+            <div class="stat"><div class="stat-value">1.303M</div><div class="stat-label">FY2026 authorized active-component strength across five DoD services</div></div>
+            <div class="stat"><div class="stat-value">764.9K</div><div class="stat-label">FY2026 authorized Selected Reserve strength</div></div>
+            <div class="stat"><div class="stat-value">18</div><div class="stat-label">natural hazard types in FEMA’s National Risk Index</div></div>
+            <div class="stat"><div class="stat-value">1 gal</div><div class="stat-label">water per person per day in Ready.gov’s baseline kit guidance</div></div>
+          </div>
+
+          <div class="grid-two">
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Public force baseline</div><h3>FY2026 authorized active component</h3><p>Personnel authorization, not immediate deployability.</p></div><span class="tag blue">U.S. DoD</span></div>
+              <table class="health-table">
+                <thead><tr><th>Service</th><th>Authorized strength</th><th>Use in the model</th></tr></thead>
+                <tbody>
+                  <tr><td>Army</td><td>454,000</td><td>Land force scale; do not equate to ready combat units.</td></tr>
+                  <tr><td>Navy</td><td>344,600</td><td>Maritime, naval aviation, and support scale.</td></tr>
+                  <tr><td>Marine Corps</td><td>172,300</td><td>Expeditionary and crisis-response scale.</td></tr>
+                  <tr><td>Air Force</td><td>321,500</td><td>Air, mobility, and support scale.</td></tr>
+                  <tr><td>Space Force</td><td>10,400</td><td>Space-domain personnel scale; not a civilian response forecast.</td></tr>
+                  <tr><td><strong>Total</strong></td><td><strong>1,302,800</strong></td><td>Sum of the five DoD services above.</td></tr>
+                </tbody>
+              </table>
+              <p class="small muted top-space">Coast Guard personnel are not included in this DoD five-service total. Treat federal, state, territorial, and local response capacity as separate layers.</p>
+            </article>
+
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Selected Reserve baseline</div><h3>Mobilization is a process</h3><p>Reserve end strength gives scale, not a promise of immediate availability.</p></div><span class="tag amber">Conditional</span></div>
+              <table class="health-table">
+                <thead><tr><th>Component</th><th>Authorized strength</th></tr></thead>
+                <tbody>
+                  <tr><td>Army National Guard</td><td>328,000</td></tr>
+                  <tr><td>Army Reserve</td><td>172,000</td></tr>
+                  <tr><td>Air National Guard</td><td>106,300</td></tr>
+                  <tr><td>Air Force Reserve</td><td>67,500</td></tr>
+                  <tr><td>Navy Reserve</td><td>57,500</td></tr>
+                  <tr><td>Marine Corps Reserve</td><td>33,600</td></tr>
+                  <tr><td><strong>Total</strong></td><td><strong>764,900</strong></td></tr>
+                </tbody>
+              </table>
+              <hr class="subtle-rule">
+              <div class="eyebrow">Why it matters for households</div>
+              <p>Mobilization, training, existing missions, legal authority, transportation, and local conditions determine when a capability affects a community. National totals should therefore be used as context—not as a local safety score.</p>
+            </article>
+          </div>
+
+          <article class="panel top-space">
+            <div class="section-head"><div><div class="eyebrow">Reality checks</div><h3>What public force numbers cannot tell you</h3><p>These constraints keep the simulation from producing false certainty.</p></div><span class="tag gray">Model hygiene</span></div>
+            <div class="grid-two">
+              <div><ul class="rule-list"><li>End strength is an annual authorization and personnel target, not a count of ready units.</li><li>Readiness is uneven across formations and changes with training, maintenance, staffing, and tasking.</li></ul></div>
+              <div><ul class="rule-list"><li>Domestic response has legal, political, state, and local constraints.</li><li>Family outcomes are usually mediated by power, water, fuel, communications, health care, payments, transportation, and supply chains.</li></ul></div>
+            </div>
+          </article>
+
+          <article class="panel top-space">
+            <div class="section-head"><div><div class="eyebrow">Family resilience horizons</div><h3>Use all three planning windows</h3><p>Build a plan that remains useful even when the original scenario is wrong.</p></div><span class="tag teal">Civilian safety</span></div>
+            <div class="grid-three">
+              <div><span class="tag blue">0–72 hours</span><h3>Immediate continuity</h3><ul class="rule-list"><li>Shelter or relocation decision</li><li>Water, food, medication, sanitation, light, charging</li><li>Contact tree and meeting points</li><li>Official alerts and information verification</li></ul></div>
+              <div><span class="tag amber">Days 4–14</span><h3>Extended disruption</h3><ul class="rule-list"><li>Fuel and transportation limits</li><li>Pharmacy and medical continuity</li><li>Cash, payment, and supply-chain friction</li><li>Work, school, pets, and dependent care</li></ul></div>
+              <div><span class="tag teal">Weeks–months</span><h3>Recovery and displacement</h3><ul class="rule-list"><li>Housing and insurance documentation</li><li>Employment and income continuity</li><li>Long-term health and mental-health care</li><li>Resupply, relocation, and community support</li></ul></div>
+            </div>
+          </article>
+
+          <article class="panel top-space">
+            <div class="section-head"><div><div class="eyebrow">Source register</div><h3>Public data used for this layer</h3><p>Source links are kept visible so assumptions can be reviewed and replaced.</p></div><span class="tag gray">Cited</span></div>
+            <div class="stack small">
+              <div><a href="https://www.congress.gov/crs-product/IN12651" target="_blank" rel="noopener">Congressional Research Service — FY2026 NDAA: Active Component End-Strength</a><div class="muted">Authorized active-component figures and end-strength caveats.</div></div>
+              <div><a href="https://www.congress.gov/crs-product/IN12652" target="_blank" rel="noopener">Congressional Research Service — FY2026 NDAA: Reserve Component End-Strength</a><div class="muted">Selected Reserve figures and mobilization context.</div></div>
+              <div><a href="https://www.fema.gov/about/openfema/data-sets/national-risk-index-data" target="_blank" rel="noopener">FEMA National Risk Index Data</a><div class="muted">County and Census-tract baseline for 18 natural hazards, social vulnerability, and community resilience.</div></div>
+              <div><a href="https://www.ready.gov/kit" target="_blank" rel="noopener">Ready.gov — Build a Kit</a><div class="muted">Official household supply and continuity baseline.</div></div>
+              <div><a href="https://www.cisa.gov/news-events/news/public-safety-communications-resiliency-ten-keys-obtaining-resilient-local-access-network" target="_blank" rel="noopener">CISA — Public Safety Communications Resiliency</a><div class="muted">Route diversity, redundancy, and protective/restorative measures for communications continuity.</div></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="view" id="view-regions" data-view="regions">
+          <div class="panel">
+            <div class="toolbar">
+              <div><div class="eyebrow">National planning / regional module</div><h3 style="margin:5px 0 0;font-size:18px;">Choose a planning region</h3><p class="muted small" style="margin:5px 0 0;">Broad planning archetypes only. Validate with county, tribal, state, and local sources.</p></div>
+              <div class="toolbar-group">
+                <label class="eyebrow" for="regionSelect" style="padding-top:9px;">Region</label>
+                <select class="score-select" id="regionSelect" style="width:auto;min-width:220px;"></select>
+                <button class="primary" id="exportRegion" type="button">Export region brief</button>
+              </div>
+            </div>
+            <div id="regionProfile"></div>
+          </div>
+
+          <div class="grid-two top-space">
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Household baseline</div><h3>Family resilience planner</h3><p>Stored in this browser only. Do not enter sensitive identifiers.</p></div><span class="tag teal">Planning completeness</span></div>
+              <form id="familyProfileForm">
+                <div class="form-grid">
+                  <div class="form-field"><label for="familySize">Household size</label><input id="familySize" type="number" min="1" max="99" placeholder="e.g., 4" /></div>
+                  <div class="form-field"><label for="waterDays">Water on hand, days</label><input id="waterDays" type="number" min="0" max="365" placeholder="e.g., 3" /></div>
+                  <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="365" placeholder="e.g., 7" /></div>
+                  <div class="form-field"><label for="medicationPlan">Medication / medical plan</label><select id="medicationPlan"><option value="">Select</option><option value="confirmed">Confirmed supply and refill plan</option><option value="partial">Partial plan</option><option value="none">No plan yet</option><option value="na">Not applicable</option></select></div>
+                  <div class="form-field"><label for="alternateComms">Alternate communications</label><select id="alternateComms"><option value="">Select</option><option value="yes">Yes, tested</option><option value="partial">Available but untested</option><option value="no">No alternate method</option></select></div>
+                  <div class="form-field"><label for="contactPlan">Out-of-area contact</label><select id="contactPlan"><option value="">Select</option><option value="yes">Named and shared</option><option value="partial">Identified but not shared</option><option value="no">Not established</option></select></div>
+                  <div class="form-field"><label for="shelterPlan">Shelter / relocation plan</label><select id="shelterPlan"><option value="">Select</option><option value="yes">Written and discussed</option><option value="partial">Discussed only</option><option value="no">Not established</option></select></div>
+                  <div class="form-field"><label for="transportPlan">Transportation plan</label><select id="transportPlan"><option value="">Select</option><option value="yes">Primary and fallback options</option><option value="partial">Primary option only</option><option value="no">No plan</option></select></div>
+                  <div class="form-field"><label for="dependentsPlan">Dependents / pets</label><select id="dependentsPlan"><option value="">Select</option><option value="yes">Needs covered</option><option value="partial">Some needs covered</option><option value="na">Not applicable</option><option value="no">Needs unresolved</option></select></div>
+                  <div class="form-field"><label for="documentsPlan">Documents / finances</label><select id="documentsPlan"><option value="">Select</option><option value="yes">Portable and backed up</option><option value="partial">Some backups</option><option value="no">Not prepared</option></select></div>
+                </div>
+                <div class="form-actions"><button class="primary" type="submit">Save profile</button><button class="ghost" id="exportFamily" type="button">Export profile</button><button class="danger" id="clearFamily" type="button">Clear</button></div>
+              </form>
+            </article>
+
+            <article class="panel">
+              <div class="section-head"><div><div class="eyebrow">Gap review</div><h3 id="planningBand">Complete the baseline</h3><p>This is not a probability or safety prediction. It only identifies planning gaps.</p></div><span class="tag amber">Review</span></div>
+              <div id="familyGaps" class="empty-state">Enter a few household details to generate a gap list.</div>
+              <hr class="subtle-rule">
+              <div class="eyebrow">Use the result</div>
+              <ul class="rule-list"><li>Close the highest-consequence gaps first.</li><li>Test plans with a short tabletop exercise.</li><li>Recheck after moves, medical changes, seasonal changes, or new official guidance.</li></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-manual" data-view="manual">
+          <div class="hero">
+            <div><div class="eyebrow">Operator guide / version 0.1-draft</div><h2>Run the model.<br>Record the assumptions.</h2><p>The full instruction manual is stored as a separate portable HTML file alongside the dashboard.</p></div>
+            <div class="hero-mark">OPS<br><span>GUIDE</span></div>
+          </div>
+          <div class="grid-two top-space">
+            <article class="panel"><div class="section-head"><div><div class="eyebrow">Start here</div><h3>Recommended workflow</h3></div><span class="tag teal">8 steps</span></div><ol class="rule-list" style="list-style:none;counter-reset:step;"><li>Read the scope and limitations.</li><li>Select a broad region.</li><li>Complete the household baseline without entering sensitive identifiers.</li><li>Review the 72-hour, 14-day, and months-long horizons.</li><li>Run one scenario inject at a time.</li><li>Record decisions and assumptions in Orders &amp; logs.</li><li>Score the exercise in Evaluation.</li><li>Export the scenario, profile, orders, and scorecard to storage/.</li></ol><div class="form-actions"><a class="primary" href="instruction-manual.html" target="_blank" rel="noopener" style="text-decoration:none;">Open full instruction manual</a></div></article>
+            <article class="panel"><div class="section-head"><div><div class="eyebrow">Operating boundary</div><h3>What this tool is—and is not</h3></div><span class="tag amber">Read first</span></div><ul class="check-list"><li>A structured way to explore uncertainty and household continuity.</li><li>A place to make assumptions visible and revise them.</li><li>A scenario-planning aid that uses public aggregate information.</li><li>Not an intelligence product, threat warning, evacuation order, or personal safety guarantee.</li><li>Not a substitute for official emergency alerts or local authorities.</li></ul></article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">BLACK MERIDIAN · FICTIONAL SYNTHETIC CAMPAIGN SIMULATION · VERSION 0.1-DRAFT · 2026-09-06</footer>
+  </div>
+
+  <script id="scenario-data" type="application/json">
+{
+  "meta": {
+    "title": "Exercise BLACK MERIDIAN",
+    "subtitle": "Synthetic campaign simulation",
+    "version": "0.1-draft",
+    "date": "2026-09-06",
+    "classification": "FICTIONAL TRAINING MATERIAL",
+    "audience": "Battalion and brigade tactical commanders",
+    "duration": "45 simulated days",
+    "scope": "High-end conventional conflict with strategic coercion modeled at policy level"
+  },
+  "mission": "Preserve Lydora's freedom of action, sustain coalition cohesion, maintain essential services, and create conditions for a favorable negotiated outcome without exhausting the force.",
+  "forces": [
+    {
+      "side": "BLUE",
+      "title": "Lydoran Defense Force and coalition support",
+      "role": "Defend the Republic of Lydora while integrating coalition formations under political and logistical constraints.",
+      "status": "Uneven readiness",
+      "capabilities": ["Two maneuver brigades at different readiness levels", "Territorial defense formations with strong local knowledge", "Coalition intelligence, air, maritime, engineer, and sustainment support", "Protected humanitarian and logistics corridor"],
+      "constraints": ["Slow coalition force generation", "Competing civilian protection requirements", "Partner caveats and differing political timelines", "Limited redundancy in communications and transportation"]
+    },
+    {
+      "side": "RED",
+      "title": "Karsic Federation",
+      "role": "Force a rapid political settlement by creating military and political facts before Blue can synchronize its response.",
+      "status": "High initial initiative",
+      "capabilities": ["Three maneuver groupings with a theater reserve", "Integrated information, electronic, and intelligence activity", "Strong opening tempo and centralized political direction", "Local proxy and coercive networks"],
+      "constraints": ["Limited ability to sustain a prolonged campaign", "Internal competition between military and political actors", "Escalation risk if objectives expand", "Reliance on rapid results and narrative control"]
+    },
+    {
+      "side": "GRAY",
+      "title": "Merenne, civil authorities, and humanitarian actors",
+      "role": "Protect sovereignty, essential services, civilian populations, and access while avoiding entry into the war.",
+      "status": "Politically fragile",
+      "capabilities": ["Control over key transit permissions", "Civil emergency and public-health networks", "Independent media and local legitimacy", "Humanitarian access and mediation channels"],
+      "constraints": ["Pressure from both belligerents", "Limited security capacity", "Infrastructure overload", "Domestic political divisions"]
+    }
+  ],
+  "phases": [
+    {"id":"P0","label":"PHASE 0","window":"D-10 to D-1","title":"Strategic warning","purpose":"Test whether commanders can prepare without a complete intelligence picture or clear political authorization.","decisions":["Force posture","Readiness and reserve","Civil coordination","Assumption management"],"stressors":["Ambiguous warning","Political pressure","Infrastructure disruption"]},
+    {"id":"P1","label":"PHASE 1","window":"D+0 to D+3","title":"Opening crisis","purpose":"Force tactical headquarters to operate while the situation, authority, and adversary intent remain unclear.","decisions":["Initial mission execution","Reporting confidence","Communications fallback","Protection priorities"],"stressors":["Degraded C2","Conflicting reports","Civilian displacement"]},
+    {"id":"P2","label":"PHASE 2","window":"D+4 to D+10","title":"Main campaign","purpose":"Create resource competition between maneuver, protection, sustainment, and political objectives.","decisions":["Main effort","Sustainment priority","Reserve employment","Risk acceptance"],"stressors":["Maintenance backlog","Transportation friction","Coalition caveats"]},
+    {"id":"P3","label":"PHASE 3","window":"D+11 to D+21","title":"Culmination and adaptation","purpose":"Test whether commanders recognize cumulative degradation and can change the plan before the force culminates.","decisions":["Branch and sequel","Force regeneration","Mission reprioritization","Legitimacy protection"],"stressors":["Readiness decline","Medical capacity","Information contest"]},
+    {"id":"P4","label":"PHASE 4","window":"D+22 to D+45","title":"Strategic endgame","purpose":"Link tactical outcomes to negotiation, escalation management, civilian recovery, and coalition cohesion.","decisions":["Ceasefire posture","Negotiation leverage","Essential services","Escalation control"],"stressors":["Political divergence","Premature victory claims","Fragile ceasefire"]}
+  ],
+  "injects": [
+    {"id":"I-01","phase":"P0","time":"D-8","severity":"HIGH","title":"Contradictory warning","signal":"Two intelligence streams disagree on whether Karsic activity is preparation for coercion or for open conflict.","decision":"What level of readiness is justified, and what assumptions must be made explicit?","effect":"Readiness posture changes future response time, political exposure, and sustainment burden.","facilitator":"Do not resolve the ambiguity immediately. Reward explicit confidence levels and collection priorities."},
+    {"id":"I-02","phase":"P0","time":"D-5","severity":"MEDIUM","title":"Transit restriction","signal":"Merenne announces temporary limits on military transit while requesting humanitarian guarantees.","decision":"How will Blue preserve access without turning a neutral actor into an adversary?","effect":"Movement and sustainment options narrow; political legitimacy becomes a resource.","facilitator":"Model Merenne as an independent actor with domestic politics, not as a passive map feature."},
+    {"id":"I-03","phase":"P1","time":"D+1","severity":"CRITICAL","title":"Communications fracture","signal":"Several reporting channels become intermittent. Units receive delayed or contradictory guidance.","decision":"Which authorities and procedures remain valid when connectivity is unreliable?","effect":"Decision latency rises; local initiative and previously communicated intent become decisive.","facilitator":"Apply different delays to different channels. Do not make every network fail identically."},
+    {"id":"I-04","phase":"P1","time":"D+2","severity":"HIGH","title":"Civilian displacement surge","signal":"A large civilian movement reaches an already strained transport and medical network.","decision":"How are protection, mobility, medical capacity, and mission tempo balanced?","effect":"Civilian outcomes influence political freedom of action and coalition cohesion.","facilitator":"Track capacity, not just intent. Good intentions without transport or medical capacity create second-order effects."},
+    {"id":"I-05","phase":"P2","time":"D+5","severity":"HIGH","title":"Maintenance backlog","signal":"Reported equipment availability was overstated; several formations cannot sustain their planned tempo.","decision":"Which missions are reduced, delayed, or resourced first?","effect":"Combat power becomes a function of maintenance and recovery capacity, not only nominal strength.","facilitator":"Use the pre-exercise readiness picture to test whether players challenge optimistic reporting."},
+    {"id":"I-06","phase":"P2","time":"D+8","severity":"MEDIUM","title":"Coalition caveat change","signal":"A coalition partner changes its authorization for a category of activity after domestic political pressure.","decision":"How does Blue adapt without losing synchronization or partner trust?","effect":"Previously assumed capabilities become conditional; coordination time increases.","facilitator":"Make the caveat precise enough to matter, but avoid turning it into a legal trivia test."},
+    {"id":"I-07","phase":"P3","time":"D+14","severity":"CRITICAL","title":"Medical capacity threshold","signal":"Medical facilities approach capacity while replacement and evacuation timelines lengthen.","decision":"What operational risk is accepted, and what priorities change?","effect":"Casualty care, morale, public confidence, and force availability interact.","facilitator":"Do not reduce medical effects to a casualty multiplier. Model delay, capacity, and confidence."},
+    {"id":"I-08","phase":"P3","time":"D+18","severity":"HIGH","title":"Narrative shock","signal":"A widely circulated video contradicts the official account of a contested incident.","decision":"What is reported, when, and with what confidence?","effect":"Public trust and coalition cohesion shift based on transparency, speed, and credibility.","facilitator":"Judge the information response as a campaign effect, not merely a public-affairs task."},
+    {"id":"I-09","phase":"P4","time":"D+25","severity":"HIGH","title":"Fragile ceasefire proposal","signal":"A ceasefire offer appears while both sides claim the initiative and local conditions remain unstable.","decision":"What military posture supports the political objective without creating accidental escalation?","effect":"The campaign transitions from maneuver to leverage, verification, recovery, and risk management.","facilitator":"A ceasefire is not an automatic end state. Track compliance, incentives, and residual friction."}
+  ],
+  "metrics": [
+    {"id":"M-01","metric":"Decision quality under uncertainty","evidence":"Assumptions, confidence levels, collection priorities, and adaptation after new information."},
+    {"id":"M-02","metric":"Command-and-control resilience","evidence":"Use of intent, delegation, alternate procedures, reporting discipline, and decision latency."},
+    {"id":"M-03","metric":"Sustainment awareness","evidence":"Mission choices reflect fuel, maintenance, medical, personnel, transport, and recovery constraints."},
+    {"id":"M-04","metric":"Reserve and risk management","evidence":"Players preserve options, identify culmination indicators, and explain accepted risk."},
+    {"id":"M-05","metric":"Civilian and political integration","evidence":"Tactical actions account for civilian harm, essential services, neutral actors, legitimacy, and coalition caveats."},
+    {"id":"M-06","metric":"Learning and adaptation","evidence":"The plan changes for a reason, and the reason is traceable to evidence rather than impulse."}
+  ]
+}
+  </script>
+
+  <script id="regional-data" type="application/json">
+{
+  "meta": {
+    "title": "U.S. regional planning modules",
+    "version": "0.1-draft",
+    "asOf": "2026-09-06",
+    "warning": "These are broad planning archetypes, not county-level forecasts. Validate them against local data before making decisions."
+  },
+  "regions": [
+    {
+      "id": "pacific-northwest",
+      "label": "Pacific Northwest",
+      "states": "Washington · Oregon · Idaho",
+      "profile": "Coastal, river, mountain, forest, and dense urban systems with long-distance transport dependencies.",
+      "primaryHazards": ["Earthquake", "Tsunami and coastal flooding", "Wildfire and smoke", "Winter weather", "Landslide"],
+      "secondaryHazards": ["Volcanic activity", "Heat wave", "Inland flooding", "Utility outage"],
+      "first72": ["Identify earthquake-safe shelter locations and utility shutoff knowledge.", "Keep water, sanitation, medication, lighting, and charging independent of grid power.", "Have a smoke/air-quality plan and a separate coastal or inland relocation decision.", "Expect bridges, mountain routes, ports, and communications to be condition-dependent."],
+      "days14": ["Plan for pharmacy, fuel, water, and food disruptions without assuming a quick resupply.", "Use two geographically separated family meeting options.", "Track official evacuation zones, road closures, smoke, and water advisories."],
+      "months": ["Prepare for housing, employment, school, insurance, and medical continuity if a regional corridor is disrupted.", "Maintain a resupply relationship outside the immediate neighborhood."],
+      "dependencies": ["Power and water", "Bridges and mountain passes", "Ports, rail, and interstate corridors", "Air quality and medical capacity"],
+      "validation": ["FEMA National Risk Index at county and tract level", "State and county emergency-management plans", "USGS earthquake and volcano information", "NOAA and National Weather Service alerts"]
+    },
+    {
+      "id": "california-great-basin",
+      "label": "California & Great Basin",
+      "states": "California · Nevada · western Utah",
+      "profile": "Large urban corridors, drought and heat exposure, wildfire interfaces, mountain passes, and complex water and power dependencies.",
+      "primaryHazards": ["Earthquake", "Wildfire", "Heat wave", "Drought", "Inland and coastal flooding"],
+      "secondaryHazards": ["Landslide", "Winter weather", "Tsunami", "Smoke and air-quality disruption"],
+      "first72": ["Separate wildfire evacuation planning from earthquake shelter-in-place planning.", "Build for heat and smoke when grid power or cooling is unavailable.", "Keep multiple routes and a fuel decision rule; do not depend on one pass, freeway, or bridge.", "Protect medication, documents, water, and communication devices from heat and power loss."],
+      "days14": ["Plan for water, cooling, fuel, and pharmacy constraints.", "Designate an out-of-area contact and a backup household location.", "Pre-decide when to leave before official routes become congested."],
+      "months": ["Model insurance, housing, employment, and long-term displacement options.", "Map alternate medical providers and supply sources outside the affected corridor."],
+      "dependencies": ["Electricity and cooling", "Water systems", "Freeways, mountain passes, and fuel", "Telecom and public alerting"],
+      "validation": ["FEMA National Risk Index", "USGS earthquake information", "CAL FIRE or relevant state fire agencies", "State and county emergency-management guidance"]
+    },
+    {
+      "id": "southwest",
+      "label": "Southwest",
+      "states": "Arizona · New Mexico · southern Nevada · west Texas",
+      "profile": "Heat, drought, long distances, water constraints, wildfire, and concentrated urban infrastructure.",
+      "primaryHazards": ["Extreme heat", "Drought", "Wildfire", "Flash flooding", "Dust and smoke"],
+      "secondaryHazards": ["Winter storm", "Earthquake", "Severe thunderstorm", "Infrastructure outage"],
+      "first72": ["Treat water, cooling, and power as linked life-safety dependencies.", "Keep a shaded or climate-controlled fallback location in mind.", "Plan vehicle, fuel, and communications around long distances.", "Use official heat, air-quality, and flood alerts rather than visual judgment alone."],
+      "days14": ["Plan for refrigeration, medication, water refill, and cooling-center access.", "Identify a second route and a second destination outside the local utility footprint.", "Account for outdoor workers, older adults, children, and pets."],
+      "months": ["Model employment, water restrictions, housing, and medical continuity.", "Maintain a resupply option in a different watershed or utility area where practical."],
+      "dependencies": ["Power and cooling", "Water and wastewater", "Fuel and long-distance roads", "Medical and communications access"],
+      "validation": ["FEMA National Risk Index", "National Weather Service heat and flood products", "State water and emergency-management agencies", "County public-health guidance"]
+    },
+    {
+      "id": "rockies-high-plains",
+      "label": "Rockies & High Plains",
+      "states": "Montana · Wyoming · Colorado · Utah · western Dakotas · eastern Idaho",
+      "profile": "Mountain and rural access constraints, severe winter, wildfire, drought, long travel distances, and transportation chokepoints.",
+      "primaryHazards": ["Winter weather", "Wildfire", "Drought", "Severe thunderstorm", "Avalanche and landslide"],
+      "secondaryHazards": ["Flooding", "Extreme cold", "Heat wave", "Earthquake"],
+      "first72": ["Plan for isolation and blocked roads rather than assuming nearby services remain reachable.", "Keep heat, water, communications, and vehicle readiness independent of one system.", "Monitor fire, weather, road, and avalanche information as separate inputs.", "Prepare for livestock, pets, and rural medical-distance problems where applicable."],
+      "days14": ["Keep a resupply and medical plan for prolonged road closures.", "Identify a warm, powered fallback location.", "Use redundant navigation and contact methods."],
+      "months": ["Model employment, housing, school, and medical relocation if a corridor remains closed.", "Build relationships with neighboring households and local emergency managers."],
+      "dependencies": ["Roads and passes", "Heating fuel and power", "Rural medical access", "Telecom and weather information"],
+      "validation": ["FEMA National Risk Index", "State DOT road conditions", "National Weather Service winter products", "County and tribal emergency-management plans"]
+    },
+    {
+      "id": "great-plains-midwest",
+      "label": "Great Plains & Midwest",
+      "states": "Nebraska · Kansas · Oklahoma · Iowa · Missouri · Minnesota · Wisconsin · Illinois · Indiana · Michigan · Ohio",
+      "profile": "Severe weather, river and lake systems, winter conditions, agricultural and rail dependencies, and large geographic exposure.",
+      "primaryHazards": ["Tornado and severe thunderstorm", "River and inland flooding", "Winter weather", "Extreme heat and cold", "Hail and strong wind"],
+      "secondaryHazards": ["Drought", "Wildfire and smoke", "Earthquake", "Industrial or transportation disruption"],
+      "first72": ["Have a safe-room or shelter plan and a way to receive warnings when power or cellular service is impaired.", "Prepare for simultaneous power, road, and water interruptions.", "Keep weather radio or another independent alert path.", "Know which local roads flood, close, or become impassable."],
+      "days14": ["Plan for fuel, food, pharmacy, and payment disruption after a major storm.", "Use an out-of-area contact because local networks may be overloaded.", "Account for seasonal heating or cooling needs."],
+      "months": ["Model housing, employment, school, crop or food-system effects, and insurance recovery.", "Identify alternate regional supply and medical centers."],
+      "dependencies": ["Electricity and heating/cooling", "Rail, highways, and bridges", "Water and wastewater", "Medical and agricultural supply chains"],
+      "validation": ["FEMA National Risk Index", "National Weather Service severe-weather products", "State and county emergency-management plans", "Local floodplain and shelter information"]
+    },
+    {
+      "id": "gulf-southeast",
+      "label": "Gulf Coast & Southeast",
+      "states": "Texas Gulf · Louisiana · Mississippi · Alabama · Georgia · Florida · South Carolina · North Carolina · Tennessee",
+      "profile": "Hurricanes, storm surge, inland flooding, heat, dense coastal infrastructure, and long recovery timelines.",
+      "primaryHazards": ["Hurricane and storm surge", "Inland flooding", "Extreme heat", "Tornado and severe thunderstorm", "Wildfire"],
+      "secondaryHazards": ["Drought", "Winter storm", "Coastal erosion", "Power outage"],
+      "first72": ["Decide early whether the plan is shelter, local relocation, or evacuation; waiting reduces options.", "Protect documents, medications, water, communications, and vehicle fuel.", "Use official evacuation zones and routes, not informal map shortcuts.", "Prepare for heat and humidity if power fails."],
+      "days14": ["Plan for fuel scarcity, water advisories, pharmacy interruptions, and debris-blocked roads.", "Have a destination outside the hazard and a way to verify it is open.", "Account for mold, heat, medical access, and pets after the immediate event."],
+      "months": ["Model displacement, insurance, housing, employment, school, and long-term medical needs.", "Keep records and resupply contacts outside the affected coastal area."],
+      "dependencies": ["Power and fuel", "Ports, roads, and bridges", "Water and wastewater", "Medical and pharmacy networks"],
+      "validation": ["FEMA National Risk Index", "National Hurricane Center and National Weather Service", "State evacuation-zone maps", "County emergency-management guidance"]
+    },
+    {
+      "id": "mid-atlantic-northeast",
+      "label": "Mid-Atlantic & Northeast",
+      "states": "Virginia · Maryland · Delaware · District of Columbia · Pennsylvania · New Jersey · New York · New England",
+      "profile": "Dense population, coastal and river exposure, aging infrastructure, winter weather, heat, and high interdependence between metro systems.",
+      "primaryHazards": ["Coastal storm and flooding", "Winter weather", "Extreme heat", "River flooding", "Severe thunderstorm"],
+      "secondaryHazards": ["Hurricane remnants", "Earthquake", "Landslide", "Power and transit outage"],
+      "first72": ["Plan for sheltering in dense housing and loss of elevators, transit, water pressure, or communications.", "Keep a walkable local option and an out-of-area contact.", "Separate flood, storm, winter, and heat plans; they create different movement constraints.", "Protect medication, cash, documents, and charging access."],
+      "days14": ["Plan for transit, fuel, pharmacy, childcare, and building-access disruption.", "Identify alternate work, school, and medical arrangements.", "Use official emergency alerts and local authority guidance."],
+      "months": ["Model housing, employment, school, insurance, and medical displacement.", "Consider the effects of regional congestion and limited hotel capacity."],
+      "dependencies": ["Electricity, heating, and water pressure", "Transit, bridges, tunnels, and roads", "Telecom and dense-building access", "Medical and pharmacy networks"],
+      "validation": ["FEMA National Risk Index", "State and city emergency-management plans", "National Weather Service coastal and winter products", "Local transit and utility outage information"]
+    },
+    {
+      "id": "alaska",
+      "label": "Alaska",
+      "states": "Alaska",
+      "profile": "Large distances, limited road connectivity, severe cold, earthquake and tsunami exposure, aviation and marine dependencies.",
+      "primaryHazards": ["Earthquake", "Tsunami", "Extreme cold", "Winter weather", "Volcanic activity"],
+      "secondaryHazards": ["Wildfire", "Flooding", "Landslide", "Supply-chain interruption"],
+      "first72": ["Prioritize heat, water, shelter, communications, and location-specific evacuation knowledge.", "Assume that roads, ports, or aircraft may be unavailable.", "Keep a local plan and a remote-contact plan.", "Account for cold-weather medical and vehicle risks."],
+      "days14": ["Plan for air and marine resupply delay, fuel, medication, and heating needs.", "Maintain more than one communications method where feasible.", "Coordinate with local, tribal, and state emergency-management guidance."],
+      "months": ["Model seasonal access, relocation, employment, schooling, and medical evacuation.", "Treat resupply distance as a primary planning variable."],
+      "dependencies": ["Heating fuel and power", "Air and marine transport", "Communications", "Local medical and shelter capacity"],
+      "validation": ["FEMA National Risk Index where available", "Alaska state and local emergency-management guidance", "USGS and NOAA earthquake/tsunami information", "National Weather Service Alaska products"]
+    },
+    {
+      "id": "hawaii-pacific",
+      "label": "Hawaii & Pacific territories",
+      "states": "Hawaii · U.S. Pacific territories",
+      "profile": "Island and remote logistics, volcanic and tsunami exposure, hurricanes, wildfire, limited redundancy, and dependence on maritime and air supply.",
+      "primaryHazards": ["Tsunami", "Volcanic activity", "Hurricane and tropical storm", "Wildfire", "Earthquake"],
+      "secondaryHazards": ["Landslide", "Flooding", "Heat", "Maritime and air-supply disruption"],
+      "first72": ["Know local evacuation zones and vertical or inland options where applicable.", "Treat water, power, fuel, communications, and medical access as linked dependencies.", "Keep a plan for island-specific movement restrictions.", "Use local official alerts and do not rely on mainland assumptions."],
+      "days14": ["Plan for maritime and air resupply delay, pharmacy continuity, and fuel scarcity.", "Maintain local mutual-aid contacts and an out-of-area communications contact.", "Protect documents and medical supplies from heat, moisture, and displacement."],
+      "months": ["Model long-distance relocation, housing, employment, schooling, and medical continuity.", "Treat transportation availability as a strategic constraint."],
+      "dependencies": ["Ports and airports", "Water and power", "Fuel and food imports", "Medical and communications capacity"],
+      "validation": ["FEMA National Risk Index where available", "Local and state emergency-management guidance", "NOAA tsunami and tropical products", "USGS volcano and earthquake information"]
+    }
+  ],
+  "sharedSources": [
+    {"name":"FEMA National Risk Index","url":"https://www.fema.gov/about/openfema/data-sets/national-risk-index-data"},
+    {"name":"Ready.gov","url":"https://www.ready.gov/"},
+    {"name":"NOAA / National Weather Service","url":"https://www.weather.gov/"},
+    {"name":"USGS Hazards","url":"https://www.usgs.gov/natural-hazards"}
+  ]
+}
+
+  </script>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const DATA = JSON.parse(document.getElementById("scenario-data").textContent);
+      const REGIONS = JSON.parse(document.getElementById("regional-data").textContent);
+      const STORAGE = {
+        orders: "black-meridian.orders.v1",
+        scores: "black-meridian.scores.v1",
+        notes: "black-meridian.notes.v1",
+        family: "black-meridian.family.v1"
+      };
+
+      const viewMeta = {
+        brief: ["Exercise brief / 01", "Command the campaign"],
+        campaign: ["Campaign timeline / 02", "The campaign unfolds in phases"],
+        forces: ["Situation framework / 03", "Force posture"],
+        adjudication: ["Exercise-control model / 04", "Adjudication"],
+        injects: ["Exercise-control library / 05", "Inject library"],
+        evaluation: ["After-action review / 06", "Evaluation scorecard"],
+        orders: ["Tactical decision record / 07", "Orders & logs"],
+        reality: ["Public-source planning baseline / 08", "U.S. reality layer"],
+        regions: ["Regional planning / 09", "Regional planner"],
+        manual: ["Operator guide / 10", "Instruction manual"]
+      };
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+      const safeGet = (key, fallback) => {
+        try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (e) { return fallback; }
+      };
+      const safeSet = (key, value) => {
+        try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch (e) { return false; }
+      };
+      const esc = (value) => String(value ?? "").replace(/[&<>\"']/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char]));
+      const download = (filename, content, type) => {
+        const blob = new Blob([content], { type: type || "application/json" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = filename;
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 500);
+      };
+
+      function activateView(viewId) {
+        $$(".view").forEach((view) => view.classList.toggle("active", view.dataset.view === viewId));
+        $$(".nav-button").forEach((button) => button.classList.toggle("active", button.dataset.viewTarget === viewId));
+        const meta = viewMeta[viewId] || viewMeta.brief;
+        $("#pageKicker").textContent = meta[0];
+        $("#pageTitle").textContent = meta[1];
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function renderBrief() {
+        $("#missionText").textContent = DATA.mission;
+      }
+
+      function renderPhases() {
+        $("#phaseList").innerHTML = DATA.phases.map((phase, index) => `
+          <details class="phase-card" ${index === 0 ? "open" : ""}>
+            <summary>
+              <div class="phase-code">${esc(phase.label)}</div>
+              <div><div class="phase-title">${esc(phase.title)}</div><div class="phase-window">${esc(phase.window)}</div></div>
+              <div class="phase-arrow">›</div>
+            </summary>
+            <div class="phase-body">
+              <div><h4>Purpose</h4><p>${esc(phase.purpose)}</p><h4>Primary decisions</h4><div class="chip-list">${phase.decisions.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}</div></div>
+              <div><h4>Stressors</h4><div class="chip-list">${phase.stressors.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}</div><div class="top-space"><span class="tag amber">${esc(phase.id)}</span></div></div>
+            </div>
+          </details>`).join("");
+      }
+
+      function renderForces() {
+        $("#forceList").innerHTML = DATA.forces.map((force) => {
+          const sideClass = force.side === "BLUE" ? "blue" : force.side === "RED" ? "red" : "gray";
+          const tagClass = force.side === "BLUE" ? "blue" : force.side === "RED" ? "red" : "gray";
+          return `<article class="force-card ${sideClass}">
+            <span class="tag ${tagClass}">${esc(force.side)} · ${esc(force.status)}</span>
+            <h3>${esc(force.title)}</h3>
+            <p>${esc(force.role)}</p>
+            <h4>Capabilities</h4><ul>${force.capabilities.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+            <h4>Constraints</h4><ul>${force.constraints.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+          </article>`;
+        }).join("");
+      }
+
+      let activeInjectFilter = "ALL";
+      function renderInjectFilters() {
+        const filters = ["ALL", ...DATA.phases.map((phase) => phase.id)];
+        $("#injectFilters").innerHTML = filters.map((filter) => `<button class="filter-button ${activeInjectFilter === filter ? "active" : ""}" data-inject-filter="${filter}" type="button">${filter === "ALL" ? "All phases" : esc(filter)}</button>`).join("");
+        $$("[data-inject-filter]").forEach((button) => button.addEventListener("click", () => {
+          activeInjectFilter = button.dataset.injectFilter;
+          renderInjectFilters();
+          renderInjects();
+        }));
+      }
+
+      function renderInjects() {
+        const items = activeInjectFilter === "ALL" ? DATA.injects : DATA.injects.filter((item) => item.phase === activeInjectFilter);
+        $("#injectList").innerHTML = items.map((item, index) => `
+          <details class="inject-card" ${index === 0 ? "open" : ""}>
+            <summary>
+              <span class="inject-id">${esc(item.id)}</span>
+              <span class="inject-time">${esc(item.time)}</span>
+              <span class="inject-title">${esc(item.title)}</span>
+              <span class="tag ${item.severity === "CRITICAL" ? "red" : item.severity === "HIGH" ? "amber" : "gray"}">${esc(item.severity)}</span>
+            </summary>
+            <div class="inject-detail">
+              <div><h4>Signal</h4><p>${esc(item.signal)}</p></div>
+              <div><h4>Player decision</h4><p>${esc(item.decision)}</p><div class="top-space"><h4>Expected effect</h4><p>${esc(item.effect)}</p></div></div>
+              <div class="facilitator-only facilitator-note"><h4>Facilitator note</h4><p>${esc(item.facilitator)}</p></div>
+            </div>
+          </details>`).join("") || `<div class="empty-state">No injects match this filter.</div>`;
+      }
+
+      function getFamilyProfile() { return safeGet(STORAGE.family, { regionId: REGIONS.regions[0].id }); }
+
+      function selectedRegion() {
+        const id = $("#regionSelect").value || getFamilyProfile().regionId || REGIONS.regions[0].id;
+        return REGIONS.regions.find((region) => region.id === id) || REGIONS.regions[0];
+      }
+
+      function renderRegionProfile() {
+        const region = selectedRegion();
+        $("#regionProfile").innerHTML = `
+          <div class="section-head top-space"><div><div class="eyebrow">${esc(region.label)}</div><h3>${esc(region.states)}</h3><p>${esc(region.profile)}</p></div><span class="tag blue">Planning archetype</span></div>
+          <div class="grid-two">
+            <div><h4 class="eyebrow">Primary hazards</h4><div class="chip-list">${region.primaryHazards.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}</div><h4 class="eyebrow top-space">Secondary hazards</h4><div class="chip-list">${region.secondaryHazards.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}</div><h4 class="eyebrow top-space">Critical dependencies</h4><div class="chip-list">${region.dependencies.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}</div></div>
+            <div><h4 class="eyebrow">Validation checklist</h4><ul class="rule-list">${region.validation.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+          </div>
+          <div class="grid-three top-space">
+            <div><span class="tag blue">0–72 hours</span><ul class="rule-list">${region.first72.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+            <div><span class="tag amber">Days 4–14</span><ul class="rule-list">${region.days14.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+            <div><span class="tag teal">Weeks–months</span><ul class="rule-list">${region.months.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+          </div>`;
+      }
+
+      function loadFamilyForm(profile) {
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan"];
+        fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
+      }
+
+      function familyFormData() {
+        const profile = { regionId: $("#regionSelect").value };
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        profile.updatedAt = new Date().toISOString();
+        return profile;
+      }
+
+      function renderFamilyGaps(profile) {
+        const checks = [
+          { key: "familySize", label: "Record household size", advice: "Use this to calculate supplies and identify dependents.", severity: "high", bad: !profile.familySize },
+          { key: "waterDays", label: "Water continuity", advice: "Build toward at least several days of water for drinking and sanitation, then follow local guidance.", severity: "high", bad: !profile.waterDays || Number(profile.waterDays) < 3 },
+          { key: "foodDays", label: "Food continuity", advice: "Keep a several-day supply that does not depend on refrigeration or cooking fuel.", severity: "medium", bad: !profile.foodDays || Number(profile.foodDays) < 3 },
+          { key: "medicationPlan", label: "Medication and medical continuity", advice: "Confirm supply, refill, storage, and a backup care pathway.", severity: "high", bad: !profile.medicationPlan || ["none", "partial"].includes(profile.medicationPlan) },
+          { key: "alternateComms", label: "Alternate communications", advice: "Test a second way to receive alerts or contact family when cellular data is congested.", severity: "high", bad: !profile.alternateComms || ["no", "partial"].includes(profile.alternateComms) },
+          { key: "contactPlan", label: "Out-of-area contact", advice: "Name one person outside the immediate area and share the plan with everyone.", severity: "medium", bad: !profile.contactPlan || ["no", "partial"].includes(profile.contactPlan) },
+          { key: "shelterPlan", label: "Shelter or relocation plan", advice: "Write down where you shelter, when you leave, and how you verify the destination.", severity: "high", bad: !profile.shelterPlan || ["no", "partial"].includes(profile.shelterPlan) },
+          { key: "transportPlan", label: "Transportation fallback", advice: "Identify a primary and alternate route or mode without relying on one bridge, fuel source, or vehicle.", severity: "medium", bad: !profile.transportPlan || ["no", "partial"].includes(profile.transportPlan) },
+          { key: "dependentsPlan", label: "Dependent and pet needs", advice: "Cover food, water, medication, mobility, records, and transport for dependents or pets.", severity: "high", bad: !profile.dependentsPlan || ["no", "partial"].includes(profile.dependentsPlan) },
+          { key: "documentsPlan", label: "Documents and finances", advice: "Keep portable copies, backup access, and a payment option that does not depend on one network.", severity: "medium", bad: !profile.documentsPlan || profile.documentsPlan === "no" }
+        ];
+        const gaps = checks.filter((check) => check.bad);
+        const high = gaps.filter((gap) => gap.severity === "high").length;
+        const band = !profile.familySize && !profile.waterDays && !profile.foodDays ? "Complete the baseline" : gaps.length <= 2 ? "Baseline established — close remaining gaps" : gaps.length <= 5 ? "Developing — several priority gaps" : "Priority worklist — address fundamentals first";
+        $("#planningBand").textContent = band;
+        $("#familyGaps").innerHTML = gaps.length ? `<div class="small muted" style="margin-bottom:10px;">${gaps.length} planning gap${gaps.length === 1 ? "" : "s"} identified · ${high} high-consequence item${high === 1 ? "" : "s"}</div><ul class="rule-list">${gaps.map((gap) => `<li><strong>${esc(gap.label)}:</strong> ${esc(gap.advice)}</li>`).join("")}</ul>` : `<div class="small" style="color:var(--teal);">No gaps identified in the current form. Revisit the plan seasonally and after household changes.</div>`;
+      }
+
+      function renderRegions() {
+        const saved = getFamilyProfile();
+        $("#regionSelect").innerHTML = REGIONS.regions.map((region) => `<option value="${esc(region.id)}">${esc(region.label)}</option>`).join("");
+        $("#regionSelect").value = REGIONS.regions.some((region) => region.id === saved.regionId) ? saved.regionId : REGIONS.regions[0].id;
+        loadFamilyForm(saved);
+        renderRegionProfile();
+        renderFamilyGaps(saved);
+        $("#regionSelect").addEventListener("change", () => {
+          const profile = getFamilyProfile();
+          profile.regionId = $("#regionSelect").value;
+          safeSet(STORAGE.family, profile);
+          renderRegionProfile();
+        });
+      }
+
+      function exportRegionBrief() {
+        const region = selectedRegion();
+        const payload = { exercise: DATA.meta.title, exportedAt: new Date().toISOString(), region, householdProfile: getFamilyProfile(), note: "Broad planning archetype; validate against local official data." };
+        download(`black-meridian-region-${region.id}-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(payload, null, 2));
+      }
+
+      function exportFamilyProfile() {
+        const profile = getFamilyProfile();
+        const region = REGIONS.regions.find((item) => item.id === profile.regionId) || REGIONS.regions[0];
+        download(`black-meridian-family-profile-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify({ exercise: DATA.meta.title, exportedAt: new Date().toISOString(), region: region.label, profile }, null, 2));
+      }
+
+      function getScores() { return safeGet(STORAGE.scores, {}); }
+      function saveScores() {
+        const scores = {};
+        $$('[data-score]').forEach((select) => { scores[select.dataset.score] = select.value; });
+        scores.notes = $("#scorecardNotes").value;
+        safeSet(STORAGE.scores, scores);
+        updateStorageStatus();
+      }
+      function renderMetrics() {
+        const saved = getScores();
+        $("#metricList").innerHTML = DATA.metrics.map((metric) => `
+          <div class="metric-row">
+            <div><div class="metric-name">${esc(metric.metric)}</div><div class="metric-evidence">${esc(metric.evidence)}</div></div>
+            <select class="score-select" data-score="${esc(metric.id)}" aria-label="Score ${esc(metric.metric)}">
+              <option value="">Score</option>
+              <option value="1" ${saved[metric.id] === "1" ? "selected" : ""}>1 · Not observed</option>
+              <option value="2" ${saved[metric.id] === "2" ? "selected" : ""}>2 · Fragile</option>
+              <option value="3" ${saved[metric.id] === "3" ? "selected" : ""}>3 · Adequate</option>
+              <option value="4" ${saved[metric.id] === "4" ? "selected" : ""}>4 · Strong</option>
+              <option value="5" ${saved[metric.id] === "5" ? "selected" : ""}>5 · Repeatable</option>
+            </select>
+          </div>`).join("");
+        $("#scorecardNotes").value = saved.notes || "";
+        $$('[data-score]').forEach((select) => select.addEventListener("change", saveScores));
+        $("#scorecardNotes").addEventListener("input", saveScores);
+      }
+
+      function getOrders() { return safeGet(STORAGE.orders, []); }
+      function renderOrders() {
+        const orders = getOrders();
+        $("#orderLog").innerHTML = orders.length ? orders.map((order) => `
+          <article class="order-item">
+            <div class="order-item-head"><span>${esc(order.unit)} · ${esc(order.time)}</span><span>${esc(order.created)}</span></div>
+            <h4>${esc(order.intent)}</h4>
+            <p><strong>Task / purpose:</strong> ${esc(order.task)}</p>
+            ${order.assumptions ? `<p><strong>Assumptions:</strong> ${esc(order.assumptions)}</p>` : ""}
+            ${order.risk ? `<p><strong>Risk:</strong> ${esc(order.risk)}</p>` : ""}
+            ${order.sustainment ? `<p><strong>Sustainment:</strong> ${esc(order.sustainment)}</p>` : ""}
+            ${order.decision ? `<p><strong>Decision points:</strong> ${esc(order.decision)}</p>` : ""}
+          </article>`).join("") : `<div class="empty-state">No orders saved yet. Use the form to create the first decision record.</div>`;
+        updateStorageStatus();
+      }
+
+      function updateStorageStatus() {
+        const orders = getOrders();
+        const scores = getScores();
+        const scoreCount = DATA.metrics.filter((metric) => scores[metric.id]).length;
+        $("#storageStatus").textContent = `${orders.length} saved order${orders.length === 1 ? "" : "s"} · ${scoreCount}/${DATA.metrics.length} evaluation scores recorded · browser-local only`;
+      }
+
+      function resetScorecard() {
+        safeSet(STORAGE.scores, {});
+        renderMetrics();
+        updateStorageStatus();
+      }
+
+      function exportScorecard() {
+        const saved = getScores();
+        const exportData = { exercise: DATA.meta.title, exportedAt: new Date().toISOString(), scores: DATA.metrics.map((metric) => ({ id: metric.id, metric: metric.metric, score: saved[metric.id] || null, evidence: metric.evidence })), notes: saved.notes || "" };
+        download(`black-meridian-scorecard-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(exportData, null, 2));
+      }
+
+      function exportOrders() {
+        const exportData = { exercise: DATA.meta.title, exportedAt: new Date().toISOString(), orders: getOrders() };
+        download(`black-meridian-orders-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(exportData, null, 2));
+      }
+
+      $$("[data-view-target]").forEach((button) => button.addEventListener("click", () => activateView(button.dataset.viewTarget)));
+      $("#facilitatorToggle").addEventListener("click", () => {
+        document.body.classList.toggle("facilitator-mode");
+        const active = document.body.classList.contains("facilitator-mode");
+        $("#facilitatorToggle").textContent = active ? "Hide facilitator notes" : "Show facilitator notes";
+      });
+      $("#printBtn").addEventListener("click", () => window.print());
+      $("#exportScenario").addEventListener("click", () => download("black-meridian-scenario.json", JSON.stringify(DATA, null, 2)));
+      $("#exportScorecard").addEventListener("click", exportScorecard);
+      $("#clearScorecard").addEventListener("click", () => { if (window.confirm("Clear the browser-local scorecard?")) resetScorecard(); });
+      $("#exportOrders").addEventListener("click", exportOrders);
+      $("#clearOrders").addEventListener("click", () => { if (window.confirm("Clear all browser-local orders? Export first if you need a copy.")) { safeSet(STORAGE.orders, []); renderOrders(); } });
+      $("#exportRegion").addEventListener("click", exportRegionBrief);
+      $("#exportFamily").addEventListener("click", exportFamilyProfile);
+      $("#clearFamily").addEventListener("click", () => { if (window.confirm("Clear the browser-local family planning profile?")) { safeSet(STORAGE.family, { regionId: $("#regionSelect").value }); loadFamilyForm(getFamilyProfile()); renderFamilyGaps(getFamilyProfile()); } });
+      $("#familyProfileForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const profile = familyFormData();
+        safeSet(STORAGE.family, profile);
+        renderFamilyGaps(profile);
+      });
+
+      $("#orderForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const order = {
+          unit: $("#orderUnit").value.trim(),
+          time: $("#orderTime").value.trim(),
+          intent: $("#orderIntent").value.trim(),
+          task: $("#orderTask").value.trim(),
+          assumptions: $("#orderAssumptions").value.trim(),
+          risk: $("#orderRisk").value.trim(),
+          sustainment: $("#orderSustainment").value.trim(),
+          decision: $("#orderDecision").value.trim(),
+          created: new Date().toLocaleString()
+        };
+        const orders = getOrders();
+        orders.unshift(order);
+        safeSet(STORAGE.orders, orders);
+        event.target.reset();
+        renderOrders();
+        activateView("orders");
+      });
+
+      renderBrief();
+      renderPhases();
+      renderForces();
+      renderInjectFilters();
+      renderInjects();
+      renderMetrics();
+      renderOrders();
+      renderRegions();
+    })();
+  </script>
+</body>
+</html>

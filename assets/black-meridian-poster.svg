@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">BLACK MERIDIAN — I need to play this game to protect my family.</title>
+  <desc id="desc">A fictional campaign simulation and civilian resilience planning graphic showing a family studying a map with a radio, flashlight, and emergency kit.</desc>
+  <image x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid slice" href="black-meridian-hero.png" xlink:href="black-meridian-hero.png"/>
+  <defs>
+    <linearGradient id="shade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#050b14" stop-opacity=".97"/><stop offset=".43" stop-color="#07111c" stop-opacity=".82"/><stop offset=".78" stop-color="#07111c" stop-opacity=".18"/><stop offset="1" stop-color="#07111c" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="bottom" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06101a" stop-opacity="0"/><stop offset="1" stop-color="#06101a" stop-opacity=".82"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#shade)"/>
+  <rect y="610" width="1600" height="290" fill="url(#bottom)"/>
+  <g fill="none" stroke="#f3bd64" stroke-width="2" opacity=".82"><path d="M92 102h172"/><path d="M92 102v38"/><path d="M92 766h245"/><path d="M92 766v-38"/></g>
+  <g font-family="Arial,Helvetica,sans-serif"><text x="94" y="91" fill="#f3bd64" font-size="15" font-weight="700" letter-spacing="4">BLACK MERIDIAN</text><text x="96" y="166" fill="#8ce1d1" font-size="12" font-weight="700" letter-spacing="3">A SYNTHETIC CAMPAIGN SIMULATION</text><text x="92" y="286" fill="#f4f7fa" font-size="68" font-weight="800">I NEED TO PLAY</text><text x="92" y="360" fill="#f4f7fa" font-size="68" font-weight="800">THIS GAME TO</text><text x="92" y="434" fill="#f3bd64" font-size="68" font-weight="800">PROTECT MY FAMILY.</text><text x="95" y="538" fill="#d3dee7" font-size="25">Practice decisions before a crisis</text><text x="95" y="574" fill="#d3dee7" font-size="25">makes them for you.</text></g>
+  <rect x="95" y="478" width="530" height="4" rx="2" fill="#5dd6c0"/>
+  <g font-family="monospace" font-size="13" letter-spacing="2" fill="#aebdca"><text x="95" y="704">FICTIONAL · PUBLIC-SOURCE · OFFLINE · FREE TO SHARE</text><text x="95" y="744">PREPARE CALMLY. QUESTION ASSUMPTIONS. PRESERVE OPTIONS.</text></g>
+  <text x="1434" y="824" fill="#f3bd64" font-family="monospace" font-size="12" letter-spacing="2">BM // 01</text>
+</svg>

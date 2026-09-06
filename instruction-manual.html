@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Operator and household planning manual for Exercise BLACK MERIDIAN">
+  <title>BLACK MERIDIAN // Instruction Manual</title>
+  <style>
+    :root{--bg:#0a0f16;--panel:#121d2a;--panel2:#172434;--line:#2a3a4e;--soft:#203044;--text:#e7edf4;--muted:#9aabbd;--faint:#708399;--amber:#f3bd64;--amberbg:#3a2b16;--teal:#5dd6c0;--tealbg:#113732;--blue:#58a6ff;--bluebg:#142e49;--red:#ff7773;--redbg:#421f25;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6} a{color:var(--blue)} .wrap{max-width:1120px;margin:0 auto;padding:0 22px 70px}
+    header{border-bottom:1px solid var(--soft);padding:24px 0 22px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px} .brand{display:flex;gap:13px;align-items:center}.mark{width:42px;height:42px;border:1px solid var(--amber);color:var(--amber);display:grid;place-items:center;font:700 13px var(--mono);transform:skew(-8deg)} .brand h1{font:800 17px var(--mono);letter-spacing:.08em;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.12em}.version{font:10px var(--mono);color:var(--teal);border:1px solid #2a625a;background:var(--tealbg);border-radius:999px;padding:7px 10px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+    .hero{margin-top:28px;padding:32px;border-radius:14px;border:1px solid #3d5269;background:linear-gradient(120deg,#17283a,#10212e 50%,#241d16);box-shadow:0 14px 40px rgba(0,0,0,.22)} .eyebrow{color:var(--faint);font:700 10px var(--mono);letter-spacing:.16em;text-transform:uppercase}.hero h2{font-size:clamp(28px,5vw,48px);line-height:1.05;letter-spacing:-.05em;margin:10px 0 14px}.hero p{color:#c4d1dc;max-width:760px;margin:0}
+    .layout{display:grid;grid-template-columns:235px minmax(0,1fr);gap:28px;margin-top:28px}.toc{position:sticky;top:20px;align-self:start;border:1px solid var(--soft);background:var(--panel);border-radius:12px;padding:16px}.toc h3{font:700 10px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin:0 0 10px}.toc a{display:block;text-decoration:none;padding:7px 8px;border-radius:6px;font-size:12px;color:var(--muted)}.toc a:hover{background:var(--panel2);color:var(--text)}
+    main{min-width:0}.section{border:1px solid var(--soft);background:var(--panel);border-radius:14px;padding:24px;margin-bottom:18px}.section h2{font-size:23px;letter-spacing:-.03em;line-height:1.2;margin:5px 0 12px}.section h3{font-size:15px;margin:22px 0 8px}.section p,.section li{font-size:13px;color:#c5d0dc}.section ul,.section ol{padding-left:22px}.section li{margin:7px 0}.section strong{color:var(--text)}.callout{border:1px solid #5a4930;background:var(--amberbg);color:#e6c995;border-radius:9px;padding:14px 16px;font-size:12px;margin:15px 0}.callout strong{color:#fff0c9}.safe{border-color:#2a625a;background:var(--tealbg);color:#b9e9df}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.mini{border:1px solid var(--soft);background:#0f1822;border-radius:9px;padding:15px}.mini h3{margin:0 0 6px;font-size:14px}.mini p{margin:0;font-size:12px}.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--muted);font:700 9px var(--mono);letter-spacing:.08em;text-transform:uppercase}.tag.amber{border-color:#765a2b;color:var(--amber);background:var(--amberbg)}.tag.teal{border-color:#2a625a;color:var(--teal);background:var(--tealbg)}.tag.blue{border-color:#2d5c8c;color:var(--blue);background:var(--bluebg)}
+    code{background:#0b141d;border:1px solid var(--soft);border-radius:4px;color:#dce7f1;padding:2px 5px;font:12px var(--mono)}pre{background:#0b141d;border:1px solid var(--soft);border-radius:9px;overflow:auto;padding:15px;color:#dce7f1;font:12px/1.6 var(--mono)}table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--soft);vertical-align:top}th{color:var(--faint);font:700 9px var(--mono);letter-spacing:.1em;text-transform:uppercase}td{color:#c5d0dc}.step{display:grid;grid-template-columns:38px 1fr;gap:12px;margin:13px 0}.stepnum{color:var(--amber);font:700 12px var(--mono);padding-top:3px}.step h3{margin:0 0 4px;font-size:14px}.step p{margin:0}.footer{border-top:1px solid var(--soft);color:var(--faint);font:10px var(--mono);letter-spacing:.08em;text-align:center;text-transform:uppercase;padding:22px 0;margin-top:30px}
+    @media(max-width:780px){header{flex-direction:column}.layout{display:block}.toc{position:static;margin-bottom:18px}.grid{grid-template-columns:1fr}.section{padding:18px}.hero{padding:24px}.wrap{padding:0 15px 45px}}
+    @media print{body{background:white;color:#111}.toc{display:none}.layout{display:block}.section,.mini,.hero{box-shadow:none;break-inside:avoid;background:white;color:#111;border-color:#cbd3dc}.section p,.section li,.mini p,td{color:#222}.hero{border-color:#9aa7b5}.hero h2,.section h2,.section h3{color:#111}.hero p{color:#222}.footer{color:#555}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><div class="mark">BM</div><div><h1>BLACK MERIDIAN // INSTRUCTION MANUAL</h1><p>Operator guide · scenario control · household resilience</p></div></div>
+      <div class="version">v0.1-draft · 2026-09-06</div>
+    </header>
+
+    <div class="hero">
+      <div class="eyebrow">Read before operating the dashboard</div>
+      <h2>Make assumptions visible.<br>Plan for continuity.</h2>
+      <p>This manual explains how to use the BLACK MERIDIAN dashboard as a fictional campaign exercise and as a public-source, civilian resilience planning aid. It does not predict conflict, issue warnings, or guarantee safety.</p>
+    </div>
+
+    <div class="layout">
+      <aside class="toc">
+        <h3>Contents</h3>
+        <a href="#scope">1. Scope and boundaries</a>
+        <a href="#files">2. Files and storage</a>
+        <a href="#start">3. Start here</a>
+        <a href="#reality">4. U.S. reality layer</a>
+        <a href="#regions">5. Regional planner</a>
+        <a href="#family">6. Family profile</a>
+        <a href="#exercise">7. Campaign exercise</a>
+        <a href="#review">8. Evaluation and exports</a>
+        <a href="#maintenance">9. Maintaining the model</a>
+        <a href="#safety">10. Safety and interpretation</a>
+      </aside>
+
+      <main>
+        <section class="section" id="scope">
+          <div class="eyebrow">1 / Scope</div><h2>What this tool is and is not</h2>
+          <div class="callout"><strong>Fictional military layer:</strong> BLACK MERIDIAN’s states, units, map, campaign, and injects are invented. They are generic enough to support analysis without representing a real operational plan.</div>
+          <div class="grid"><div class="mini"><span class="tag blue">It is</span><h3>A structured decision exercise</h3><p>A way to examine uncertainty, command friction, sustainment, information quality, political constraints, and household continuity.</p></div><div class="mini"><span class="tag amber">It is not</span><h3>An intelligence product</h3><p>It does not establish that a threat is imminent, forecast an attack, identify targets, or calculate whether a particular household will survive.</p></div></div>
+          <p>The most useful output is not a single prediction. It is a set of plans that remain useful across several different futures.</p>
+        </section>
+
+        <section class="section" id="files">
+          <div class="eyebrow">2 / File system</div><h2>Files and storage</h2>
+          <pre>black-meridian/
+├── index.html                 # Main offline dashboard
+├── instruction-manual.html   # This manual
+├── README.md                  # Short project notes
+├── data/
+│   ├── scenario.json          # Fictional exercise source data
+│   ├── us-reality.json        # Public-source U.S. reference layer
+│   └── us-regions.json        # Broad regional planning modules
+└── storage/
+    └── README.md              # Where to place exported drafts</pre>
+          <p>Open <code>index.html</code> in a modern browser. No installation or operating-system-specific command is required. The dashboard embeds its data so it can run offline. The <code>data/</code> files are reviewable source copies.</p>
+          <div class="callout safe"><strong>Privacy:</strong> the household planner is intended for non-sensitive planning fields. Do not enter names, addresses, account numbers, medical record numbers, or other identifying information.</div>
+        </section>
+
+        <section class="section" id="start">
+          <div class="eyebrow">3 / Quick start</div><h2>Recommended first session</h2>
+          <div class="step"><div class="stepnum">01</div><div><h3>Read the boundary</h3><p>Start with the Exercise brief and the Scope section of this manual. The fictional military campaign is a learning environment; it is not evidence of an impending event.</p></div></div>
+          <div class="step"><div class="stepnum">02</div><div><h3>Open the U.S. reality layer</h3><p>Review the public aggregate force figures and their limitations. Do not treat authorized end strength as ready, local, or immediately available personnel.</p></div></div>
+          <div class="step"><div class="stepnum">03</div><div><h3>Select a broad region</h3><p>Use Regional planner to choose the closest planning archetype. If your household crosses regions, create a profile for each relevant location.</p></div></div>
+          <div class="step"><div class="stepnum">04</div><div><h3>Complete the household baseline</h3><p>Record only simple counts and status choices: household size, water and food days, communications, medical continuity, transport, dependents, and documents.</p></div></div>
+          <div class="step"><div class="stepnum">05</div><div><h3>Review the gap list</h3><p>Close high-consequence gaps first. The result is a planning-completeness view—not a probability score or safety guarantee.</p></div></div>
+          <div class="step"><div class="stepnum">06</div><div><h3>Run one short tabletop</h3><p>Pick one horizon—72 hours, 14 days, or several months. Ask what changes if power, roads, communications, or medical access are disrupted. Record assumptions in Orders &amp; logs.</p></div></div>
+          <div class="step"><div class="stepnum">07</div><div><h3>Score and export</h3><p>Use Evaluation for the campaign exercise, then export the profile, orders, scorecard, or scenario JSON into <code>storage/</code>.</p></div></div>
+        </section>
+
+        <section class="section" id="reality">
+          <div class="eyebrow">4 / Public data</div><h2>Using the U.S. reality layer</h2>
+          <p>The dashboard uses public aggregate data to give the fictional exercise a scale reference. The active and reserve figures are authorization/end-strength figures. They help describe national personnel scale, but they do not answer questions about local readiness, deployment, warning time, or civilian effects.</p>
+          <h3>Interpret the numbers in four steps</h3>
+          <ol><li><strong>Scale:</strong> use them as a national reference, not a local headcount.</li><li><strong>Availability:</strong> ask what missions, training cycles, maintenance, legal authorities, and transportation affect availability.</li><li><strong>Geography:</strong> identify which services and infrastructure connect your region to the rest of the country.</li><li><strong>Civilian effects:</strong> model power, water, fuel, communications, medical care, payments, transportation, and supply chains.</li></ol>
+          <p>The dashboard currently cites Congressional Research Service FY2026 active and reserve end-strength reports, FEMA’s National Risk Index, Ready.gov, and CISA communications-resilience guidance. Recheck source dates before using the figures for a new exercise.</p>
+        </section>
+
+        <section class="section" id="regions">
+          <div class="eyebrow">5 / Regional planner</div><h2>How to use regional modules</h2>
+          <p>Choose the region that best represents the household’s location. These are broad planning archetypes, not forecasts. A county, tribal nation, city, or utility service area can differ substantially from the regional label.</p>
+          <div class="grid"><div class="mini"><span class="tag blue">Validate</span><h3>Use official local sources</h3><p>Check FEMA’s county/tract data, state and county emergency-management plans, local alert systems, utility outage information, road conditions, and relevant NOAA or USGS products.</p></div><div class="mini"><span class="tag teal">Compare</span><h3>Use two locations when needed</h3><p>If family members live in different regions, create separate profiles and identify the communication and travel assumptions that connect them.</p></div></div>
+          <h3>Each region provides</h3><ul><li>Primary and secondary hazard categories</li><li>Critical infrastructure and access dependencies</li><li>First-72-hour planning prompts</li><li>Days-4-to-14 continuity prompts</li><li>Weeks-to-months recovery prompts</li><li>A validation checklist for public local data</li></ul>
+        </section>
+
+        <section class="section" id="family">
+          <div class="eyebrow">6 / Household planner</div><h2>How to complete the family profile</h2>
+          <p>The form is intentionally simple. It is designed to identify missing preparations, not to rank people or locations.</p>
+          <table><thead><tr><th>Field</th><th>What to enter</th><th>How to use it</th></tr></thead><tbody>
+            <tr><td>Household size</td><td>Number of people included in the plan.</td><td>Use it to calculate supplies and identify who needs transport or assistance.</td></tr>
+            <tr><td>Water and food days</td><td>Approximate days of usable supply.</td><td>Use a conservative count. Include sanitation, cooking, climate, and dietary needs.</td></tr>
+            <tr><td>Medication / medical plan</td><td>Confirmed, partial, none, or not applicable.</td><td>Include refills, storage, power-dependent equipment, backup providers, and transport.</td></tr>
+            <tr><td>Alternate communications</td><td>Whether a second alert/contact method is available and tested.</td><td>Test it. An untested device, battery, or app is not a dependable fallback.</td></tr>
+            <tr><td>Contact and shelter plans</td><td>Named person, meeting places, shelter/relocation choices.</td><td>Write the plan so it works when people cannot ask the group what to do.</td></tr>
+            <tr><td>Transport plan</td><td>Primary and fallback routes or modes.</td><td>Account for fuel, road closures, bridges, transit outages, and mobility needs.</td></tr>
+            <tr><td>Dependents and pets</td><td>Whether needs are covered, partial, or unresolved.</td><td>Include food, water, medication, carriers, records, and destination rules.</td></tr>
+            <tr><td>Documents and finances</td><td>Portable copies, backups, and payment access.</td><td>Use a waterproof or encrypted approach appropriate to your household.</td></tr>
+          </tbody></table>
+          <div class="callout"><strong>Water baseline:</strong> Ready.gov lists one gallon of water per person per day for several days for drinking and sanitation. Treat that as a starting point; climate, medical, sanitation, pets, and local guidance can increase the requirement.</div>
+        </section>
+
+        <section class="section" id="exercise">
+          <div class="eyebrow">7 / Campaign exercise</div><h2>How to run BLACK MERIDIAN</h2>
+          <h3>Exercise-control setup</h3><ul><li><strong>Players:</strong> tactical commanders or staffs.</li><li><strong>Red cell:</strong> opposing-force decisions based on its own objectives and incomplete information.</li><li><strong>Gray/civil cell:</strong> neutral authorities, civilians, humanitarian actors, media, and coalition politics.</li><li><strong>Exercise Control:</strong> hidden-state tracking, inject release, adjudication, and evaluation.</li></ul>
+          <h3>Turn procedure</h3>
+          <ol><li>State the current time and known situation.</li><li>Players issue intent, task, purpose, assumptions, risk, sustainment priority, and decision points.</li><li>Red, civil, and higher-headquarters cells respond.</li><li>Exercise Control resolves effects using the player picture, the actual situation, friction, and sustainment state.</li><li>Return tactical, operational, civil, political, and information effects.</li><li>Record one lesson before advancing the clock.</li></ol>
+          <h3>Suggested time rhythm</h3><table><thead><tr><th>Situation</th><th>Simulated resolution</th><th>Use</th></tr></thead><tbody><tr><td>Routine campaign</td><td>12–24 hours</td><td>Planning, movement, sustainment, recovery.</td></tr><tr><td>High-friction period</td><td>4–6 hours</td><td>Conflicting reports, degraded C2, civilian pressure.</td></tr><tr><td>Critical decision</td><td>Decision point</td><td>Reserve use, mission change, ceasefire, escalation.</td></tr></tbody></table>
+          <h3>Do not score only attrition</h3><p>Track decision quality, information confidence, command resilience, sustainment, reserve management, civilian effects, coalition cohesion, and whether the force culminates before achieving its objectives.</p>
+        </section>
+
+        <section class="section" id="review">
+          <div class="eyebrow">8 / Outputs</div><h2>Evaluation, exports, and storage</h2>
+          <ul><li><strong>Orders &amp; logs:</strong> save tactical decision records in browser-local storage.</li><li><strong>Evaluation:</strong> score six measures from 1 to 5 and add after-action notes.</li><li><strong>Regional planner:</strong> export a regional brief and household profile.</li><li><strong>Export scenario:</strong> save the baseline fictional scenario as JSON.</li></ul>
+          <p>Move downloaded files into <code>black-meridian/storage/</code>. The browser cannot reliably save directly into an arbitrary folder when an HTML file is opened locally.</p>
+          <pre>storage/
+├── scenario-export-YYYY-MM-DD.json
+├── region-brief-YYYY-MM-DD.json
+├── family-profile-YYYY-MM-DD.json
+├── orders-YYYY-MM-DD.json
+└── scorecard-YYYY-MM-DD.json</pre>
+          <div class="callout safe"><strong>Browser storage:</strong> drafts are saved in the browser profile, not in the visible folder. Export anything important before clearing browser data or changing browsers.</div>
+        </section>
+
+        <section class="section" id="maintenance">
+          <div class="eyebrow">9 / Maintenance</div><h2>Keeping the model current</h2>
+          <div class="step"><div class="stepnum">A</div><div><h3>Review official sources</h3><p>Check FEMA, Ready.gov, local emergency management, NOAA/National Weather Service, USGS, utilities, state DOTs, and health agencies for changes.</p></div></div>
+          <div class="step"><div class="stepnum">B</div><div><h3>Separate facts from assumptions</h3><p>Keep dated source data separate from scenario assumptions. Mark uncertain values as ranges or confidence bands.</p></div></div>
+          <div class="step"><div class="stepnum">C</div><div><h3>Update the source JSON</h3><p>Edit the appropriate file in <code>data/</code>. Because the dashboard is self-contained, update its embedded data block when you want the offline HTML to reflect the change.</p></div></div>
+          <div class="step"><div class="stepnum">D</div><div><h3>Retest the dashboard</h3><p>Open the HTML, switch through every tab, test an export, and verify that the exported file opens as valid JSON.</p></div></div>
+        </section>
+
+        <section class="section" id="safety">
+          <div class="eyebrow">10 / Interpretation</div><h2>Safety and decision discipline</h2>
+          <ul><li>Use official alerts and instructions for real events. This dashboard does not replace emergency management or first-responder guidance.</li><li>Do not treat a scenario inject, public force total, or regional archetype as evidence that an event is about to occur.</li><li>Do not publish personal addresses, medical identifiers, account information, or sensitive family details in exported files.</li><li>For immediate danger, contact local emergency services and follow official evacuation or shelter instructions.</li><li>Review the family plan periodically, calmly, and with the people who would actually use it.</li></ul>
+          <div class="callout"><strong>Best practice:</strong> build plans that are useful for ordinary disruptions—power loss, severe weather, transport failure, medical interruption, or wildfire smoke. Those preparations remain valuable even when the extreme scenario never happens.</div>
+        </section>
+
+        <div class="footer">BLACK MERIDIAN · OPERATOR MANUAL · FICTIONAL SYNTHETIC CAMPAIGN SIMULATION · 2026-09-06</div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

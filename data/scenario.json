@@ -1,0 +1,249 @@
+{
+  "meta": {
+    "title": "Exercise BLACK MERIDIAN",
+    "subtitle": "Synthetic campaign simulation",
+    "version": "0.1-draft",
+    "date": "2026-09-06",
+    "classification": "FICTIONAL TRAINING MATERIAL",
+    "audience": "Battalion and brigade tactical commanders",
+    "duration": "45 simulated days",
+    "scope": "High-end conventional conflict with strategic coercion modeled at policy level"
+  },
+  "mission": "Preserve Lydora's freedom of action, sustain coalition cohesion, maintain essential services, and create conditions for a favorable negotiated outcome without exhausting the force.",
+  "forces": [
+    {
+      "side": "BLUE",
+      "title": "Lydoran Defense Force and coalition support",
+      "role": "Defend the Republic of Lydora while integrating coalition formations under political and logistical constraints.",
+      "status": "Uneven readiness",
+      "capabilities": [
+        "Two maneuver brigades at different readiness levels",
+        "Territorial defense formations with strong local knowledge",
+        "Coalition intelligence, air, maritime, engineer, and sustainment support",
+        "Protected humanitarian and logistics corridor"
+      ],
+      "constraints": [
+        "Slow coalition force generation",
+        "Competing civilian protection requirements",
+        "Partner caveats and differing political timelines",
+        "Limited redundancy in communications and transportation"
+      ]
+    },
+    {
+      "side": "RED",
+      "title": "Karsic Federation",
+      "role": "Force a rapid political settlement by creating military and political facts before Blue can synchronize its response.",
+      "status": "High initial initiative",
+      "capabilities": [
+        "Three maneuver groupings with a theater reserve",
+        "Integrated information, electronic, and intelligence activity",
+        "Strong opening tempo and centralized political direction",
+        "Local proxy and coercive networks"
+      ],
+      "constraints": [
+        "Limited ability to sustain a prolonged campaign",
+        "Internal competition between military and political actors",
+        "Escalation risk if objectives expand",
+        "Reliance on rapid results and narrative control"
+      ]
+    },
+    {
+      "side": "GRAY",
+      "title": "Merenne, civil authorities, and humanitarian actors",
+      "role": "Protect sovereignty, essential services, civilian populations, and access while avoiding entry into the war.",
+      "status": "Politically fragile",
+      "capabilities": [
+        "Control over key transit permissions",
+        "Civil emergency and public-health networks",
+        "Independent media and local legitimacy",
+        "Humanitarian access and mediation channels"
+      ],
+      "constraints": [
+        "Pressure from both belligerents",
+        "Limited security capacity",
+        "Infrastructure overload",
+        "Domestic political divisions"
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "id": "P0",
+      "label": "PHASE 0",
+      "window": "D-10 to D-1",
+      "title": "Strategic warning",
+      "purpose": "Test whether commanders can prepare without a complete intelligence picture or clear political authorization.",
+      "decisions": ["Force posture", "Readiness and reserve", "Civil coordination", "Assumption management"],
+      "stressors": ["Ambiguous warning", "Political pressure", "Infrastructure disruption"]
+    },
+    {
+      "id": "P1",
+      "label": "PHASE 1",
+      "window": "D+0 to D+3",
+      "title": "Opening crisis",
+      "purpose": "Force tactical headquarters to operate while the situation, authority, and adversary intent remain unclear.",
+      "decisions": ["Initial mission execution", "Reporting confidence", "Communications fallback", "Protection priorities"],
+      "stressors": ["Degraded C2", "Conflicting reports", "Civilian displacement"]
+    },
+    {
+      "id": "P2",
+      "label": "PHASE 2",
+      "window": "D+4 to D+10",
+      "title": "Main campaign",
+      "purpose": "Create resource competition between maneuver, protection, sustainment, and political objectives.",
+      "decisions": ["Main effort", "Sustainment priority", "Reserve employment", "Risk acceptance"],
+      "stressors": ["Maintenance backlog", "Transportation friction", "Coalition caveats"]
+    },
+    {
+      "id": "P3",
+      "label": "PHASE 3",
+      "window": "D+11 to D+21",
+      "title": "Culmination and adaptation",
+      "purpose": "Test whether commanders recognize cumulative degradation and can change the plan before the force culminates.",
+      "decisions": ["Branch and sequel", "Force regeneration", "Mission reprioritization", "Legitimacy protection"],
+      "stressors": ["Readiness decline", "Medical capacity", "Information contest"]
+    },
+    {
+      "id": "P4",
+      "label": "PHASE 4",
+      "window": "D+22 to D+45",
+      "title": "Strategic endgame",
+      "purpose": "Link tactical outcomes to negotiation, escalation management, civilian recovery, and coalition cohesion.",
+      "decisions": ["Ceasefire posture", "Negotiation leverage", "Essential services", "Escalation control"],
+      "stressors": ["Political divergence", "Premature victory claims", "Fragile ceasefire"]
+    }
+  ],
+  "injects": [
+    {
+      "id": "I-01",
+      "phase": "P0",
+      "time": "D-8",
+      "severity": "HIGH",
+      "title": "Contradictory warning",
+      "signal": "Two intelligence streams disagree on whether Karsic activity is preparation for coercion or for open conflict.",
+      "decision": "What level of readiness is justified, and what assumptions must be made explicit?",
+      "effect": "Readiness posture changes future response time, political exposure, and sustainment burden.",
+      "facilitator": "Do not resolve the ambiguity immediately. Reward explicit confidence levels and collection priorities."
+    },
+    {
+      "id": "I-02",
+      "phase": "P0",
+      "time": "D-5",
+      "severity": "MEDIUM",
+      "title": "Transit restriction",
+      "signal": "Merenne announces temporary limits on military transit while requesting humanitarian guarantees.",
+      "decision": "How will Blue preserve access without turning a neutral actor into an adversary?",
+      "effect": "Movement and sustainment options narrow; political legitimacy becomes a resource.",
+      "facilitator": "Model Merenne as an independent actor with domestic politics, not as a passive map feature."
+    },
+    {
+      "id": "I-03",
+      "phase": "P1",
+      "time": "D+1",
+      "severity": "CRITICAL",
+      "title": "Communications fracture",
+      "signal": "Several reporting channels become intermittent. Units receive delayed or contradictory guidance.",
+      "decision": "Which authorities and procedures remain valid when connectivity is unreliable?",
+      "effect": "Decision latency rises; local initiative and previously communicated intent become decisive.",
+      "facilitator": "Apply different delays to different channels. Do not make every network fail identically."
+    },
+    {
+      "id": "I-04",
+      "phase": "P1",
+      "time": "D+2",
+      "severity": "HIGH",
+      "title": "Civilian displacement surge",
+      "signal": "A large civilian movement reaches an already strained transport and medical network.",
+      "decision": "How are protection, mobility, medical capacity, and mission tempo balanced?",
+      "effect": "Civilian outcomes influence political freedom of action and coalition cohesion.",
+      "facilitator": "Track capacity, not just intent. Good intentions without transport or medical capacity create second-order effects."
+    },
+    {
+      "id": "I-05",
+      "phase": "P2",
+      "time": "D+5",
+      "severity": "HIGH",
+      "title": "Maintenance backlog",
+      "signal": "Reported equipment availability was overstated; several formations cannot sustain their planned tempo.",
+      "decision": "Which missions are reduced, delayed, or resourced first?",
+      "effect": "Combat power becomes a function of maintenance and recovery capacity, not only nominal strength.",
+      "facilitator": "Use the pre-exercise readiness picture to test whether players challenge optimistic reporting."
+    },
+    {
+      "id": "I-06",
+      "phase": "P2",
+      "time": "D+8",
+      "severity": "MEDIUM",
+      "title": "Coalition caveat change",
+      "signal": "A coalition partner changes its authorization for a category of activity after domestic political pressure.",
+      "decision": "How does Blue adapt without losing synchronization or partner trust?",
+      "effect": "Previously assumed capabilities become conditional; coordination time increases.",
+      "facilitator": "Make the caveat precise enough to matter, but avoid turning it into a legal trivia test."
+    },
+    {
+      "id": "I-07",
+      "phase": "P3",
+      "time": "D+14",
+      "severity": "CRITICAL",
+      "title": "Medical capacity threshold",
+      "signal": "Medical facilities approach capacity while replacement and evacuation timelines lengthen.",
+      "decision": "What operational risk is accepted, and what priorities change?",
+      "effect": "Casualty care, morale, public confidence, and force availability interact.",
+      "facilitator": "Do not reduce medical effects to a casualty multiplier. Model delay, capacity, and confidence."
+    },
+    {
+      "id": "I-08",
+      "phase": "P3",
+      "time": "D+18",
+      "severity": "HIGH",
+      "title": "Narrative shock",
+      "signal": "A widely circulated video contradicts the official account of a contested incident.",
+      "decision": "What is reported, when, and with what confidence?",
+      "effect": "Public trust and coalition cohesion shift based on transparency, speed, and credibility.",
+      "facilitator": "Judge the information response as a campaign effect, not merely a public-affairs task."
+    },
+    {
+      "id": "I-09",
+      "phase": "P4",
+      "time": "D+25",
+      "severity": "HIGH",
+      "title": "Fragile ceasefire proposal",
+      "signal": "A ceasefire offer appears while both sides claim the initiative and local conditions remain unstable.",
+      "decision": "What military posture supports the political objective without creating accidental escalation?",
+      "effect": "The campaign transitions from maneuver to leverage, verification, recovery, and risk management.",
+      "facilitator": "A ceasefire is not an automatic end state. Track compliance, incentives, and residual friction."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "M-01",
+      "metric": "Decision quality under uncertainty",
+      "evidence": "Assumptions, confidence levels, collection priorities, and adaptation after new information."
+    },
+    {
+      "id": "M-02",
+      "metric": "Command-and-control resilience",
+      "evidence": "Use of intent, delegation, alternate procedures, reporting discipline, and decision latency."
+    },
+    {
+      "id": "M-03",
+      "metric": "Sustainment awareness",
+      "evidence": "Mission choices reflect fuel, maintenance, medical, personnel, transport, and recovery constraints."
+    },
+    {
+      "id": "M-04",
+      "metric": "Reserve and risk management",
+      "evidence": "Players preserve options, identify culmination indicators, and explain accepted risk."
+    },
+    {
+      "id": "M-05",
+      "metric": "Civilian and political integration",
+      "evidence": "Tactical actions account for civilian harm, essential services, neutral actors, legitimacy, and coalition caveats."
+    },
+    {
+      "id": "M-06",
+      "metric": "Learning and adaptation",
+      "evidence": "The plan changes for a reason, and the reason is traceable to evidence rather than impulse."
+    }
+  ]
+}

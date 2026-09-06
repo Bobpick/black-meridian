@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "title": "U.S. regional planning modules",
+    "version": "0.1-draft",
+    "asOf": "2026-09-06",
+    "warning": "These are broad planning archetypes, not county-level forecasts. Validate them against local data before making decisions."
+  },
+  "regions": [
+    {
+      "id": "pacific-northwest",
+      "label": "Pacific Northwest",
+      "states": "Washington · Oregon · Idaho",
+      "profile": "Coastal, river, mountain, forest, and dense urban systems with long-distance transport dependencies.",
+      "primaryHazards": ["Earthquake", "Tsunami and coastal flooding", "Wildfire and smoke", "Winter weather", "Landslide"],
+      "secondaryHazards": ["Volcanic activity", "Heat wave", "Inland flooding", "Utility outage"],
+      "first72": ["Identify earthquake-safe shelter locations and utility shutoff knowledge.", "Keep water, sanitation, medication, lighting, and charging independent of grid power.", "Have a smoke/air-quality plan and a separate coastal or inland relocation decision.", "Expect bridges, mountain routes, ports, and communications to be condition-dependent."],
+      "days14": ["Plan for pharmacy, fuel, water, and food disruptions without assuming a quick resupply.", "Use two geographically separated family meeting options.", "Track official evacuation zones, road closures, smoke, and water advisories."],
+      "months": ["Prepare for housing, employment, school, insurance, and medical continuity if a regional corridor is disrupted.", "Maintain a resupply relationship outside the immediate neighborhood."],
+      "dependencies": ["Power and water", "Bridges and mountain passes", "Ports, rail, and interstate corridors", "Air quality and medical capacity"],
+      "validation": ["FEMA National Risk Index at county and tract level", "State and county emergency-management plans", "USGS earthquake and volcano information", "NOAA and National Weather Service alerts"]
+    },
+    {
+      "id": "california-great-basin",
+      "label": "California & Great Basin",
+      "states": "California · Nevada · western Utah",
+      "profile": "Large urban corridors, drought and heat exposure, wildfire interfaces, mountain passes, and complex water and power dependencies.",
+      "primaryHazards": ["Earthquake", "Wildfire", "Heat wave", "Drought", "Inland and coastal flooding"],
+      "secondaryHazards": ["Landslide", "Winter weather", "Tsunami", "Smoke and air-quality disruption"],
+      "first72": ["Separate wildfire evacuation planning from earthquake shelter-in-place planning.", "Build for heat and smoke when grid power or cooling is unavailable.", "Keep multiple routes and a fuel decision rule; do not depend on one pass, freeway, or bridge.", "Protect medication, documents, water, and communication devices from heat and power loss."],
+      "days14": ["Plan for water, cooling, fuel, and pharmacy constraints.", "Designate an out-of-area contact and a backup household location.", "Pre-decide when to leave before official routes become congested."],
+      "months": ["Model insurance, housing, employment, and long-term displacement options.", "Map alternate medical providers and supply sources outside the affected corridor."],
+      "dependencies": ["Electricity and cooling", "Water systems", "Freeways, mountain passes, and fuel", "Telecom and public alerting"],
+      "validation": ["FEMA National Risk Index", "USGS earthquake information", "CAL FIRE or relevant state fire agencies", "State and county emergency-management guidance"]
+    },
+    {
+      "id": "southwest",
+      "label": "Southwest",
+      "states": "Arizona · New Mexico · southern Nevada · west Texas",
+      "profile": "Heat, drought, long distances, water constraints, wildfire, and concentrated urban infrastructure.",
+      "primaryHazards": ["Extreme heat", "Drought", "Wildfire", "Flash flooding", "Dust and smoke"],
+      "secondaryHazards": ["Winter storm", "Earthquake", "Severe thunderstorm", "Infrastructure outage"],
+      "first72": ["Treat water, cooling, and power as linked life-safety dependencies.", "Keep a shaded or climate-controlled fallback location in mind.", "Plan vehicle, fuel, and communications around long distances.", "Use official heat, air-quality, and flood alerts rather than visual judgment alone."],
+      "days14": ["Plan for refrigeration, medication, water refill, and cooling-center access.", "Identify a second route and a second destination outside the local utility footprint.", "Account for outdoor workers, older adults, children, and pets."],
+      "months": ["Model employment, water restrictions, housing, and medical continuity.", "Maintain a resupply option in a different watershed or utility area where practical."],
+      "dependencies": ["Power and cooling", "Water and wastewater", "Fuel and long-distance roads", "Medical and communications access"],
+      "validation": ["FEMA National Risk Index", "National Weather Service heat and flood products", "State water and emergency-management agencies", "County public-health guidance"]
+    },
+    {
+      "id": "rockies-high-plains",
+      "label": "Rockies & High Plains",
+      "states": "Montana · Wyoming · Colorado · Utah · western Dakotas · eastern Idaho",
+      "profile": "Mountain and rural access constraints, severe winter, wildfire, drought, long travel distances, and transportation chokepoints.",
+      "primaryHazards": ["Winter weather", "Wildfire", "Drought", "Severe thunderstorm", "Avalanche and landslide"],
+      "secondaryHazards": ["Flooding", "Extreme cold", "Heat wave", "Earthquake"],
+      "first72": ["Plan for isolation and blocked roads rather than assuming nearby services remain reachable.", "Keep heat, water, communications, and vehicle readiness independent of one system.", "Monitor fire, weather, road, and avalanche information as separate inputs.", "Prepare for livestock, pets, and rural medical-distance problems where applicable."],
+      "days14": ["Keep a resupply and medical plan for prolonged road closures.", "Identify a warm, powered fallback location.", "Use redundant navigation and contact methods."],
+      "months": ["Model employment, housing, school, and medical relocation if a corridor remains closed.", "Build relationships with neighboring households and local emergency managers."],
+      "dependencies": ["Roads and passes", "Heating fuel and power", "Rural medical access", "Telecom and weather information"],
+      "validation": ["FEMA National Risk Index", "State DOT road conditions", "National Weather Service winter products", "County and tribal emergency-management plans"]
+    },
+    {
+      "id": "great-plains-midwest",
+      "label": "Great Plains & Midwest",
+      "states": "Nebraska · Kansas · Oklahoma · Iowa · Missouri · Minnesota · Wisconsin · Illinois · Indiana · Michigan · Ohio",
+      "profile": "Severe weather, river and lake systems, winter conditions, agricultural and rail dependencies, and large geographic exposure.",
+      "primaryHazards": ["Tornado and severe thunderstorm", "River and inland flooding", "Winter weather", "Extreme heat and cold", "Hail and strong wind"],
+      "secondaryHazards": ["Drought", "Wildfire and smoke", "Earthquake", "Industrial or transportation disruption"],
+      "first72": ["Have a safe-room or shelter plan and a way to receive warnings when power or cellular service is impaired.", "Prepare for simultaneous power, road, and water interruptions.", "Keep weather radio or another independent alert path.", "Know which local roads flood, close, or become impassable."],
+      "days14": ["Plan for fuel, food, pharmacy, and payment disruption after a major storm.", "Use an out-of-area contact because local networks may be overloaded.", "Account for seasonal heating or cooling needs."],
+      "months": ["Model housing, employment, school, crop or food-system effects, and insurance recovery.", "Identify alternate regional supply and medical centers."],
+      "dependencies": ["Electricity and heating/cooling", "Rail, highways, and bridges", "Water and wastewater", "Medical and agricultural supply chains"],
+      "validation": ["FEMA National Risk Index", "National Weather Service severe-weather products", "State and county emergency-management plans", "Local floodplain and shelter information"]
+    },
+    {
+      "id": "gulf-southeast",
+      "label": "Gulf Coast & Southeast",
+      "states": "Texas Gulf · Louisiana · Mississippi · Alabama · Georgia · Florida · South Carolina · North Carolina · Tennessee",
+      "profile": "Hurricanes, storm surge, inland flooding, heat, dense coastal infrastructure, and long recovery timelines.",
+      "primaryHazards": ["Hurricane and storm surge", "Inland flooding", "Extreme heat", "Tornado and severe thunderstorm", "Wildfire"],
+      "secondaryHazards": ["Drought", "Winter storm", "Coastal erosion", "Power outage"],
+      "first72": ["Decide early whether the plan is shelter, local relocation, or evacuation; waiting reduces options.", "Protect documents, medications, water, communications, and vehicle fuel.", "Use official evacuation zones and routes, not informal map shortcuts.", "Prepare for heat and humidity if power fails."],
+      "days14": ["Plan for fuel scarcity, water advisories, pharmacy interruptions, and debris-blocked roads.", "Have a destination outside the hazard and a way to verify it is open.", "Account for mold, heat, medical access, and pets after the immediate event."],
+      "months": ["Model displacement, insurance, housing, employment, school, and long-term medical needs.", "Keep records and resupply contacts outside the affected coastal area."],
+      "dependencies": ["Power and fuel", "Ports, roads, and bridges", "Water and wastewater", "Medical and pharmacy networks"],
+      "validation": ["FEMA National Risk Index", "National Hurricane Center and National Weather Service", "State evacuation-zone maps", "County emergency-management guidance"]
+    },
+    {
+      "id": "mid-atlantic-northeast",
+      "label": "Mid-Atlantic & Northeast",
+      "states": "Virginia · Maryland · Delaware · District of Columbia · Pennsylvania · New Jersey · New York · New England",
+      "profile": "Dense population, coastal and river exposure, aging infrastructure, winter weather, heat, and high interdependence between metro systems.",
+      "primaryHazards": ["Coastal storm and flooding", "Winter weather", "Extreme heat", "River flooding", "Severe thunderstorm"],
+      "secondaryHazards": ["Hurricane remnants", "Earthquake", "Landslide", "Power and transit outage"],
+      "first72": ["Plan for sheltering in dense housing and loss of elevators, transit, water pressure, or communications.", "Keep a walkable local option and an out-of-area contact.", "Separate flood, storm, winter, and heat plans; they create different movement constraints.", "Protect medication, cash, documents, and charging access."],
+      "days14": ["Plan for transit, fuel, pharmacy, childcare, and building-access disruption.", "Identify alternate work, school, and medical arrangements.", "Use official emergency alerts and local authority guidance."],
+      "months": ["Model housing, employment, school, insurance, and medical displacement.", "Consider the effects of regional congestion and limited hotel capacity."],
+      "dependencies": ["Electricity, heating, and water pressure", "Transit, bridges, tunnels, and roads", "Telecom and dense-building access", "Medical and pharmacy networks"],
+      "validation": ["FEMA National Risk Index", "State and city emergency-management plans", "National Weather Service coastal and winter products", "Local transit and utility outage information"]
+    },
+    {
+      "id": "alaska",
+      "label": "Alaska",
+      "states": "Alaska",
+      "profile": "Large distances, limited road connectivity, severe cold, earthquake and tsunami exposure, aviation and marine dependencies.",
+      "primaryHazards": ["Earthquake", "Tsunami", "Extreme cold", "Winter weather", "Volcanic activity"],
+      "secondaryHazards": ["Wildfire", "Flooding", "Landslide", "Supply-chain interruption"],
+      "first72": ["Prioritize heat, water, shelter, communications, and location-specific evacuation knowledge.", "Assume that roads, ports, or aircraft may be unavailable.", "Keep a local plan and a remote-contact plan.", "Account for cold-weather medical and vehicle risks."],
+      "days14": ["Plan for air and marine resupply delay, fuel, medication, and heating needs.", "Maintain more than one communications method where feasible.", "Coordinate with local, tribal, and state emergency-management guidance."],
+      "months": ["Model seasonal access, relocation, employment, schooling, and medical evacuation.", "Treat resupply distance as a primary planning variable."],
+      "dependencies": ["Heating fuel and power", "Air and marine transport", "Communications", "Local medical and shelter capacity"],
+      "validation": ["FEMA National Risk Index where available", "Alaska state and local emergency-management guidance", "USGS and NOAA earthquake/tsunami information", "National Weather Service Alaska products"]
+    },
+    {
+      "id": "hawaii-pacific",
+      "label": "Hawaii & Pacific territories",
+      "states": "Hawaii · U.S. Pacific territories",
+      "profile": "Island and remote logistics, volcanic and tsunami exposure, hurricanes, wildfire, limited redundancy, and dependence on maritime and air supply.",
+      "primaryHazards": ["Tsunami", "Volcanic activity", "Hurricane and tropical storm", "Wildfire", "Earthquake"],
+      "secondaryHazards": ["Landslide", "Flooding", "Heat", "Maritime and air-supply disruption"],
+      "first72": ["Know local evacuation zones and vertical or inland options where applicable.", "Treat water, power, fuel, communications, and medical access as linked dependencies.", "Keep a plan for island-specific movement restrictions.", "Use local official alerts and do not rely on mainland assumptions."],
+      "days14": ["Plan for maritime and air resupply delay, pharmacy continuity, and fuel scarcity.", "Maintain local mutual-aid contacts and an out-of-area communications contact.", "Protect documents and medical supplies from heat, moisture, and displacement."],
+      "months": ["Model long-distance relocation, housing, employment, schooling, and medical continuity.", "Treat transportation availability as a strategic constraint."],
+      "dependencies": ["Ports and airports", "Water and power", "Fuel and food imports", "Medical and communications capacity"],
+      "validation": ["FEMA National Risk Index where available", "Local and state emergency-management guidance", "NOAA tsunami and tropical products", "USGS volcano and earthquake information"]
+    }
+  ],
+  "sharedSources": [
+    {"name":"FEMA National Risk Index","url":"https://www.fema.gov/about/openfema/data-sets/national-risk-index-data"},
+    {"name":"Ready.gov","url":"https://www.ready.gov/"},
+    {"name":"NOAA / National Weather Service","url":"https://www.weather.gov/"},
+    {"name":"USGS Hazards","url":"https://www.usgs.gov/natural-hazards"}
+  ]
+}

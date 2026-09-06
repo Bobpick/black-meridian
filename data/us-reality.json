@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "U.S. reality layer",
+    "asOf": "2026-09-06",
+    "scope": "Public, aggregate, United States national baseline",
+    "warning": "Authorized end strength is not the same as deployed strength, readiness, availability, or local response capacity."
+  },
+  "activeComponent": [
+    {"service":"Army","authorizedEndStrength":454000,"display":"454,000"},
+    {"service":"Navy","authorizedEndStrength":344600,"display":"344,600"},
+    {"service":"Marine Corps","authorizedEndStrength":172300,"display":"172,300"},
+    {"service":"Air Force","authorizedEndStrength":321500,"display":"321,500"},
+    {"service":"Space Force","authorizedEndStrength":10400,"display":"10,400"}
+  ],
+  "selectedReserve": [
+    {"service":"Army National Guard","authorizedEndStrength":328000,"display":"328,000"},
+    {"service":"Army Reserve","authorizedEndStrength":172000,"display":"172,000"},
+    {"service":"Air National Guard","authorizedEndStrength":106300,"display":"106,300"},
+    {"service":"Air Force Reserve","authorizedEndStrength":67500,"display":"67,500"},
+    {"service":"Navy Reserve","authorizedEndStrength":57500,"display":"57,500"},
+    {"service":"Marine Corps Reserve","authorizedEndStrength":33600,"display":"33,600"}
+  ],
+  "realityChecks": [
+    {"title":"End strength is a ceiling or authorization","text":"It is a personnel-strength figure for a fiscal year, not a count of units ready to deploy immediately or a prediction of what can be committed to a particular crisis."},
+    {"title":"Readiness is distributed unevenly","text":"Training cycles, maintenance, personnel availability, prepositioning, geography, and mission assignments matter more than a national personnel total for a specific event."},
+    {"title":"Domestic response has legal and political constraints","text":"Federal, state, territorial, and local authorities have different roles. Reserve and National Guard availability can change with mobilization, existing missions, and state authority."},
+    {"title":"Civilian effects are infrastructure-mediated","text":"For households, the practical pathway is usually through power, water, fuel, communications, health care, payments, transportation, and supply chains—not a simple battlefield front line."}
+  ],
+  "horizons": [
+    {"label":"0–72 hours","title":"Immediate continuity","items":["Shelter or safe relocation decision", "Water, food, medications, sanitation, light, charging", "Family contact tree and meeting points", "Official alerts and information verification"]},
+    {"label":"Days 4–14","title":"Extended disruption","items":["Fuel and transportation limits", "Pharmacy and medical continuity", "Cash/payment and supply-chain friction", "Work, school, pets, and dependent-care contingencies"]},
+    {"label":"Weeks to months","title":"Recovery and displacement","items":["Housing and insurance documentation", "Employment and income continuity", "Long-term health and mental-health care", "Resupply, relocation, and community support"]}
+  ],
+  "sources": [
+    {"name":"Congressional Research Service — FY2026 NDAA: Active Component End-Strength","url":"https://www.congress.gov/crs-product/IN12651","use":"FY2026 authorized active-component figures; published February 6, 2026."},
+    {"name":"Congressional Research Service — FY2026 NDAA: Reserve Component End-Strength","url":"https://www.congress.gov/crs-product/IN12652","use":"FY2026 selected-reserve figures and reserve-force caveats; published February 6, 2026."},
+    {"name":"FEMA National Risk Index Data","url":"https://www.fema.gov/about/openfema/data-sets/national-risk-index-data","use":"County and Census-tract baseline for 18 natural hazards, social vulnerability, and community resilience."},
+    {"name":"Ready.gov — Build a Kit","url":"https://www.ready.gov/kit","use":"Official household supply and continuity baseline, including water, food, light, communications, medication, and pet needs."},
+    {"name":"CISA — Public Safety Communications Resiliency","url":"https://www.cisa.gov/news-events/news/public-safety-communications-resiliency-ten-keys-obtaining-resilient-local-access-network","use":"Communications resilience concepts: route diversity, redundancy, and protective/restorative measures."}
+  ]
+}
