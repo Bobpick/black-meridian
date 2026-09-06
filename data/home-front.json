@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "Home-front session",
-    "version": "0.2",
+    "version": "0.3",
     "date": "2026-09-06",
-    "purpose": "Help a free preparedness group practice continuity when a distant high-end war degrades services at home.",
+    "purpose": "Help a free U.S. preparedness group practice continuity when a Taiwan Strait crisis degrades services at home.",
     "licenseNote": "BLACK MERIDIAN is free. The intended outcome is living people and closed planning gaps, not a product sale."
   },
   "ethics": [
@@ -21,7 +21,7 @@
     { "id": "civil", "title": "Civil picture", "job": "Track power, water, fuel, comms, medical access, and payments as effects on people, not as attack surfaces." }
   ],
   "session": [
-    { "minutes": "0–10", "title": "Boundary and region", "do": "Read the ethics list. Pick one U.S. planning region. State that the overseas campaign is fictional context." },
+    { "minutes": "0–10", "title": "Boundary and region", "do": "Read the ethics list. Pick one U.S. planning region. State that named countries are a public scenario frame, not a forecast or a targeting board." },
     { "minutes": "10–25", "title": "Baselines", "do": "Each household fills the planner. Mutual-aid cell records surplus and shortages without addresses." },
     { "minutes": "25–70", "title": "Four home-front injects", "do": "Run H-01, H-03, H-04, and H-05 (or swap H-02 / H-06). After each inject, every household answers: stay, move, share, or wait — and why." },
     { "minutes": "70–90", "title": "Close three gaps", "do": "Group picks three high-consequence gaps to close in the next 14 days. Export the session log." }
@@ -34,7 +34,7 @@
       "severity": "HIGH",
       "title": "Warning without certainty",
       "theaterLink": "I-01",
-      "theater": "Overseas: intelligence streams disagree on whether open conflict is coming.",
+      "theater": "Taiwan Strait: open-source and official U.S. statements disagree on whether PLA activity is coercion, an exercise, or open conflict.",
       "home": "News and social feeds disagree. Stores are still open. Neighbors ask what you are doing. Nothing official has ordered you to leave.",
       "decision": "What does each household do in the next 24 hours without treating rumor as fact?",
       "effect": "Early choices spend cash, fuel, attention, and trust. Panic buying can empty a town faster than a real shortage.",
@@ -48,7 +48,7 @@
       "severity": "MEDIUM",
       "title": "Movement gets expensive",
       "theaterLink": "I-02",
-      "theater": "Overseas: a neutral actor limits military transit and asks for humanitarian guarantees.",
+      "theater": "Japan, the Philippines, or insurers limit transit and raise rates on Taiwan-adjacent shipping. Chip and energy cargoes slip.",
       "home": "Fuel prices jump. Some long-haul goods arrive late. A relative in another region wants a ride or a spare room. Roads are open.",
       "decision": "Do you travel, host, stay put, or split the household? What is the fuel and cash limit?",
       "effect": "Distance becomes a resource. Unwritten hosting rules create conflict inside the group.",
@@ -62,7 +62,7 @@
       "severity": "CRITICAL",
       "title": "Phones and data go ugly",
       "theaterLink": "I-03",
-      "theater": "Overseas: reporting channels become intermittent and contradictory.",
+      "theater": "Cable congestion, cyber noise, and overloaded U.S. networks make official guidance late. Some channels still work.",
       "home": "Cellular data is congested. Some texts go through hours late. Television and a weather radio still work. Rumors fill the gap.",
       "decision": "How does the group check on each other tonight if apps fail? Who is the out-of-area relay?",
       "effect": "Untested backup comms are not comms. Isolated people make worse shelter and medical choices.",
@@ -76,7 +76,7 @@
       "severity": "HIGH",
       "title": "Clinics and pharmacies slow down",
       "theaterLink": "I-04",
-      "theater": "Overseas: civilian displacement strains transport and medical networks.",
+      "theater": "Taiwan and nearby ports face civilian movement. U.S. clinics and pharmacies begin to slow.",
       "home": "Routine appointments slip. A pharmacy is out of one common medication. Emergency rooms are busy. Power is still mostly on.",
       "decision": "Who in the group has a time-critical medical need, and what is the 14-day workaround that does not require a hospital?",
       "effect": "Medical delay, not battlefield injury, is how many households fail first.",
@@ -90,7 +90,7 @@
       "severity": "HIGH",
       "title": "Pay, fuel, and restock lag",
       "theaterLink": "I-05",
-      "theater": "Overseas: maintenance and sustainment were overstated; tempo cannot be kept.",
+      "theater": "U.S. and partner magazine depth, tankers, and industrial surge look oversold. Tempo cannot be kept.",
       "home": "Card payments flake at some stores. Cash still works. One grocer is short on staples. Fuel is available with longer lines. Work schedules slip.",
       "decision": "What does the group share, what do they not share, and how many days of water and food remain after helping?",
       "effect": "Mutual aid without a floor bankrupts the givers. Hoarding without a neighbor plan isolates the takers.",
@@ -104,7 +104,7 @@
       "severity": "HIGH",
       "title": "The story and the bill",
       "theaterLink": "I-08",
-      "theater": "Overseas: a viral video contradicts the official account of a contested incident.",
+      "theater": "A viral video of a contested incident near Taiwan contradicts official U.S. and PRC accounts.",
       "home": "Local arguments get bitter. Insurance, rent, and work paperwork still matter. Some people want to relocate; others cannot. Officials ask the public to ignore unverified clips.",
       "decision": "What sources will this group trust, and what 30-day housing / income / care plan survives if the argument never resolves?",
       "effect": "Narrative shock splits groups that never wrote a recovery plan.",

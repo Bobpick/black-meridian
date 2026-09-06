@@ -1,12 +1,12 @@
 # Exercise BLACK MERIDIAN
 
-**A free, portable, offline HTML tabletop for preparedness groups: a fictional overseas campaign coupled to home-front continuity so people practice living through service failures—not selling a product.**
+**A free, portable, offline HTML tabletop for U.S. preparedness groups: a Taiwan Strait public scenario (United States, China, Taiwan, partners) coupled to home-front continuity so people practice living through service failures.**
 
 [Open the dashboard](index.html) · [Read the instruction manual](instruction-manual.html)
 
 ![BLACK MERIDIAN — I need to play this game to protect my family](assets/black-meridian-poster.png)
 
-> **Important boundary:** BLACK MERIDIAN is a fictional synthetic exercise. Its countries, forces, geography, campaign events, and military decisions are invented. The U.S. reference layer uses public aggregate information for context. This project is not an intelligence product, threat warning, operational plan, targeting tool, evacuation order, or personal safety guarantee.
+> **Important boundary:** Countries are real. Campaign events, injects, and force bands are invented. This is a publicly discussed Taiwan Strait planning frame for U.S. household continuity. It is not an intelligence product, threat warning, forecast, operational plan, targeting tool, evacuation order, or personal safety guarantee. Do not use it to identify real bases, plants, ships, or hospitals as targets.
 
 ## Overview
 
@@ -14,7 +14,7 @@ BLACK MERIDIAN is free. The intended outcome is closed planning gaps and living 
 
 - A 90-minute **home-front session** that couples each campaign phase to a civilian effect (comms, medicine, fuel, payments, rumor)
 - Group roster by callsign, mutual-aid roles, and a hard cap of three 14-day commitments
-- A fictional high-end conventional campaign simulation
+- A named Taiwan Strait campaign frame (U.S., PRC, Taiwan, Japan/Philippines/shipping as gray) with invented events
 - Tactical commander decision records
 - Fog-of-war and adjudication concepts
 - Public-source U.S. force-scale context
@@ -31,7 +31,7 @@ The project is intentionally **operating-system agnostic**. It uses static HTML,
 - 90-minute clock: ethics, baselines, four injects, three commitments
 - Group roles: facilitator, households, mutual-aid, information, civil picture
 - Callsign roster (no names or addresses)
-- Six civilian injects coupled to the fictional campaign (H-01–H-06)
+- Six civilian injects coupled to the Taiwan Strait campaign (H-01–H-06)
 - Recommended path H-01, H-03, H-04, H-05
 - Hard cap of three 14-day commitments, each requiring a test
 - Session-log export
@@ -39,7 +39,7 @@ The project is intentionally **operating-system agnostic**. It uses static HTML,
 ### Fictional campaign dashboard
 
 - Exercise brief and commander’s problem
-- Abstract fictional theater schematic
+- Abstract Taiwan Strait schematic (not a targeting map)
 - Five-phase campaign timeline from D-10 through D+45
 - Blue, Red, and Gray force-posture summaries
 - Fog-of-war and adjudication model
@@ -165,7 +165,7 @@ The browser cannot reliably write directly into an arbitrary folder when an HTML
 
 The editable reference files are in `data/`:
 
-- `scenario.json` — fictional campaign data
+- `scenario.json` — Taiwan Strait public-scenario campaign data
 - `home-front.json` — 90-minute home-front session and coupled injects
 - `us-reality.json` — public-source U.S. context
 - `us-regions.json` — regional planning modules
@@ -197,7 +197,7 @@ These links are starting points. Local emergency-management agencies, utilities,
 
 ## Design principles
 
-- **Fiction before false precision:** The military campaign is fictional and deliberately abstract.
+- **Names without targeting:** Use real countries so the shock is believable. Keep events invented and effects-only.
 - **Separate facts from assumptions:** Public data and scenario assumptions are not the same thing.
 - **Model effects, not just force totals:** Civilian outcomes are shaped by power, water, fuel, communications, medical care, transportation, and supply chains.
 - **Use multiple horizons:** Immediate continuity, extended disruption, and recovery require different decisions.
@@ -218,7 +218,7 @@ For an immediate real-world emergency, follow official alerts and contact local 
 
 ## Project status
 
-**Version:** 0.2  
+**Version:** 0.3  
 **Date:** 2026-09-06  
 **Format:** Static offline web application  
 **Build step:** None required

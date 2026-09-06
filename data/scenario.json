@@ -1,68 +1,68 @@
 {
   "meta": {
     "title": "Exercise BLACK MERIDIAN",
-    "subtitle": "Synthetic campaign simulation",
-    "version": "0.2",
+    "subtitle": "Taiwan Strait public-scenario frame · U.S. home-front tabletop",
+    "version": "0.3",
     "date": "2026-09-06",
-    "classification": "FICTIONAL TRAINING MATERIAL",
-    "audience": "Battalion and brigade tactical commanders",
+    "classification": "UNCLASSIFIED TRAINING MATERIAL · NOT A FORECAST",
+    "audience": "U.S. preparedness groups; optional staff play",
     "duration": "45 simulated days",
-    "scope": "High-end conventional conflict with strategic coercion modeled at policy level"
+    "scope": "A publicly discussed high-end Taiwan Strait crisis used only as context for U.S. household continuity. Campaign events are invented. No real units, bases, or targeting data."
   },
-  "mission": "Preserve Lydora's freedom of action, sustain coalition cohesion, maintain essential services, and create conditions for a favorable negotiated outcome without exhausting the force.",
+  "mission": "Keep U.S. households functioning while a Taiwan Strait crisis shocks shipping, energy, electronics, communications, and mobilization. Preserve Taiwan's political survival and U.S.–partner cohesion without exhausting the force or treating this dashboard as a war plan.",
   "forces": [
     {
       "side": "BLUE",
-      "title": "Lydoran Defense Force and coalition support",
-      "role": "Defend the Republic of Lydora while integrating coalition formations under political and logistical constraints.",
-      "status": "Uneven readiness",
+      "title": "Taiwan, the United States, and partners",
+      "role": "Prevent a rapid fait accompli against Taiwan, keep sea and air lines of communication usable, and avoid uncontrolled escalation—while the U.S. home front absorbs economic and service shock.",
+      "status": "Uneven readiness · political timelines differ",
       "capabilities": [
-        "Two maneuver brigades at different readiness levels",
-        "Territorial defense formations with strong local knowledge",
-        "Coalition intelligence, air, maritime, engineer, and sustainment support",
-        "Protected humanitarian and logistics corridor"
+        "Taiwan territorial defense and local knowledge",
+        "U.S. and partner intelligence, air, maritime, and logistics support at a notional level",
+        "Humanitarian and commercial corridor diplomacy",
+        "Domestic U.S. National Guard and civil-support capacity that is not instantly available everywhere"
       ],
       "constraints": [
-        "Slow coalition force generation",
-        "Competing civilian protection requirements",
-        "Partner caveats and differing political timelines",
-        "Limited redundancy in communications and transportation"
+        "Distance, tanker and magazine depth, and slow force generation",
+        "Partner caveats and differing political clocks",
+        "U.S. domestic demand for fuel, medicine, chips, and transport",
+        "No targeting data in this exercise: effects only"
       ]
     },
     {
       "side": "RED",
-      "title": "Karsic Federation",
-      "role": "Force a rapid political settlement by creating military and political facts before Blue can synchronize its response.",
+      "title": "People's Republic of China",
+      "role": "Force a rapid political settlement over Taiwan before the United States and partners can synchronize a durable response.",
       "status": "High initial initiative",
       "capabilities": [
-        "Three maneuver groupings with a theater reserve",
-        "Integrated information, electronic, and intelligence activity",
+        "Large conventional force and theater reserve, described only as capability bands",
+        "Integrated information, electronic, and economic pressure",
         "Strong opening tempo and centralized political direction",
-        "Local proxy and coercive networks"
+        "Ability to shock global shipping and supply chains without this tool specifying how"
       ],
       "constraints": [
-        "Limited ability to sustain a prolonged campaign",
-        "Internal competition between military and political actors",
+        "Cost of a long campaign and domestic political risk",
         "Escalation risk if objectives expand",
-        "Reliance on rapid results and narrative control"
+        "Reliance on speed and narrative control",
+        "This exercise does not model PRC targeting or U.S. counter-targeting"
       ]
     },
     {
       "side": "GRAY",
-      "title": "Merenne, civil authorities, and humanitarian actors",
-      "role": "Protect sovereignty, essential services, civilian populations, and access while avoiding entry into the war.",
-      "status": "Politically fragile",
+      "title": "Japan, the Philippines, commercial shipping, and humanitarian actors",
+      "role": "Protect their own people and ports, keep or limit transit, and avoid being dragged into a wider war.",
+      "status": "Politically exposed",
       "capabilities": [
-        "Control over key transit permissions",
+        "Control over key transit, basing permissions, and port access as political choices—not as a target list",
         "Civil emergency and public-health networks",
         "Independent media and local legitimacy",
         "Humanitarian access and mediation channels"
       ],
       "constraints": [
-        "Pressure from both belligerents",
-        "Limited security capacity",
-        "Infrastructure overload",
-        "Domestic political divisions"
+        "Pressure from Washington and Beijing",
+        "Domestic political divisions",
+        "Infrastructure and refugee overload",
+        "Commercial shipping will reroute or halt for insurance and safety, not patriotism"
       ]
     }
   ],
@@ -72,35 +72,35 @@
       "label": "PHASE 0",
       "window": "D-10 to D-1",
       "title": "Strategic warning",
-      "purpose": "Test whether commanders can prepare without a complete intelligence picture or clear political authorization.",
-      "decisions": ["Force posture", "Readiness and reserve", "Civil coordination", "Assumption management"],
-      "stressors": ["Ambiguous warning", "Political pressure", "Infrastructure disruption"]
+      "purpose": "Test whether U.S. groups and any staff players can prepare without a complete picture or a presidential speech that settles the argument.",
+      "decisions": ["Household posture", "Readiness and reserve", "Civil coordination", "Assumption management"],
+      "stressors": ["Ambiguous warning", "Market and fuel spikes", "Information overload"]
     },
     {
       "id": "P1",
       "label": "PHASE 1",
       "window": "D+0 to D+3",
       "title": "Opening crisis",
-      "purpose": "Force tactical headquarters to operate while the situation, authority, and adversary intent remain unclear.",
-      "decisions": ["Initial mission execution", "Reporting confidence", "Communications fallback", "Protection priorities"],
-      "stressors": ["Degraded C2", "Conflicting reports", "Civilian displacement"]
+      "purpose": "Force decisions while Taiwan, Beijing, and Washington issue incomplete, conflicting accounts.",
+      "decisions": ["Stay or move", "Reporting confidence", "Communications fallback", "Protection priorities"],
+      "stressors": ["Degraded comms", "Conflicting reports", "Shipping and insurance shock"]
     },
     {
       "id": "P2",
       "label": "PHASE 2",
       "window": "D+4 to D+10",
       "title": "Main campaign",
-      "purpose": "Create resource competition between maneuver, protection, sustainment, and political objectives.",
-      "decisions": ["Main effort", "Sustainment priority", "Reserve employment", "Risk acceptance"],
-      "stressors": ["Maintenance backlog", "Transportation friction", "Coalition caveats"]
+      "purpose": "Create resource competition between overseas demand and U.S. home-front fuel, medicine, and transport.",
+      "decisions": ["Main effort", "Sustainment priority", "What the group will share", "Risk acceptance"],
+      "stressors": ["Maintenance and magazine depth", "Transportation friction", "Partner caveats"]
     },
     {
       "id": "P3",
       "label": "PHASE 3",
       "window": "D+11 to D+21",
       "title": "Culmination and adaptation",
-      "purpose": "Test whether commanders recognize cumulative degradation and can change the plan before the force culminates.",
-      "decisions": ["Branch and sequel", "Force regeneration", "Mission reprioritization", "Legitimacy protection"],
+      "purpose": "Test whether players recognize cumulative degradation at home and abroad before households and forces culminate.",
+      "decisions": ["Branch and sequel", "Force and household regeneration", "Mission reprioritization", "Legitimacy protection"],
       "stressors": ["Readiness decline", "Medical capacity", "Information contest"]
     },
     {
@@ -108,7 +108,7 @@
       "label": "PHASE 4",
       "window": "D+22 to D+45",
       "title": "Strategic endgame",
-      "purpose": "Link tactical outcomes to negotiation, escalation management, civilian recovery, and coalition cohesion.",
+      "purpose": "Link any ceasefire or stalemate to U.S. recovery: work, housing, medicine, and trust.",
       "decisions": ["Ceasefire posture", "Negotiation leverage", "Essential services", "Escalation control"],
       "stressors": ["Political divergence", "Premature victory claims", "Fragile ceasefire"]
     }
@@ -120,21 +120,21 @@
       "time": "D-8",
       "severity": "HIGH",
       "title": "Contradictory warning",
-      "signal": "Two intelligence streams disagree on whether Karsic activity is preparation for coercion or for open conflict.",
-      "decision": "What level of readiness is justified, and what assumptions must be made explicit?",
-      "effect": "Readiness posture changes future response time, political exposure, and sustainment burden.",
-      "facilitator": "Do not resolve the ambiguity immediately. Reward explicit confidence levels and collection priorities."
+      "signal": "Open-source and official U.S. statements disagree on whether PLA activity around Taiwan is coercion, exercise, or preparation for open conflict.",
+      "decision": "What level of household and group readiness is justified, and which assumptions must be written down?",
+      "effect": "Early posture spends cash, fuel, and trust. Treating rumor as certainty empties shelves before any shot.",
+      "facilitator": "Do not resolve the ambiguity. Reward confidence labels. Do not discuss attacking PRC or U.S. systems."
     },
     {
       "id": "I-02",
       "phase": "P0",
       "time": "D-5",
       "severity": "MEDIUM",
-      "title": "Transit restriction",
-      "signal": "Merenne announces temporary limits on military transit while requesting humanitarian guarantees.",
-      "decision": "How will Blue preserve access without turning a neutral actor into an adversary?",
-      "effect": "Movement and sustainment options narrow; political legitimacy becomes a resource.",
-      "facilitator": "Model Merenne as an independent actor with domestic politics, not as a passive map feature."
+      "title": "Transit and insurance squeeze",
+      "signal": "A regional government tightens military-related transit. Commercial insurers raise rates on Taiwan-adjacent shipping. Chip and energy cargoes slip.",
+      "decision": "How do Blue and U.S. households adapt without treating a neighbor as an enemy or a warehouse as a target?",
+      "effect": "Prices and delays hit the U.S. home front before any local blast.",
+      "facilitator": "Name Japan or the Philippines as political actors, not as bases to seize. Talk delays and prices."
     },
     {
       "id": "I-03",
@@ -142,43 +142,43 @@
       "time": "D+1",
       "severity": "CRITICAL",
       "title": "Communications fracture",
-      "signal": "Several reporting channels become intermittent. Units receive delayed or contradictory guidance.",
-      "decision": "Which authorities and procedures remain valid when connectivity is unreliable?",
-      "effect": "Decision latency rises; local initiative and previously communicated intent become decisive.",
-      "facilitator": "Apply different delays to different channels. Do not make every network fail identically."
+      "signal": "Undersea-cable congestion, cyber noise, and overloaded U.S. cellular networks make official guidance late or contradictory. Some channels still work.",
+      "decision": "Which authorities and family procedures remain valid when apps fail?",
+      "effect": "Decision latency rises. Untested backup comms are not comms.",
+      "facilitator": "Model uneven failure. Do not teach how to cut cables or attack networks."
     },
     {
       "id": "I-04",
       "phase": "P1",
       "time": "D+2",
       "severity": "HIGH",
-      "title": "Civilian displacement surge",
-      "signal": "A large civilian movement reaches an already strained transport and medical network.",
-      "decision": "How are protection, mobility, medical capacity, and mission tempo balanced?",
-      "effect": "Civilian outcomes influence political freedom of action and coalition cohesion.",
-      "facilitator": "Track capacity, not just intent. Good intentions without transport or medical capacity create second-order effects."
+      "title": "Displacement and medical strain",
+      "signal": "Taiwan and nearby ports face civilian movement. In the United States, some clinics and pharmacies slow as supply and staffing wobble.",
+      "decision": "How are protection, mobility, and medical continuity balanced without a hospital-as-target discussion?",
+      "effect": "Medical delay is how many U.S. households fail first.",
+      "facilitator": "No real hospital names. Status only: confirmed / partial / none."
     },
     {
       "id": "I-05",
       "phase": "P2",
       "time": "D+5",
       "severity": "HIGH",
-      "title": "Maintenance backlog",
-      "signal": "Reported equipment availability was overstated; several formations cannot sustain their planned tempo.",
-      "decision": "Which missions are reduced, delayed, or resourced first?",
-      "effect": "Combat power becomes a function of maintenance and recovery capacity, not only nominal strength.",
-      "facilitator": "Use the pre-exercise readiness picture to test whether players challenge optimistic reporting."
+      "title": "Sustainment was oversold",
+      "signal": "Public claims of U.S. and partner magazine depth, tanker availability, and industrial surge look optimistic. Tempo cannot be kept.",
+      "decision": "Which overseas missions and which home-front comforts are reduced first?",
+      "effect": "Combat power and household stocks are both functions of sustainment, not slogans.",
+      "facilitator": "No real depot or ship names. Use bands: strained / degraded."
     },
     {
       "id": "I-06",
       "phase": "P2",
       "time": "D+8",
       "severity": "MEDIUM",
-      "title": "Coalition caveat change",
-      "signal": "A coalition partner changes its authorization for a category of activity after domestic political pressure.",
-      "decision": "How does Blue adapt without losing synchronization or partner trust?",
-      "effect": "Previously assumed capabilities become conditional; coordination time increases.",
-      "facilitator": "Make the caveat precise enough to matter, but avoid turning it into a legal trivia test."
+      "title": "Partner caveat change",
+      "signal": "A U.S. partner limits a category of support after domestic protest. Markets notice. Guard and reserve rumors spread in U.S. towns.",
+      "decision": "How does the group adapt plans that assumed a short, tidy coalition war?",
+      "effect": "Assumed capabilities become conditional. Home-front timelines lengthen.",
+      "facilitator": "Keep the caveat political, not a legal trivia test and not a base list."
     },
     {
       "id": "I-07",
@@ -186,10 +186,10 @@
       "time": "D+14",
       "severity": "CRITICAL",
       "title": "Medical capacity threshold",
-      "signal": "Medical facilities approach capacity while replacement and evacuation timelines lengthen.",
-      "decision": "What operational risk is accepted, and what priorities change?",
-      "effect": "Casualty care, morale, public confidence, and force availability interact.",
-      "facilitator": "Do not reduce medical effects to a casualty multiplier. Model delay, capacity, and confidence."
+      "signal": "In theater, medical evacuation lengthens. In the United States, specialty refills and devices lag.",
+      "decision": "What operational and household risk is accepted, and what priorities change?",
+      "effect": "Casualty care, morale, and family medical continuity interact.",
+      "facilitator": "Do not reduce this to a casualty multiplier or a hospital target."
     },
     {
       "id": "I-08",
@@ -197,10 +197,10 @@
       "time": "D+18",
       "severity": "HIGH",
       "title": "Narrative shock",
-      "signal": "A widely circulated video contradicts the official account of a contested incident.",
-      "decision": "What is reported, when, and with what confidence?",
-      "effect": "Public trust and coalition cohesion shift based on transparency, speed, and credibility.",
-      "facilitator": "Judge the information response as a campaign effect, not merely a public-affairs task."
+      "signal": "A viral video of a contested incident near Taiwan contradicts official U.S. and PRC accounts. U.S. local arguments get bitter.",
+      "decision": "What sources will this group trust, and what is reported with what confidence?",
+      "effect": "Public trust and group cohesion shift. Recovery paperwork still comes due.",
+      "facilitator": "Do not wargame influence operations. Reward a short official source list."
     },
     {
       "id": "I-09",
@@ -208,10 +208,10 @@
       "time": "D+25",
       "severity": "HIGH",
       "title": "Fragile ceasefire proposal",
-      "signal": "A ceasefire offer appears while both sides claim the initiative and local conditions remain unstable.",
-      "decision": "What military posture supports the political objective without creating accidental escalation?",
-      "effect": "The campaign transitions from maneuver to leverage, verification, recovery, and risk management.",
-      "facilitator": "A ceasefire is not an automatic end state. Track compliance, incentives, and residual friction."
+      "signal": "A ceasefire or pause is floated while both sides claim the initiative. Insurance and shipping do not snap back on day one.",
+      "decision": "What posture supports a political pause without accidental escalation, and what 30-day household plan still works?",
+      "effect": "The campaign becomes leverage, verification, and recovery—not a victory parade.",
+      "facilitator": "A ceasefire is not an end state. Track compliance and bills at home."
     }
   ],
   "metrics": [
@@ -222,23 +222,23 @@
     },
     {
       "id": "M-02",
-      "metric": "Command-and-control resilience",
-      "evidence": "Use of intent, delegation, alternate procedures, reporting discipline, and decision latency."
+      "metric": "Command-and-control and family-comms resilience",
+      "evidence": "Intent, delegation, alternate procedures, and household check-ins when apps fail."
     },
     {
       "id": "M-03",
       "metric": "Sustainment awareness",
-      "evidence": "Mission choices reflect fuel, maintenance, medical, personnel, transport, and recovery constraints."
+      "evidence": "Mission and household choices reflect fuel, maintenance, medical, transport, and recovery constraints."
     },
     {
       "id": "M-04",
       "metric": "Reserve and risk management",
-      "evidence": "Players preserve options, identify culmination indicators, and explain accepted risk."
+      "evidence": "Players preserve options, identify culmination, and explain accepted risk."
     },
     {
       "id": "M-05",
       "metric": "Civilian and political integration",
-      "evidence": "Tactical actions account for civilian harm, essential services, neutral actors, legitimacy, and coalition caveats."
+      "evidence": "Actions account for civilian harm, essential services, partners, legitimacy, and U.S. home-front effects."
     },
     {
       "id": "M-06",
