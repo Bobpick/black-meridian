@@ -2,7 +2,7 @@
 
 **Family first. Small groups. A free kitchen-table tabletop so American households can practice doing what it takes to stay a family — water, medicine, contact, a sharing rule — if a shock hits services at home. This file is an asset to that household. It is not a war staff.**
 
-[Open the dashboard](index.html) · [Read the instruction manual](instruction-manual.html)
+[Open the dashboard](index.html) · [Read the instruction manual](instruction-manual.html) · [Kitchen-table notes](docs/kitchen-table-notes.md)
 
 ![BLACK MERIDIAN — I need to play this game to protect my family](assets/black-meridian-poster.png)
 
