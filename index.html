@@ -892,7 +892,7 @@
                   <div class="form-field"><label for="familySize">Household size</label><input id="familySize" type="number" min="1" max="99" placeholder="e.g., 4" /></div>
                   <div class="form-field"><label for="waterDays">Water on hand, days</label><input id="waterDays" type="number" min="0" max="365" placeholder="e.g., 3" /></div>
                   <div class="form-field"><label for="waterHarvest">Water harvest (beyond stored gallons)</label><select id="waterHarvest"><option value="">Select</option><option value="none">Stored gallons only</option><option value="rain">Rain catch</option><option value="peltier">Solar + Peltier from humid air</option><option value="rain-peltier">Rain catch and solar Peltier</option></select></div>
-                  <div class="form-field"><label for="airHumidity">Air this session</label><select id="airHumidity"><option value="">Select</option><option value="humid">Humid — condensation can work</option><option value="mixed">Mixed / seasonal</option><option value="arid">Arid / dry — Peltier will not pay</option></select></div>
+                  <div class="form-field"><label for="airHumidity">Air this session</label><select id="airHumidity"><option value="">Select</option><option value="extreme">PA-style summer — ~90°F / very high humidity</option><option value="humid">Humid — condensation can work</option><option value="mixed">Mixed / seasonal</option><option value="arid">Arid / dry — Peltier will not pay</option></select></div>
                   <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="800" placeholder="e.g., 7 or 730" /></div>
                   <div class="form-field"><label for="medicationPlan">Medication / medical plan</label><select id="medicationPlan"><option value="">Select</option><option value="confirmed">Confirmed supply and refill plan</option><option value="partial">Partial plan</option><option value="none">No plan yet</option><option value="na">Not applicable</option></select></div>
                   <div class="form-field"><label for="alternateComms">Alternate communications</label><select id="alternateComms"><option value="">Select</option><option value="yes">Yes, tested</option><option value="partial">Available but untested</option><option value="no">No alternate method</option></select></div>
@@ -1752,7 +1752,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons cover reconstituting. If the air is humid and the panel is in the sun, a Peltier can wring extra cups — slow recovery, not a well. Sun/car screens can still dry food. Do not advertise a long stock.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons cover reconstituting. In a PA-style 90/90 summer a solar Peltier can recover real water from the air — not a hydrant, but not a toy either. Heat stroke is still the life-safety problem. Sun/car screens dry food. Do not advertise a long stock.",
       "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
@@ -1955,9 +1955,14 @@
         const wants = profile.waterHarvest === "peltier" || profile.waterHarvest === "rain-peltier";
         if (!wants) return false;
         if (profile.airHumidity === "arid") return false;
-        if (!profile.airHumidity || profile.airHumidity === "") return false;
+        if (!profile.airHumidity) return false;
         const blockedSky = ["freeze", "storm", "smoke"].includes(profile.weatherNow) || profile.sunPlan === "short";
         return !blockedSky;
+      }
+
+      function peltierIsStrong(profile) {
+        if (!peltierCanRun(profile)) return false;
+        return profile.airHumidity === "extreme" || (profile.airHumidity === "humid" && (profile.weatherNow === "heat" || profile.season === "heat" || profile.sunPlan === "heat"));
       }
 
       function familyKeyBad(profile, key) {
@@ -1991,7 +1996,7 @@
           return wants && !peltierCanRun(profile) && Number(profile.waterDays || 0) < 7;
         }
         if (key === "floodMove") return profile.rainPlan === "flood" && familyKeyBad(profile, "weatherPlan") && familyKeyBad(profile, "shelterPlan");
-        if (key === "heatSun") return (profile.sunPlan === "heat" || profile.weatherNow === "heat") && familyKeyBad(profile, "weatherPlan");
+        if (key === "heatSun") return (profile.sunPlan === "heat" || profile.weatherNow === "heat" || profile.airHumidity === "extreme") && familyKeyBad(profile, "weatherPlan");
         if (key === "unsafeNeighbors") return profile.localTrust === "unsafe" && familyKeyBad(profile, "secondRoof");
         if (["medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan"].includes(key)) {
           return !value || ["no", "partial", "none"].includes(value);
@@ -2017,9 +2022,16 @@
         const open = unique.filter((key) => familyKeyBad(profile, key));
         const band = open.length === 0 ? "succeed" : open.length === unique.length ? "fail" : "mixed";
         const world = (selectedHotspot().theater && selectedHotspot().theater[injectId]) || (inject && inject.theater) || "";
-        const weather = [profile.season, profile.weatherNow].filter(Boolean).join(" / ") || "not set";
+        const weather = [profile.season, profile.weatherNow, profile.airHumidity].filter(Boolean).join(" / ") || "not set";
+        const harvestNote = peltierIsStrong(profile)
+          ? "PELTIER: favorable — 90/90-style air holds real water. Heat is the killer; harvest is cups-to-liters, not a hydrant."
+          : peltierCanRun(profile)
+            ? "PELTIER: possible in this humidity and sun. Slow recovery."
+            : (profile.waterHarvest || "").includes("peltier")
+              ? "PELTIER: blocked (arid, storm, freeze, smoke, or short days)."
+              : "";
         const late = familyKeyBad(profile, "alternateComms") || familyKeyBad(profile, "weatherRadio");
-        return { inject, marker, profile, open, band, world, weather, late };
+        return { inject, marker, profile, open, band, world, weather, harvestNote, late };
       }
 
       function receiveDispatch(injectId) {
@@ -2039,6 +2051,7 @@
           `WEATHER / CLIMATE: ${result.weather}`,
           `FOOD DAYS: ${result.profile.foodDays || "0"} · PRESERVE: ${result.profile.preserveMethod || "not set"} · MACHINES: ${result.profile.preservePower || "not set"}`,
           `WATER DAYS: ${result.profile.waterDays || "0"} · HARVEST: ${result.profile.waterHarvest || "not set"} · AIR: ${result.profile.airHumidity || "not set"}`,
+          result.harvestNote || "",
           `RAIN: ${result.profile.rainPlan || "not set"} · SUN: ${result.profile.sunPlan || "not set"} · GARDEN: ${result.profile.growPlan || "not set"}`,
           `NEARBY HOUSEHOLDS: ${result.profile.localTrust || "not set"} (no ideology labels on this net)`,
           "",
