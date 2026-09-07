@@ -132,6 +132,7 @@ black-meridian/
 ├── instruction-manual.html    # Operator and household-planning manual
 ├── README.md                  # Project documentation
 ├── LICENSE                    # MIT License
+├── docs/kitchen-table-notes.md  # Doctrine from the design conversation
 ├── assets/
 │   ├── black-meridian-hero.png    # Background artwork
 │   ├── black-meridian-poster.png  # Typography-complete project graphic
@@ -223,7 +224,7 @@ For an immediate real-world emergency, follow official alerts and contact local 
 
 ## Project status
 
-**Version:** 0.8  
+**Version:** 1.0  
 **Date:** 2026-09-06  
 **Format:** Static offline web application  
 **Build step:** None required
