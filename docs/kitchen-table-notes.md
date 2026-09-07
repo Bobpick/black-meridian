@@ -48,7 +48,7 @@ After each inject: world bulletin, then whether **this table’s** plan held, mi
 - Stored gallons first.
 - PA-style 90°F / high humidity: solar Peltier can recover **real** water from air (cups-to-liters, not a hydrant). Heat is still the killer. Arid/storm/freeze/short days block it.
 - PA springs and PNW rivers that run through a dry spell count if you can get there and you **treat**. Seasonal creeks in a drought do not.
-- Hydraulic ram pump: no grid; needs flow and drop from a spring or perennial stream. Freeze or a dead creek stops it.
+- Hydraulic ram pump: a **survival path**. No grid; needs flow and drop from a spring or perennial stream. Freeze or a dead creek stops it. On the Home-front session as **Grid-down water**: source → ram or gravity → treat → store.
 - Sawyer-class hollow-fiber can treat a very large gallon count (maker ratings on the order of 100,000 gallons — follow the maker, backflush). Not chemical-proof.
 
 **Heat to cook / boil**

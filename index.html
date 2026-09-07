@@ -484,6 +484,19 @@
             </div>
             <div class="callout top-space" id="hardWallPass"></div>
           </article>
+          <article class="panel top-space" id="gridDownWaterPanel">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow" id="gridDownWaterEyebrow">Grid-down water</div>
+                <h3 id="gridDownWaterTitle">Ram pump path</h3>
+                <p id="gridDownWaterLead"></p>
+              </div>
+              <span class="tag teal">Survival path</span>
+            </div>
+            <ul class="check-list" id="gridDownWaterSteps"></ul>
+            <div class="callout top-space" id="gridDownWaterDoNot"></div>
+            <div class="form-actions"><button class="ghost" type="button" data-view-target="regions">Set source, ram, and treat on the planner</button></div>
+          </article>
           <article class="panel top-space">
             <div class="section-head">
               <div>
@@ -1427,10 +1440,24 @@
     "winnable": [
       "A check-in hour that still works when apps fail",
       "Water, medicine, and a sharing floor for your own house",
+      "Grid-down water: spring or perennial river → ram or gravity → treat (Sawyer/boil) → store",
       "Stay, move, share, or wait — named out loud, without panic-buying the town",
       "Refusing to hunt a neighbor when the video says you should"
     ],
     "pass": "You pass the hard wall when the group can say: we cannot win the war, and we can still be a family on the worst night."
+  },
+  "gridDownWater": {
+    "title": "Grid-down water",
+    "eyebrow": "How a house still drinks",
+    "lead": "A hydraulic ram pump is a survival path, not a gadget. Flow plus drop from a spring or a river that does not quit can lift water to the house with no grid. Treat what comes out. Store some gallons before you need the ram.",
+    "steps": [
+      "Source: PA-style spring or PNW perennial river — not a creek that dies in August",
+      "Lift: ram pump (no electricity) or gravity. Freeze and a dead creek stop a ram",
+      "Treat: Sawyer-class filter and/or boil on rocket or solar cooker",
+      "Store: counted days on hand so freeze-dried food can be reconstituted tonight",
+      "Extra: 90/90 solar Peltier and rain catch top off; they do not replace the ram path"
+    ],
+    "doNot": "Do not advertise the intake. An electric well pump is not a ram. Untreated ram water is still creek water."
   },
   "roles": [
     {
@@ -1891,6 +1918,14 @@
           $("#hardWallLose").innerHTML = HOME.hardWall.unwinnable.map((item) => `<li>${esc(item)}</li>`).join("");
           $("#hardWallWin").innerHTML = HOME.hardWall.winnable.map((item) => `<li>${esc(item)}</li>`).join("");
           $("#hardWallPass").innerHTML = `<div class="callout-icon">✓</div><div><strong>Pass condition.</strong> ${esc(HOME.hardWall.pass)}</div>`;
+        }
+        if (HOME.gridDownWater) {
+          const g = HOME.gridDownWater;
+          $("#gridDownWaterEyebrow").textContent = g.eyebrow || "Grid-down water";
+          $("#gridDownWaterTitle").textContent = g.title || "Ram pump path";
+          $("#gridDownWaterLead").textContent = g.lead || "";
+          $("#gridDownWaterSteps").innerHTML = (g.steps || []).map((item) => `<li>${esc(item)}</li>`).join("");
+          $("#gridDownWaterDoNot").innerHTML = `<div class="callout-icon">!</div><div>${esc(g.doNot || "")}</div>`;
         }
         const due = $("#commitDue");
         if (due && !due.value) {
