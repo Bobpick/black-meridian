@@ -34,7 +34,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A freeze-dryer needs power; a dehydrator-style screen in a car or in direct sun does not — if the sky is clear. Bags on the shelf still beat any machine. Do not advertise a long stock. Sharing floor: keep X days, then help.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons cover reconstituting. If the air is humid and the panel is in the sun, a Peltier can wring extra cups — slow recovery, not a well. Sun/car screens can still dry food. Do not advertise a long stock.",
       "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },

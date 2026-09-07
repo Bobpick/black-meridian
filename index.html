@@ -891,6 +891,8 @@
                 <div class="form-grid">
                   <div class="form-field"><label for="familySize">Household size</label><input id="familySize" type="number" min="1" max="99" placeholder="e.g., 4" /></div>
                   <div class="form-field"><label for="waterDays">Water on hand, days</label><input id="waterDays" type="number" min="0" max="365" placeholder="e.g., 3" /></div>
+                  <div class="form-field"><label for="waterHarvest">Water harvest (beyond stored gallons)</label><select id="waterHarvest"><option value="">Select</option><option value="none">Stored gallons only</option><option value="rain">Rain catch</option><option value="peltier">Solar + Peltier from humid air</option><option value="rain-peltier">Rain catch and solar Peltier</option></select></div>
+                  <div class="form-field"><label for="airHumidity">Air this session</label><select id="airHumidity"><option value="">Select</option><option value="humid">Humid — condensation can work</option><option value="mixed">Mixed / seasonal</option><option value="arid">Arid / dry — Peltier will not pay</option></select></div>
                   <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="800" placeholder="e.g., 7 or 730" /></div>
                   <div class="form-field"><label for="medicationPlan">Medication / medical plan</label><select id="medicationPlan"><option value="">Select</option><option value="confirmed">Confirmed supply and refill plan</option><option value="partial">Partial plan</option><option value="none">No plan yet</option><option value="na">Not applicable</option></select></div>
                   <div class="form-field"><label for="alternateComms">Alternate communications</label><select id="alternateComms"><option value="">Select</option><option value="yes">Yes, tested</option><option value="partial">Available but untested</option><option value="no">No alternate method</option></select></div>
@@ -1750,7 +1752,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A freeze-dryer needs power; a dehydrator-style screen in a car or in direct sun does not — if the sky is clear. Bags on the shelf still beat any machine. Do not advertise a long stock. Sharing floor: keep X days, then help.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons cover reconstituting. If the air is humid and the panel is in the sun, a Peltier can wring extra cups — slow recovery, not a well. Sun/car screens can still dry food. Do not advertise a long stock.",
       "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
@@ -1949,6 +1951,15 @@
         $$("[data-radio]").forEach((button) => button.addEventListener("click", () => receiveDispatch(button.dataset.radio)));
       }
 
+      function peltierCanRun(profile) {
+        const wants = profile.waterHarvest === "peltier" || profile.waterHarvest === "rain-peltier";
+        if (!wants) return false;
+        if (profile.airHumidity === "arid") return false;
+        if (!profile.airHumidity || profile.airHumidity === "") return false;
+        const blockedSky = ["freeze", "storm", "smoke"].includes(profile.weatherNow) || profile.sunPlan === "short";
+        return !blockedSky;
+      }
+
       function familyKeyBad(profile, key) {
         const value = profile[key];
         if (key === "waterDays" || key === "cashDays") return !value || Number(value) < 3;
@@ -1970,7 +1981,15 @@
         if (key === "weatherRadio" || key === "secondRoof") return !value || ["no", "partial"].includes(value);
         if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
         if (key === "falseHopeGarden") return profile.growPlan === "seeds" && Number(profile.foodDays || 0) < 14;
-        if (key === "droughtWater") return profile.rainPlan === "drought" && (!profile.waterDays || Number(profile.waterDays) < 7);
+        if (key === "droughtWater") {
+          const peltierOk = peltierCanRun(profile);
+          if (peltierOk && Number(profile.waterDays || 0) >= 3) return false;
+          return (profile.rainPlan === "drought" || profile.airHumidity === "arid") && (!profile.waterDays || Number(profile.waterDays) < 7);
+        }
+        if (key === "peltierFantasy") {
+          const wants = profile.waterHarvest === "peltier" || profile.waterHarvest === "rain-peltier";
+          return wants && !peltierCanRun(profile) && Number(profile.waterDays || 0) < 7;
+        }
         if (key === "floodMove") return profile.rainPlan === "flood" && familyKeyBad(profile, "weatherPlan") && familyKeyBad(profile, "shelterPlan");
         if (key === "heatSun") return (profile.sunPlan === "heat" || profile.weatherNow === "heat") && familyKeyBad(profile, "weatherPlan");
         if (key === "unsafeNeighbors") return profile.localTrust === "unsafe" && familyKeyBad(profile, "secondRoof");
@@ -1990,7 +2009,7 @@
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
         if (injectId === "H-06" || injectId === "H-02") keys.push("unsafeNeighbors");
@@ -2019,6 +2038,7 @@
           result.world,
           `WEATHER / CLIMATE: ${result.weather}`,
           `FOOD DAYS: ${result.profile.foodDays || "0"} · PRESERVE: ${result.profile.preserveMethod || "not set"} · MACHINES: ${result.profile.preservePower || "not set"}`,
+          `WATER DAYS: ${result.profile.waterDays || "0"} · HARVEST: ${result.profile.waterHarvest || "not set"} · AIR: ${result.profile.airHumidity || "not set"}`,
           `RAIN: ${result.profile.rainPlan || "not set"} · SUN: ${result.profile.sunPlan || "not set"} · GARDEN: ${result.profile.growPlan || "not set"}`,
           `NEARBY HOUSEHOLDS: ${result.profile.localTrust || "not set"} (no ideology labels on this net)`,
           "",
@@ -2166,13 +2186,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2180,7 +2200,8 @@
       function renderFamilyGaps(profile) {
         const checks = [
           { key: "familySize", label: "Record household size", advice: "Use this to calculate supplies and identify dependents.", severity: "high", bad: !profile.familySize },
-          { key: "waterDays", label: "Water continuity", advice: "Build toward at least several days of water for drinking and sanitation, then follow local guidance.", severity: "high", bad: !profile.waterDays || Number(profile.waterDays) < 3 },
+          { key: "waterDays", label: "Water continuity", advice: "Stored gallons first. Solar Peltier can wring cups from humid air in the sun — not a well, not an arid-climate plan.", severity: "high", bad: !profile.waterDays || Number(profile.waterDays) < 3 },
+          { key: "waterHarvest", label: "Water harvest", advice: "Rain catch and/or solar Peltier. Peltier needs humidity and sun. Treat output as slow recovery, not drums per hour.", severity: "medium", bad: !profile.waterHarvest },
           { key: "foodDays", label: "Food continuity", advice: "Shelf food that is already preserved counts. Machines do not run themselves if the grid is down.", severity: "medium", bad: !profile.foodDays || Number(profile.foodDays) < 3 },
           { key: "preserveMethod", label: "Preserved stock", advice: "Bags on the shelf count. Freeze-dryer needs power. Sun/car screens can still dry food with no grid if the sky is clear.", severity: "medium", bad: !profile.preserveMethod || profile.preserveMethod === "none" },
           { key: "medicationPlan", label: "Medication and medical continuity", advice: "Confirm supply, refill, storage, and a backup care pathway.", severity: "high", bad: !profile.medicationPlan || ["none", "partial"].includes(profile.medicationPlan) },
