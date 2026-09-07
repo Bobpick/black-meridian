@@ -891,7 +891,7 @@
                 <div class="form-grid">
                   <div class="form-field"><label for="familySize">Household size</label><input id="familySize" type="number" min="1" max="99" placeholder="e.g., 4" /></div>
                   <div class="form-field"><label for="waterDays">Water on hand, days</label><input id="waterDays" type="number" min="0" max="365" placeholder="e.g., 3" /></div>
-                  <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="365" placeholder="e.g., 7" /></div>
+                  <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="800" placeholder="e.g., 7 or 730" /></div>
                   <div class="form-field"><label for="medicationPlan">Medication / medical plan</label><select id="medicationPlan"><option value="">Select</option><option value="confirmed">Confirmed supply and refill plan</option><option value="partial">Partial plan</option><option value="none">No plan yet</option><option value="na">Not applicable</option></select></div>
                   <div class="form-field"><label for="alternateComms">Alternate communications</label><select id="alternateComms"><option value="">Select</option><option value="yes">Yes, tested</option><option value="partial">Available but untested</option><option value="no">No alternate method</option></select></div>
                   <div class="form-field"><label for="contactPlan">Out-of-area contact</label><select id="contactPlan"><option value="">Select</option><option value="yes">Named and shared</option><option value="partial">Identified but not shared</option><option value="no">Not established</option></select></div>
@@ -909,6 +909,8 @@
                   <div class="form-field"><label for="cashDays">Cash on hand, days</label><input id="cashDays" type="number" min="0" max="90" placeholder="e.g., 3" /></div>
                   <div class="form-field"><label for="secondRoof">Named second roof</label><select id="secondRoof"><option value="">Select</option><option value="yes">Callsign has said yes</option><option value="partial">Assumed, not asked</option><option value="no">No second roof</option></select></div>
                   <div class="form-field"><label for="mobilityPickup">Mobility / kid pickup</label><select id="mobilityPickup"><option value="">Select</option><option value="yes">Written who walks, who is carried, who picks up kids</option><option value="partial">Discussed only</option><option value="na">Not applicable</option><option value="no">Unresolved</option></select></div>
+                  <div class="form-field"><label for="preserveMethod">Preserve method (already done)</label><select id="preserveMethod"><option value="">Select</option><option value="none">No preserved stock</option><option value="dehydrate">Dehydrator stock on the shelf</option><option value="freeze">Freeze-dried stock on the shelf</option><option value="both">Both on the shelf</option><option value="canned">Canned / dry goods only</option></select></div>
+                  <div class="form-field"><label for="preservePower">Can we still run the machines?</label><select id="preservePower"><option value="">Select</option><option value="na">Does not matter — food is already done</option><option value="grid">Only on grid power</option><option value="backup">Backup power can run a cycle</option><option value="none">No power for machines this session</option></select></div>
                   <div class="form-field"><label for="growPlan">Seed / garden (months, not 72 hours)</label><select id="growPlan"><option value="">Select</option><option value="none">No garden plan</option><option value="seeds">Seeds only — not planted</option><option value="started">Germinating / in ground</option><option value="producing">Already producing calories</option></select></div>
                   <div class="form-field"><label for="rainPlan">Rainfall issue</label><select id="rainPlan"><option value="">Select</option><option value="none">No extra rain issue</option><option value="collect">We can catch/store rain</option><option value="drought">Drought — no catch, water is tight</option><option value="flood">Flood / too much water</option></select></div>
                   <div class="form-field"><label for="sunPlan">Sun / light issue</label><select id="sunPlan"><option value="">Select</option><option value="none">No extra sun issue</option><option value="grow">Enough sun to grow if we planted</option><option value="solar">Sun useful for charging / heat</option><option value="heat">Too much sun — heat is the danger</option><option value="short">Short days / little sun</option></select></div>
@@ -1748,9 +1750,9 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Water and food floors were named before anyone shared. Cards flaked; cash days still covered small bills. After helping a neighbor you still have days on the shelf.",
-      "mixed": "PLAN PARTIAL. One house shared past its floor. One hoarded and is now alone. Grocer is short. You can still reset the sharing rule tonight if you write the number.",
-      "fail": "PLAN DID NOT HOLD. No water or food count. No cash days. Sharing was all-or-nothing. Cards flaked and the grocer is short. Seeds in a packet do not count as dinner. The restock lag is not over."
+      "succeed": "PLAN HELD. Shelf food already preserved (freeze-dry / dehydrate / cans) covers this mile. Machines are optional now; the bags on the shelf are what count. Water and cash floors still named. A two-year stock is a blessing — do not advertise it. Sharing floor: keep X days, then help.",
+      "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, or a sharing floor is thin. Freeze-dryers and dehydrators do not cycle if the grid is down. Grocer is short. Reset the sharing rule tonight. Do not tell the whole road you have years of food.",
+      "fail": "PLAN DID NOT HOLD. No counted shelf food. A machine with no power is not dinner. Seeds are not dinner. No cash days. The restock lag is not over."
     },
     "H-06": {
       "id": "R-06",
@@ -1949,7 +1951,11 @@
 
       function familyKeyBad(profile, key) {
         const value = profile[key];
-        if (key === "waterDays" || key === "foodDays" || key === "cashDays") return !value || Number(value) < 3;
+        if (key === "waterDays" || key === "cashDays") return !value || Number(value) < 3;
+        if (key === "foodDays") return !value || Number(value) < 3;
+        if (key === "preserveMethod") return !value || value === "none";
+        if (key === "machineFantasy") return Number(profile.foodDays || 0) < 14 && (profile.preservePower === "grid" || profile.preservePower === "none") && (profile.preserveMethod === "none" || !profile.preserveMethod);
+        if (key === "dryFoodNoWater") return Number(profile.foodDays || 0) >= 30 && (!profile.waterDays || Number(profile.waterDays) < 14);
         if (key === "documentsPlan") return !value || value === "no";
         if (key === "dependentsPlan" || key === "mobilityPickup") return !value || ["no", "partial"].includes(value);
         if (key === "medIssue") return value && value !== "none" && (!profile.medicationPlan || ["none", "partial", ""].includes(profile.medicationPlan));
@@ -1957,7 +1963,7 @@
         if (key === "weatherPlan") return profile.weatherNow && profile.weatherNow !== "none" && (!value || ["no", "partial", "na", ""].includes(value));
         if (key === "weatherRadio" || key === "secondRoof") return !value || ["no", "partial"].includes(value);
         if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
-        if (key === "falseHopeGarden") return profile.growPlan === "seeds";
+        if (key === "falseHopeGarden") return profile.growPlan === "seeds" && Number(profile.foodDays || 0) < 14;
         if (key === "droughtWater") return profile.rainPlan === "drought" && (!profile.waterDays || Number(profile.waterDays) < 7);
         if (key === "floodMove") return profile.rainPlan === "flood" && familyKeyBad(profile, "weatherPlan") && familyKeyBad(profile, "shelterPlan");
         if (key === "heatSun") return (profile.sunPlan === "heat" || profile.weatherNow === "heat") && familyKeyBad(profile, "weatherPlan");
@@ -1978,7 +1984,7 @@
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
         if (injectId === "H-06" || injectId === "H-02") keys.push("unsafeNeighbors");
@@ -2006,6 +2012,7 @@
           "— WORLD —",
           result.world,
           `WEATHER / CLIMATE: ${result.weather}`,
+          `FOOD DAYS: ${result.profile.foodDays || "0"} · PRESERVE: ${result.profile.preserveMethod || "not set"} · MACHINES: ${result.profile.preservePower || "not set"}`,
           `RAIN: ${result.profile.rainPlan || "not set"} · SUN: ${result.profile.sunPlan || "not set"} · GARDEN: ${result.profile.growPlan || "not set"}`,
           `NEARBY HOUSEHOLDS: ${result.profile.localTrust || "not set"} (no ideology labels on this net)`,
           "",
@@ -2153,13 +2160,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "growPlan", "rainPlan", "sunPlan", "localTrust"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "growPlan", "rainPlan", "sunPlan", "localTrust"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2168,7 +2175,8 @@
         const checks = [
           { key: "familySize", label: "Record household size", advice: "Use this to calculate supplies and identify dependents.", severity: "high", bad: !profile.familySize },
           { key: "waterDays", label: "Water continuity", advice: "Build toward at least several days of water for drinking and sanitation, then follow local guidance.", severity: "high", bad: !profile.waterDays || Number(profile.waterDays) < 3 },
-          { key: "foodDays", label: "Food continuity", advice: "Keep a several-day supply that does not depend on refrigeration or cooking fuel.", severity: "medium", bad: !profile.foodDays || Number(profile.foodDays) < 3 },
+          { key: "foodDays", label: "Food continuity", advice: "Shelf food that is already preserved counts. Machines do not run themselves if the grid is down.", severity: "medium", bad: !profile.foodDays || Number(profile.foodDays) < 3 },
+          { key: "preserveMethod", label: "Preserved stock", advice: "Freeze-dry and dehydrate help only if the food is already in jars/bags. A two-year shelf beats a machine with no power.", severity: "medium", bad: !profile.preserveMethod || profile.preserveMethod === "none" },
           { key: "medicationPlan", label: "Medication and medical continuity", advice: "Confirm supply, refill, storage, and a backup care pathway.", severity: "high", bad: !profile.medicationPlan || ["none", "partial"].includes(profile.medicationPlan) },
           { key: "alternateComms", label: "Alternate communications", advice: "Test a second way to receive alerts or contact family when cellular data is congested.", severity: "high", bad: !profile.alternateComms || ["no", "partial"].includes(profile.alternateComms) },
           { key: "contactPlan", label: "Out-of-area contact", advice: "Name one person outside the immediate area and share the plan with everyone.", severity: "medium", bad: !profile.contactPlan || ["no", "partial"].includes(profile.contactPlan) },
