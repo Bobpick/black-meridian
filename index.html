@@ -924,6 +924,8 @@
                   <div class="form-field"><label for="rainPlan">Rainfall issue</label><select id="rainPlan"><option value="">Select</option><option value="none">No extra rain issue</option><option value="collect">We can catch/store rain</option><option value="drought">Drought — no catch, water is tight</option><option value="flood">Flood / too much water</option></select></div>
                   <div class="form-field"><label for="sunPlan">Sun / light issue</label><select id="sunPlan"><option value="">Select</option><option value="none">No extra sun issue</option><option value="grow">Enough sun to grow if we planted</option><option value="solar">Sun useful for charging / heat</option><option value="heat">Too much sun — heat is the danger</option><option value="short">Short days / little sun</option></select></div>
                   <div class="form-field"><label for="localTrust">Nearby households (no ideology labels)</label><select id="localTrust"><option value="">Select</option><option value="cooperative">Cooperative — check-in and sharing floor possible</option><option value="mixed">Mixed / unknown</option><option value="strained">Strained — we do not share stash maps</option><option value="unsafe">Unsafe — crime or threats; second roof and official help, no posse</option></select></div>
+                  <div class="form-field"><label for="shareFloor">Sharing floor (days we keep)</label><select id="shareFloor"><option value="">Select</option><option value="14">Keep 14 days, then help</option><option value="30">Keep 30 days, then help</option><option value="90">Keep 90 days, then help</option><option value="365">Keep 1 year, then help</option><option value="none">No floor — we will get drained</option></select></div>
+                  <div class="form-field"><label for="helpKind">What we will give an unprepared house</label><select id="helpKind"><option value="">Select</option><option value="skill">Skill only — filter, boil, rocket, where to treat water (no stash tour)</option><option value="day">Skill plus one day of water/food, once</option><option value="small">Small repeating help under the floor</option><option value="open">Open pantry — drain risk</option></select></div>
                 </div>
                 <div class="form-actions"><button class="primary" type="submit">Save profile</button><button class="ghost" id="exportFamily" type="button">Export profile</button><button class="danger" id="clearFamily" type="button">Clear</button></div>
               </form>
@@ -1404,6 +1406,7 @@
     "You are not writing a war plan. You are keeping a line of people alive.",
     "Do what it takes at the table: water, medicine, contact, a sharing floor. Do not hunt people.",
     "Do not label neighbors Nazis, Muslims, or any people-category in this file. Unsafe is a behavior: threats, crime. Then second roof and official help — never a posse.",
+    "Unprepared families are a drain, not automatically a violent threat. Keep a sharing floor. Teach filter and boil. Do not give a stash tour.",
     "Seeds and sun do not feed you this week. Rain is catch-or-flood, not a miracle.",
     "Talk about services failing, not how to break them.",
     "Do not name real plants, bases, bridges, hospitals, or warehouses as targets.",
@@ -1759,8 +1762,8 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A Sawyer-class filter can treat a huge gallon count from a spring or river. A solar cooker boils in the sun; a rocket stove boils on scraps when the sky is wrong. Ram, Peltier, and stored gallons still matter. Heat may still be the killer. Do not advertise the source or the stock.",
-      "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A Sawyer-class filter can treat a huge gallon count from a spring or river. Solar cooker and rocket stove still boil. Sharing floor is written: unprepared houses will ask — that is a drain, not a raid. Teach skills; do not open the pantry to the road. Heat may still be the killer.",
+      "mixed": "PLAN PARTIAL. Food or water is decent but the drain rule, cash, sky, or sharing floor is thin. Unprepared neighbors will keep coming — a drain, not automatically a raid. Teach filter and boil. Do not give a stash tour. Sun screens need a clear sky. Reset keep-X-days tonight.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
     "H-06": {
@@ -2017,6 +2020,7 @@
         if (key === "waterWalkFuel") return !ramCanRun(profile) && ((profile.waterAccess === "drive" && familyKeyBad(profile, "transportPlan")) || (profile.waterAccess === "none" && profile.waterSource && profile.waterSource !== "none"));
         if (key === "ramFantasy") return profile.waterLift === "ram" && !ramCanRun(profile);
         if (key === "cookDark") return !profile.cookHeat || profile.cookHeat === "none" || profile.cookHeat === "grid";
+        if (key === "shareDrain") return !profile.shareFloor || profile.shareFloor === "none" || profile.helpKind === "open";
         if (key === "solarCookBlocked") {
           if (profile.cookHeat !== "solar") return false;
           return ["freeze", "storm", "smoke"].includes(profile.weatherNow) || profile.sunPlan === "short";
@@ -2028,6 +2032,8 @@
         if (key === "weatherPlan") return profile.weatherNow && profile.weatherNow !== "none" && (!value || ["no", "partial", "na", ""].includes(value));
         if (key === "weatherRadio" || key === "secondRoof") return !value || ["no", "partial"].includes(value);
         if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
+        if (key === "shareFloor") return !value || value === "none";
+        if (key === "helpKind") return !value || value === "open";
         if (key === "falseHopeGarden") return profile.growPlan === "seeds" && Number(profile.foodDays || 0) < 14;
         if (key === "wildMeatFantasy") return (profile.wildMeat && profile.wildMeat !== "none") && (profile.wildMeatSkill === "none" || !profile.wildMeatSkill) && Number(profile.foodDays || 0) < 14;
         if (key === "scavengerRisk") return profile.wildMeat === "scavenger" && Number(profile.foodDays || 0) < 30;
@@ -2060,7 +2066,7 @@
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk", "cookDark", "solarCookBlocked");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk", "cookDark", "solarCookBlocked", "shareDrain");
         if (injectId === "H-04") keys.push("cookDark");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
@@ -2092,6 +2098,11 @@
             : profile.waterSource && profile.waterSource !== "none"
               ? "SURFACE WATER: named but blocked (access, treatment, freeze, or a creek that went dry)."
               : "",
+          profile.helpKind === "open" || profile.shareFloor === "none"
+            ? "DRAIN: no sharing floor. Unprepared houses will empty a prepared one without firing a shot. Teach skills; do not give the tour."
+            : profile.shareFloor && profile.helpKind
+              ? `DRAIN RULE: keep ${profile.shareFloor} days. Help kind: ${profile.helpKind}. Unprepared neighbors are a logistics load, not automatically a raid.`
+              : "DRAIN RULE: not set. The asking will still come.",
           profile.wildMeat === "scavenger"
             ? "WILD PROTEIN: scavenger birds are last-resort and high-risk — not the same as a game bird or a fish. Cook, do not count them as the plan."
             : (profile.wildMeat === "small" || profile.wildMeat === "fish" || profile.wildMeat === "gamebird" || profile.wildMeat === "mixed") && profile.wildMeatSkill === "practiced"
@@ -2278,13 +2289,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2316,7 +2327,9 @@
           { key: "growPlan", label: "Garden / seed plan", advice: "Seeds do not feed you in 72 hours. Stored food is the short mile. Germination is a months play.", severity: "medium", bad: !profile.growPlan },
           { key: "rainPlan", label: "Rainfall", advice: "Name drought (catch/store) or flood (stay/move). Rain in the barrel is a plan; rain in the living room is a move.", severity: "medium", bad: !profile.rainPlan },
           { key: "sunPlan", label: "Sun / light", advice: "Heat, short days, or useful sun for charge/grow — pick the one you actually have.", severity: "medium", bad: !profile.sunPlan },
-          { key: "localTrust", label: "Nearby households", advice: "No ideology labels. Cooperative / mixed / strained / unsafe. Unsafe means second roof and official help — not a posse.", severity: "high", bad: !profile.localTrust }
+          { key: "localTrust", label: "Nearby households", advice: "No ideology labels. Cooperative / mixed / strained / unsafe. Unsafe means second roof and official help — not a posse.", severity: "high", bad: !profile.localTrust },
+          { key: "shareFloor", label: "Sharing floor", advice: "Unprepared houses will ask. That is a drain, not automatically a raid. Keep X days, then help. Open pantry empties a prepared family.", severity: "high", bad: !profile.shareFloor || profile.shareFloor === "none" },
+          { key: "helpKind", label: "Help we will give", advice: "Teach filter, boil, rocket, springs. One day of water once is mercy. A stash tour is how two years becomes two weeks.", severity: "high", bad: !profile.helpKind || profile.helpKind === "open" }
         ];
         const gaps = checks.filter((check) => check.bad);
         const high = gaps.filter((gap) => gap.severity === "high").length;

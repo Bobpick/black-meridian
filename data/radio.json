@@ -34,8 +34,8 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A Sawyer-class filter can treat a huge gallon count from a spring or river. A solar cooker boils in the sun; a rocket stove boils on scraps when the sky is wrong. Ram, Peltier, and stored gallons still matter. Heat may still be the killer. Do not advertise the source or the stock.",
-      "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A Sawyer-class filter can treat a huge gallon count from a spring or river. Solar cooker and rocket stove still boil. Sharing floor is written: unprepared houses will ask — that is a drain, not a raid. Teach skills; do not open the pantry to the road. Heat may still be the killer.",
+      "mixed": "PLAN PARTIAL. Food or water is decent but the drain rule, cash, sky, or sharing floor is thin. Unprepared neighbors will keep coming — a drain, not automatically a raid. Teach filter and boil. Do not give a stash tour. Sun screens need a clear sky. Reset keep-X-days tonight.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
     "H-06": {
