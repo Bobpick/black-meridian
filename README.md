@@ -1,6 +1,6 @@
 # Exercise BLACK MERIDIAN
 
-**Family first. Small groups. A free kitchen-table tabletop so U.S. households can practice staying alive — water, medicine, contact, a sharing rule — if a Taiwan Strait crisis hits services at home.**
+**Family first. Small groups. A free kitchen-table tabletop so American households can practice doing what it takes to stay a family — water, medicine, contact, a sharing rule — if a shock hits services at home. This file is an asset to that household. It is not a war staff.**
 
 [Open the dashboard](index.html) · [Read the instruction manual](instruction-manual.html)
 
@@ -220,7 +220,7 @@ For an immediate real-world emergency, follow official alerts and contact local 
 
 ## Project status
 
-**Version:** 0.4  
+**Version:** 0.5  
 **Date:** 2026-09-06  
 **Format:** Static offline web application  
 **Build step:** None required
