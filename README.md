@@ -13,6 +13,7 @@
 BLACK MERIDIAN is free. You do not need a war plan. You need a line of people who still drink, take their medicine, and find each other. It combines:
 
 - A **hard wall (Kobayashi Maru):** the war is unwinnable from a kitchen table; the family is winnable with the right mindset
+- **Radio dispatches (mile markers):** after each inject, a world bulletin plus whether this table’s plan held, mixed, or failed
 - A 90-minute **home-front session** that couples each campaign phase to a civilian effect (comms, medicine, fuel, payments, rumor)
 - **Hotspot radios:** Taiwan Strait (most discussed), Canada / northern trade, Mexico / southern trade, and **Homeland worst night** (nightmare as home effects — no landing map, no ethnic armies)
 - Group roster by callsign, mutual-aid roles, and a hard cap of three 14-day commitments
@@ -138,7 +139,8 @@ black-meridian/
 ├── data/
 │   ├── scenario.json          # Fictional campaign source data
 │   ├── home-front.json        # 90-minute civilian session, coupled injects
-│   ├── hotspots.json          # Taiwan / Canada / Mexico public shock frames
+│   ├── hotspots.json          # Taiwan / Canada / Mexico / homeland frames
+│   ├── radio.json             # Mile-marker dispatches (plan held / partial / failed)
 │   ├── us-reality.json        # Public-source U.S. reference data
 │   └── us-regions.json        # Broad regional planning modules
 └── storage/
@@ -221,7 +223,7 @@ For an immediate real-world emergency, follow official alerts and contact local 
 
 ## Project status
 
-**Version:** 0.6  
+**Version:** 0.7  
 **Date:** 2026-09-06  
 **Format:** Static offline web application  
 **Build step:** None required
