@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "title": "Potential hotspots",
+    "version": "0.4",
+    "note": "Public planning frames only. Pick one shock so the family table stays honest. Not a forecast, not a targeting list, not a war plan."
+  },
+  "hotspots": [
+    {
+      "id": "taiwan",
+      "label": "Taiwan Strait",
+      "short": "China · Taiwan · U.S. partners",
+      "likely": true,
+      "why": "Most-discussed high-end shock: chips, shipping, fuel, and rumor hit a U.S. house even if no bomb falls here.",
+      "hitsHome": ["Electronics and auto parts lag", "Fuel and freight prices", "Phones and undersea-cable congestion", "Guard and work rumors"],
+      "doNot": "Do not name real bases, cables, or plants as targets. Talk prices, delays, and family decisions.",
+      "mission": "Keep this family functioning while a Taiwan Strait crisis shocks shipping, energy, electronics, and trust. You cannot command fleets. You can keep water, medicine, and a check-in.",
+      "map": { "red": "PRC", "blue": "TAIWAN", "gray": "EAST / PHILIPPINE SEA" },
+      "theater": {
+        "H-01": "Taiwan Strait: open-source and official U.S. statements disagree on whether PLA activity is coercion, an exercise, or open conflict.",
+        "H-02": "Japan, the Philippines, or insurers limit transit and raise rates on Taiwan-adjacent shipping. Chip and energy cargoes slip.",
+        "H-03": "Cable congestion, cyber noise, and overloaded U.S. networks make official guidance late. Some channels still work.",
+        "H-04": "Taiwan and nearby ports face civilian movement. U.S. clinics and pharmacies begin to slow.",
+        "H-05": "U.S. and partner magazine depth, tankers, and industrial surge look oversold. Tempo cannot be kept.",
+        "H-06": "A viral video of a contested incident near Taiwan contradicts official U.S. and PRC accounts."
+      }
+    },
+    {
+      "id": "canada",
+      "label": "Canada / northern trade",
+      "short": "U.S. · Canada · energy & grid",
+      "likely": false,
+      "why": "Not a likely shooting war with Ottawa. It is a likely way a U.S. house gets cold, dark, or expensive: electricity ties, oil and gas, auto parts, winter roads, and a rumor mill about the northern border.",
+      "hitsHome": ["Power and heating fuel in northern-tier states", "Gasoline and diesel prices", "Medicine and auto-parts delays", "Winter isolation if roads and rail snarl"],
+      "doNot": "Canada is a neighbor, not a target set. Do not name dams, pipelines, or border crossings as things to attack. Talk outages, prices, and who you call.",
+      "mission": "Keep this family functioning if U.S.–Canada trade, power, or fuel gets ugly. You cannot run NORAD. You can keep heat, water, medicine, and a neighbor check-in through a northern winter week.",
+      "map": { "red": "SHOCK / COERCION", "blue": "UNITED STATES", "gray": "CANADA" },
+      "theater": {
+        "H-01": "Officials in Washington and Ottawa disagree on whether a northern crisis is a labor/energy dispute, a cyber event, or something worse. Markets move first.",
+        "H-02": "Cross-border freight and some electricity or fuel flows tighten. Insurers and trucking delay. Relatives in another state want a warm room.",
+        "H-03": "Phones and data get ugly in a cold snap while agencies argue. Weather radio and a landline-style backup still matter.",
+        "H-04": "Clinics slow; a pharmacy is short; heating and medical devices compete for power. Canada and U.S. systems both feel the strain.",
+        "H-05": "Pay, fuel, and restock lag. Card readers flake. A grocer is light on staples that usually roll north–south.",
+        "H-06": "A viral clip of a border or grid incident splits the family group. Rent, heat, and work paperwork still come due."
+      }
+    },
+    {
+      "id": "mexico",
+      "label": "Mexico / southern trade",
+      "short": "U.S. · Mexico · food & freight",
+      "likely": false,
+      "why": "Not a plan to fight Mexico. It is a likely way a U.S. house feels a shock: produce, auto parts, energy, Gulf shipping, and delayed border freight — plus rumor about the southern line.",
+      "hitsHome": ["Food prices and empty produce shelves", "Auto and factory layoffs or delays", "Fuel on the Gulf and southern tier", "Clinic and pharmacy restock lag"],
+      "doNot": "Mexico is a neighbor, not a target set. Do not name ports, bridges, or pipelines as things to attack. Talk food, fuel, work, and family movement.",
+      "mission": "Keep this family functioning if U.S.–Mexico trade, fuel, or food logistics get ugly. You cannot control a border. You can keep water, food, medicine, and a sharing rule that does not wreck the household.",
+      "map": { "red": "SHOCK / DISORDER", "blue": "UNITED STATES", "gray": "MEXICO" },
+      "theater": {
+        "H-01": "Washington and Mexico City disagree on whether violence, a port halt, or an energy event is a local crisis or a wider shock. Stores are still open.",
+        "H-02": "Southern freight and some fuel tighten. Produce and parts run late. A relative wants a ride or a spare room farther north.",
+        "H-03": "Phones and data congest along the southern tier. Official guidance is late. A weather radio or second method still works.",
+        "H-04": "Pharmacies and clinics slow as restock from cross-border supply wobbles. Heat makes medical delay worse.",
+        "H-05": "Pay, fuel, and groceries lag. Cash works; some cards do not. Sharing without a floor bankrupts the givers.",
+        "H-06": "A viral border video contradicts official accounts. Arguments get bitter. Insurance, rent, and work still matter."
+      }
+    }
+  ]
+}
