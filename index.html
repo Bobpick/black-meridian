@@ -915,6 +915,8 @@
                   <div class="form-field"><label for="cashDays">Cash on hand, days</label><input id="cashDays" type="number" min="0" max="90" placeholder="e.g., 3" /></div>
                   <div class="form-field"><label for="secondRoof">Named second roof</label><select id="secondRoof"><option value="">Select</option><option value="yes">Callsign has said yes</option><option value="partial">Assumed, not asked</option><option value="no">No second roof</option></select></div>
                   <div class="form-field"><label for="mobilityPickup">Mobility / kid pickup</label><select id="mobilityPickup"><option value="">Select</option><option value="yes">Written who walks, who is carried, who picks up kids</option><option value="partial">Discussed only</option><option value="na">Not applicable</option><option value="no">Unresolved</option></select></div>
+                  <div class="form-field"><label for="wildMeat">Wild protein (no how-to in this file)</label><select id="wildMeat"><option value="">Select</option><option value="none">None we will use</option><option value="small">Small game — rabbit, squirrel, groundhog, etc.</option><option value="fish">Fish</option><option value="gamebird">Game birds (not scavengers)</option><option value="mixed">Small game and fish</option><option value="scavenger">Scavenger birds (crow/vulture) — last resort, high risk</option></select></div>
+                  <div class="form-field"><label for="wildMeatSkill">Have we actually done this?</label><select id="wildMeatSkill"><option value="">Select</option><option value="none">No / never</option><option value="some">Some experience</option><option value="practiced">Practiced and can cook/preserve it</option></select></div>
                   <div class="form-field"><label for="preserveMethod">Preserve method (already done)</label><select id="preserveMethod"><option value="">Select</option><option value="none">No preserved stock</option><option value="dehydrate">Dehydrator stock on the shelf</option><option value="freeze">Freeze-dried stock on the shelf</option><option value="both">Both on the shelf</option><option value="canned">Canned / dry goods only</option></select></div>
                   <div class="form-field"><label for="preservePower">Can we still dry / run machines?</label><select id="preservePower"><option value="">Select</option><option value="na">Does not matter — food is already on the shelf</option><option value="sun">Sun / car / screens — no grid (dehydrator-style)</option><option value="backup">Backup power can run a freeze-dryer or electric dehydrator</option><option value="grid">Electric machines only on grid power</option><option value="none">No sun and no power this session</option></select></div>
                   <div class="form-field"><label for="growPlan">Seed / garden (months, not 72 hours)</label><select id="growPlan"><option value="">Select</option><option value="none">No garden plan</option><option value="seeds">Seeds only — not planted</option><option value="started">Germinating / in ground</option><option value="producing">Already producing calories</option></select></div>
@@ -1756,7 +1758,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons, a treated spring or perennial river, a ram pump with flow and drop, and/or a 90/90 Peltier can keep reconstituting. A ram needs no grid. Freeze and a dry creek stop it. Heat may still be the killer. Do not advertise the source or the stock.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons, a treated spring or perennial river, a ram pump, and/or a 90/90 Peltier can keep reconstituting. Practiced small game or fish can add later calories — not tonight's only meal. Scavenger birds are not chicken. Heat may still be the killer. Do not advertise the source or the stock.",
       "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
@@ -2021,6 +2023,8 @@
         if (key === "weatherRadio" || key === "secondRoof") return !value || ["no", "partial"].includes(value);
         if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
         if (key === "falseHopeGarden") return profile.growPlan === "seeds" && Number(profile.foodDays || 0) < 14;
+        if (key === "wildMeatFantasy") return (profile.wildMeat && profile.wildMeat !== "none") && (profile.wildMeatSkill === "none" || !profile.wildMeatSkill) && Number(profile.foodDays || 0) < 14;
+        if (key === "scavengerRisk") return profile.wildMeat === "scavenger" && Number(profile.foodDays || 0) < 30;
         if (key === "droughtWater") {
           if (surfaceWaterOk(profile)) return false;
           const peltierOk = peltierCanRun(profile);
@@ -2050,7 +2054,7 @@
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
         if (injectId === "H-06" || injectId === "H-02") keys.push("unsafeNeighbors");
@@ -2070,6 +2074,13 @@
             : profile.waterSource && profile.waterSource !== "none"
               ? "SURFACE WATER: named but blocked (access, treatment, freeze, or a creek that went dry)."
               : "",
+          profile.wildMeat === "scavenger"
+            ? "WILD PROTEIN: scavenger birds are last-resort and high-risk — not the same as a game bird or a fish. Cook, do not count them as the plan."
+            : (profile.wildMeat === "small" || profile.wildMeat === "fish" || profile.wildMeat === "gamebird" || profile.wildMeat === "mixed") && profile.wildMeatSkill === "practiced"
+              ? "WILD PROTEIN: small game/fish/game birds can add calories if you can take, cook, and dry them. Not a 72-hour plan. Not a hunting lesson on this net."
+              : profile.wildMeat && profile.wildMeat !== "none" && profile.wildMeatSkill !== "practiced"
+                ? "WILD PROTEIN: named but unpracticed. A squirrel in the yard is not dinner until you have done this before."
+                : "",
           peltierIsStrong(profile)
             ? "PELTIER: favorable — 90/90-style air holds real water. Heat is the killer; harvest is cups-to-liters, not a hydrant."
             : peltierCanRun(profile)
@@ -2098,6 +2109,7 @@
           result.world,
           `WEATHER / CLIMATE: ${result.weather}`,
           `FOOD DAYS: ${result.profile.foodDays || "0"} · PRESERVE: ${result.profile.preserveMethod || "not set"} · MACHINES: ${result.profile.preservePower || "not set"}`,
+          `WILD PROTEIN: ${result.profile.wildMeat || "not set"} · SKILL: ${result.profile.wildMeatSkill || "not set"}`,
           `WATER DAYS: ${result.profile.waterDays || "0"} · HARVEST: ${result.profile.waterHarvest || "not set"} · AIR: ${result.profile.airHumidity || "not set"}`,
           `SPRING/RIVER: ${result.profile.waterSource || "not set"} · ACCESS: ${result.profile.waterAccess || "not set"} · TREAT: ${result.profile.waterTreat || "not set"} · LIFT: ${result.profile.waterLift || "not set"}`,
           result.harvestNote || "",
@@ -2248,13 +2260,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2267,6 +2279,7 @@
           { key: "waterSource", label: "Spring / river / lake", advice: "PA springs and PNW rivers that run through dry months are real. Seasonal creeks lie in a drought. Treat everything you did not store.", severity: "medium", bad: !profile.waterSource },
           { key: "foodDays", label: "Food continuity", advice: "Shelf food that is already preserved counts. Machines do not run themselves if the grid is down.", severity: "medium", bad: !profile.foodDays || Number(profile.foodDays) < 3 },
           { key: "preserveMethod", label: "Preserved stock", advice: "Bags on the shelf count. Freeze-dryer needs power. Sun/car screens can still dry food with no grid if the sky is clear.", severity: "medium", bad: !profile.preserveMethod || profile.preserveMethod === "none" },
+          { key: "wildMeat", label: "Wild protein", advice: "Rabbit, squirrel, groundhog, fish, game birds can add calories if you have skill and can cook. Crow and vulture are scavengers — last resort, not chicken. This file is not a hunting guide. Follow the law until officials say otherwise.", severity: "medium", bad: !profile.wildMeat },
           { key: "medicationPlan", label: "Medication and medical continuity", advice: "Confirm supply, refill, storage, and a backup care pathway.", severity: "high", bad: !profile.medicationPlan || ["none", "partial"].includes(profile.medicationPlan) },
           { key: "alternateComms", label: "Alternate communications", advice: "Test a second way to receive alerts or contact family when cellular data is congested.", severity: "high", bad: !profile.alternateComms || ["no", "partial"].includes(profile.alternateComms) },
           { key: "contactPlan", label: "Out-of-area contact", advice: "Name one person outside the immediate area and share the plan with everyone.", severity: "medium", bad: !profile.contactPlan || ["no", "partial"].includes(profile.contactPlan) },
