@@ -1,30 +1,32 @@
 {
   "meta": {
     "title": "Home-front session",
-    "version": "0.3",
+    "version": "0.4",
     "date": "2026-09-06",
-    "purpose": "Help a free U.S. preparedness group practice continuity when a Taiwan Strait crisis degrades services at home.",
-    "licenseNote": "BLACK MERIDIAN is free. The intended outcome is living people and closed planning gaps, not a product sale."
+    "purpose": "Help a small U.S. family or neighbor group practice staying alive when a Taiwan Strait crisis degrades services at home.",
+    "licenseNote": "BLACK MERIDIAN is free. Family first. The intended outcome is living people across generations, not a product sale."
   },
   "ethics": [
+    "Family first. Small groups. Decades, not days.",
+    "You are not writing a war plan. You are keeping a line of people alive.",
     "Talk about services failing, not how to break them.",
     "Do not name real plants, bases, bridges, hospitals, or warehouses as targets.",
-    "Do not store names, addresses, account numbers, or medical identifiers.",
+    "Do not store legal names, addresses, account numbers, or medical identifiers.",
     "Official alerts beat this dashboard in a real event.",
     "Plans that help in storms, outages, and pharmacy delays still help if the extreme case never happens."
   ],
   "roles": [
-    { "id": "facilitator", "title": "Facilitator", "job": "Keep time, release one inject at a time, stop targeting talk, write the three commitments." },
-    { "id": "households", "title": "Households", "job": "Each person or pair represents one household. Use a callsign, not a real name." },
-    { "id": "mutual-aid", "title": "Mutual-aid cell", "job": "Track what the group can share without collapsing: water, transport, check-ins, spare meds knowledge (not actual prescriptions)." },
-    { "id": "info", "title": "Information cell", "job": "Say what is confirmed, rumored, or unknown. Prefer official public sources." },
-    { "id": "civil", "title": "Civil picture", "job": "Track power, water, fuel, comms, medical access, and payments as effects on people, not as attack surfaces." }
+    { "id": "facilitator", "title": "Host", "job": "Usually a parent or grandparent. Keep time, one inject at a time, stop targeting talk, write the three family promises." },
+    { "id": "households", "title": "Households", "job": "Each person or pair is one house — kids, elders, pets. Use a callsign, not a legal name." },
+    { "id": "mutual-aid", "title": "Neighbors", "job": "What can this small group share without collapsing: water, a ride, a check-in, knowledge of a refill path — not someone else's stash map." },
+    { "id": "info", "title": "Who we believe", "job": "Say what is confirmed, rumored, or unknown. Prefer official public sources over the loudest cousin." },
+    { "id": "civil", "title": "What still works", "job": "Track power, water, fuel, phones, medical access, and payments as they hit people — not as things to attack." }
   ],
   "session": [
-    { "minutes": "0–10", "title": "Boundary and region", "do": "Read the ethics list. Pick one U.S. planning region. State that named countries are a public scenario frame, not a forecast or a targeting board." },
-    { "minutes": "10–25", "title": "Baselines", "do": "Each household fills the planner. Mutual-aid cell records surplus and shortages without addresses." },
-    { "minutes": "25–70", "title": "Four home-front injects", "do": "Run H-01, H-03, H-04, and H-05 (or swap H-02 / H-06). After each inject, every household answers: stay, move, share, or wait — and why." },
-    { "minutes": "70–90", "title": "Close three gaps", "do": "Group picks three high-consequence gaps to close in the next 14 days. Export the session log." }
+    { "minutes": "0–10", "title": "Why we are here", "do": "Read family-first ethics. Pick a U.S. region. Say out loud: we are a small group, not a war staff." },
+    { "minutes": "10–25", "title": "What each house has", "do": "Each household fills the planner. Neighbors note surplus and shortages without addresses." },
+    { "minutes": "25–70", "title": "Four hard nights", "do": "Run H-01, H-03, H-04, and H-05. After each, every house says stay, move, share, or wait — and why." },
+    { "minutes": "70–90", "title": "Three family promises", "do": "Pick three gaps to close in 14 days. Each promise needs a test. Export the log." }
   ],
   "injects": [
     {
@@ -113,9 +115,9 @@
     }
   ],
   "closeRules": [
-    "Pick at most three gaps. More than three is a wishlist, not a plan.",
-    "Each commitment needs an owner callsign, a due date within 14 days, and a test (not a purchase alone).",
-    "A test means you used the radio, drove the fallback, filled water, or called the out-of-area contact.",
-    "Re-run the session after the 14 days. The score is closed gaps, not battlefield victory."
+    "Pick at most three gaps. More than three is a wishlist, not a family plan.",
+    "Each promise needs an owner callsign, a due date within 14 days, and a test (not a purchase alone).",
+    "A test means you used the radio, drove the fallback, filled water, or reached the out-of-area aunt.",
+    "Re-run in 14 days. The score is closed gaps — still a family — not a battlefield victory."
   ]
 }

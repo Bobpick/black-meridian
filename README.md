@@ -1,6 +1,6 @@
 # Exercise BLACK MERIDIAN
 
-**A free, portable, offline HTML tabletop for U.S. preparedness groups: a Taiwan Strait public scenario (United States, China, Taiwan, partners) coupled to home-front continuity so people practice living through service failures.**
+**Family first. Small groups. A free kitchen-table tabletop so U.S. households can practice staying alive — water, medicine, contact, a sharing rule — if a Taiwan Strait crisis hits services at home.**
 
 [Open the dashboard](index.html) · [Read the instruction manual](instruction-manual.html)
 
@@ -10,7 +10,7 @@
 
 ## Overview
 
-BLACK MERIDIAN is free. The intended outcome is closed planning gaps and living people. It combines:
+BLACK MERIDIAN is free. You do not need a war plan. You need a line of people who still drink, take their medicine, and find each other. It combines:
 
 - A 90-minute **home-front session** that couples each campaign phase to a civilian effect (comms, medicine, fuel, payments, rumor)
 - Group roster by callsign, mutual-aid roles, and a hard cap of three 14-day commitments
@@ -218,7 +218,7 @@ For an immediate real-world emergency, follow official alerts and contact local 
 
 ## Project status
 
-**Version:** 0.3  
+**Version:** 0.4  
 **Date:** 2026-09-06  
 **Format:** Static offline web application  
 **Build step:** None required
