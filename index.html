@@ -893,6 +893,9 @@
                   <div class="form-field"><label for="waterDays">Water on hand, days</label><input id="waterDays" type="number" min="0" max="365" placeholder="e.g., 3" /></div>
                   <div class="form-field"><label for="waterHarvest">Water harvest (beyond stored gallons)</label><select id="waterHarvest"><option value="">Select</option><option value="none">Stored gallons only</option><option value="rain">Rain catch</option><option value="peltier">Solar + Peltier from humid air</option><option value="rain-peltier">Rain catch and solar Peltier</option></select></div>
                   <div class="form-field"><label for="airHumidity">Air this session</label><select id="airHumidity"><option value="">Select</option><option value="extreme">PA-style summer — ~90°F / very high humidity</option><option value="humid">Humid — condensation can work</option><option value="mixed">Mixed / seasonal</option><option value="arid">Arid / dry — Peltier will not pay</option></select></div>
+                  <div class="form-field"><label for="waterSource">Natural / surface water</label><select id="waterSource"><option value="">Select</option><option value="none">None we can use</option><option value="spring">Spring that usually runs</option><option value="perennial">River/creek that runs through dry months (e.g. PNW)</option><option value="seasonal">Seasonal creek — may go dry</option><option value="lake">Lake / pond</option></select></div>
+                  <div class="form-field"><label for="waterAccess">Access to that water</label><select id="waterAccess"><option value="">Select</option><option value="na">Not applicable</option><option value="onsite">On or next to the property</option><option value="walk">Walk with cans — known path</option><option value="drive">Need a vehicle / fuel</option><option value="none">We cannot get there this session</option></select></div>
+                  <div class="form-field"><label for="waterTreat">Treat before drinking</label><select id="waterTreat"><option value="">Select</option><option value="na">Not using surface water</option><option value="both">Filter and boil/chem</option><option value="filter">Filter only</option><option value="boil">Boil or chemical only</option><option value="none">No treatment plan</option></select></div>
                   <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="800" placeholder="e.g., 7 or 730" /></div>
                   <div class="form-field"><label for="medicationPlan">Medication / medical plan</label><select id="medicationPlan"><option value="">Select</option><option value="confirmed">Confirmed supply and refill plan</option><option value="partial">Partial plan</option><option value="none">No plan yet</option><option value="na">Not applicable</option></select></div>
                   <div class="form-field"><label for="alternateComms">Alternate communications</label><select id="alternateComms"><option value="">Select</option><option value="yes">Yes, tested</option><option value="partial">Available but untested</option><option value="no">No alternate method</option></select></div>
@@ -1752,7 +1755,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons cover reconstituting. In a PA-style 90/90 summer a solar Peltier can recover real water from the air — not a hydrant, but not a toy either. Heat stroke is still the life-safety problem. Sun/car screens dry food. Do not advertise a long stock.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons, a treated spring or perennial river, and/or a 90/90 Peltier can keep reconstituting. PA springs and PNW rivers that do not quit in a dry spell count — if you can get there and you treat. Heat may still be the killer. Do not advertise the source or the stock.",
       "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
@@ -1960,6 +1963,17 @@
         return !blockedSky;
       }
 
+      function surfaceWaterOk(profile) {
+        const source = profile.waterSource;
+        if (!source || source === "none") return false;
+        if (profile.waterAccess === "none" || !profile.waterAccess || profile.waterAccess === "na") return false;
+        if (profile.waterAccess === "drive" && familyKeyBad(profile, "transportPlan")) return false;
+        if (profile.waterTreat === "none" || !profile.waterTreat || profile.waterTreat === "na") return false;
+        if (source === "seasonal" && (profile.rainPlan === "drought" || profile.weatherNow === "heat")) return false;
+        if (profile.weatherNow === "freeze" && (source === "lake" || source === "seasonal")) return false;
+        return source === "spring" || source === "perennial" || source === "lake" || source === "seasonal";
+      }
+
       function peltierIsStrong(profile) {
         if (!peltierCanRun(profile)) return false;
         return profile.airHumidity === "extreme" || (profile.airHumidity === "humid" && (profile.weatherNow === "heat" || profile.season === "heat" || profile.sunPlan === "heat"));
@@ -1977,7 +1991,13 @@
           const blockedSky = ["freeze", "storm", "smoke"].includes(profile.weatherNow) || profile.sunPlan === "short";
           return blockedSky;
         }
-        if (key === "dryFoodNoWater") return Number(profile.foodDays || 0) >= 30 && (!profile.waterDays || Number(profile.waterDays) < 14);
+        if (key === "dryFoodNoWater") return Number(profile.foodDays || 0) >= 30 && (!profile.waterDays || Number(profile.waterDays) < 14) && !surfaceWaterOk(profile);
+        if (key === "untreatedSurface") {
+          const src = profile.waterSource;
+          return src && src !== "none" && (profile.waterTreat === "none" || !profile.waterTreat);
+        }
+        if (key === "seasonalDry") return profile.waterSource === "seasonal" && (profile.rainPlan === "drought" || profile.weatherNow === "heat");
+        if (key === "waterWalkFuel") return (profile.waterAccess === "drive" && familyKeyBad(profile, "transportPlan")) || profile.waterAccess === "none" && profile.waterSource && profile.waterSource !== "none";
         if (key === "documentsPlan") return !value || value === "no";
         if (key === "dependentsPlan" || key === "mobilityPickup") return !value || ["no", "partial"].includes(value);
         if (key === "medIssue") return value && value !== "none" && (!profile.medicationPlan || ["none", "partial", ""].includes(profile.medicationPlan));
@@ -1987,6 +2007,7 @@
         if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
         if (key === "falseHopeGarden") return profile.growPlan === "seeds" && Number(profile.foodDays || 0) < 14;
         if (key === "droughtWater") {
+          if (surfaceWaterOk(profile)) return false;
           const peltierOk = peltierCanRun(profile);
           if (peltierOk && Number(profile.waterDays || 0) >= 3) return false;
           return (profile.rainPlan === "drought" || profile.airHumidity === "arid") && (!profile.waterDays || Number(profile.waterDays) < 7);
@@ -2014,7 +2035,7 @@
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
         if (injectId === "H-06" || injectId === "H-02") keys.push("unsafeNeighbors");
@@ -2023,13 +2044,20 @@
         const band = open.length === 0 ? "succeed" : open.length === unique.length ? "fail" : "mixed";
         const world = (selectedHotspot().theater && selectedHotspot().theater[injectId]) || (inject && inject.theater) || "";
         const weather = [profile.season, profile.weatherNow, profile.airHumidity].filter(Boolean).join(" / ") || "not set";
-        const harvestNote = peltierIsStrong(profile)
-          ? "PELTIER: favorable — 90/90-style air holds real water. Heat is the killer; harvest is cups-to-liters, not a hydrant."
-          : peltierCanRun(profile)
-            ? "PELTIER: possible in this humidity and sun. Slow recovery."
-            : (profile.waterHarvest || "").includes("peltier")
-              ? "PELTIER: blocked (arid, storm, freeze, smoke, or short days)."
-              : "";
+        const harvestNote = [
+          surfaceWaterOk(profile)
+            ? `SURFACE WATER: usable ${profile.waterSource} with access and treatment. Springs and perennial rivers can outlast a dry spell. Still treat.`
+            : profile.waterSource && profile.waterSource !== "none"
+              ? "SURFACE WATER: named but blocked (access, treatment, freeze, or a creek that went dry)."
+              : "",
+          peltierIsStrong(profile)
+            ? "PELTIER: favorable — 90/90-style air holds real water. Heat is the killer; harvest is cups-to-liters, not a hydrant."
+            : peltierCanRun(profile)
+              ? "PELTIER: possible in this humidity and sun. Slow recovery."
+              : (profile.waterHarvest || "").includes("peltier")
+                ? "PELTIER: blocked (arid, storm, freeze, smoke, or short days)."
+                : ""
+        ].filter(Boolean).join(" ");
         const late = familyKeyBad(profile, "alternateComms") || familyKeyBad(profile, "weatherRadio");
         return { inject, marker, profile, open, band, world, weather, harvestNote, late };
       }
@@ -2051,6 +2079,7 @@
           `WEATHER / CLIMATE: ${result.weather}`,
           `FOOD DAYS: ${result.profile.foodDays || "0"} · PRESERVE: ${result.profile.preserveMethod || "not set"} · MACHINES: ${result.profile.preservePower || "not set"}`,
           `WATER DAYS: ${result.profile.waterDays || "0"} · HARVEST: ${result.profile.waterHarvest || "not set"} · AIR: ${result.profile.airHumidity || "not set"}`,
+          `SPRING/RIVER: ${result.profile.waterSource || "not set"} · ACCESS: ${result.profile.waterAccess || "not set"} · TREAT: ${result.profile.waterTreat || "not set"}`,
           result.harvestNote || "",
           `RAIN: ${result.profile.rainPlan || "not set"} · SUN: ${result.profile.sunPlan || "not set"} · GARDEN: ${result.profile.growPlan || "not set"}`,
           `NEARBY HOUSEHOLDS: ${result.profile.localTrust || "not set"} (no ideology labels on this net)`,
@@ -2199,13 +2228,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2215,6 +2244,7 @@
           { key: "familySize", label: "Record household size", advice: "Use this to calculate supplies and identify dependents.", severity: "high", bad: !profile.familySize },
           { key: "waterDays", label: "Water continuity", advice: "Stored gallons first. Solar Peltier can wring cups from humid air in the sun — not a well, not an arid-climate plan.", severity: "high", bad: !profile.waterDays || Number(profile.waterDays) < 3 },
           { key: "waterHarvest", label: "Water harvest", advice: "Rain catch and/or solar Peltier. Peltier needs humidity and sun. Treat output as slow recovery, not drums per hour.", severity: "medium", bad: !profile.waterHarvest },
+          { key: "waterSource", label: "Spring / river / lake", advice: "PA springs and PNW rivers that run through dry months are real. Seasonal creeks lie in a drought. Treat everything you did not store.", severity: "medium", bad: !profile.waterSource },
           { key: "foodDays", label: "Food continuity", advice: "Shelf food that is already preserved counts. Machines do not run themselves if the grid is down.", severity: "medium", bad: !profile.foodDays || Number(profile.foodDays) < 3 },
           { key: "preserveMethod", label: "Preserved stock", advice: "Bags on the shelf count. Freeze-dryer needs power. Sun/car screens can still dry food with no grid if the sky is clear.", severity: "medium", bad: !profile.preserveMethod || profile.preserveMethod === "none" },
           { key: "medicationPlan", label: "Medication and medical continuity", advice: "Confirm supply, refill, storage, and a backup care pathway.", severity: "high", bad: !profile.medicationPlan || ["none", "partial"].includes(profile.medicationPlan) },
