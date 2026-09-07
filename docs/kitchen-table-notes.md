@@ -81,6 +81,7 @@ Now scored:
 - **Soap** — stored, or fat and ash know-how (no recipe in this repo). Trash burned outdoors to help boil
 - **Watches** — two 12-hour shifts; the **sun is the clock**
 - **Death** — not all survive. That is not a failure of the family rule
+- **Win** — if only one family lives because they sat this table, that is a win
 - **Solar lights** — path and inside
 - **Printed map** — paper is king
 - **Two 12-hour watches**
