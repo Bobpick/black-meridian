@@ -34,7 +34,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons, a treated spring or perennial river, and/or a 90/90 Peltier can keep reconstituting. PA springs and PNW rivers that do not quit in a dry spell count — if you can get there and you treat. Heat may still be the killer. Do not advertise the source or the stock.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons, a treated spring or perennial river, a ram pump with flow and drop, and/or a 90/90 Peltier can keep reconstituting. A ram needs no grid. Freeze and a dry creek stop it. Heat may still be the killer. Do not advertise the source or the stock.",
       "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
