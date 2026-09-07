@@ -438,7 +438,7 @@
         <section class="view active" id="view-session" data-view="session">
           <div class="hero">
             <div>
-              <div class="eyebrow">Family first · small groups · version 0.5</div>
+              <div class="eyebrow">Family first · small groups · version 0.6</div>
               <h2>See them to their grandchildren.</h2>
               <p>Every American who will do what it takes for their own house is the point of this file. What it takes is water, medicine, a check-in when the phones die, a sharing rule that does not wreck the family, and a hard no on hunting people. This dashboard is an asset to that household — a free, offline practice table — not a war staff and not a substitute for you. Kitchen table or church basement. Four or five households. Ninety minutes. Three promises you will actually test. Pick a hotspot. The test is your house.</p>
             </div>
@@ -448,6 +448,27 @@
             <div class="callout-icon">!</div>
             <div><strong>Family first:</strong> talk about services failing, not how to break them. No real plants, bases, or hospitals as targets. No real names or street addresses in the file. Official alerts beat this dashboard. Small groups keep each other alive; they do not run the war.</div>
           </div>
+          <article class="panel top-space" id="hardWallPanel">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">The hard wall</div>
+                <h3>Kobayashi Maru</h3>
+                <p id="hardWallLesson"></p>
+              </div>
+              <span class="tag red">No-win as written</span>
+            </div>
+            <div class="grid-two top-space">
+              <div>
+                <h4 class="eyebrow">Unwinnable from this table</h4>
+                <ul class="rule-list" id="hardWallLose"></ul>
+              </div>
+              <div>
+                <h4 class="eyebrow">Winnable with the right mindset</h4>
+                <ul class="check-list" id="hardWallWin"></ul>
+              </div>
+            </div>
+            <div class="callout top-space" id="hardWallPass"></div>
+          </article>
           <article class="panel top-space">
             <div class="section-head">
               <div>
@@ -877,7 +898,7 @@
       </main>
     </div>
 
-    <footer class="footer">BLACK MERIDIAN · FAMILY FIRST · THIS FILE IS AN ASSET TO THE HOUSEHOLD · VERSION 0.5 · 2026-09-06</footer>
+    <footer class="footer">BLACK MERIDIAN · FAMILY FIRST · HARD WALL · VERSION 0.6 · 2026-09-06</footer>
   </div>
 
   <script id="scenario-data" type="application/json">
@@ -1318,7 +1339,7 @@
 {
   "meta": {
     "title": "Home-front session",
-    "version": "0.4",
+    "version": "0.6",
     "date": "2026-09-06",
     "purpose": "Help a small U.S. family or neighbor group practice staying alive when a Taiwan Strait crisis degrades services at home.",
     "licenseNote": "BLACK MERIDIAN is free. Family first. The intended outcome is living people across generations, not a product sale."
@@ -1334,6 +1355,24 @@
     "Official alerts beat this dashboard in a real event.",
     "Plans that help in storms, outages, and pharmacy delays still help if the extreme case never happens."
   ],
+  "hardWall": {
+    "title": "The hard wall",
+    "subtitle": "Kobayashi Maru",
+    "lesson": "Some tests are built so you cannot win them as written. The war is that test. You will not out-command fleets, stop bombers, or conscript a nation from a kitchen table. The right mindset does not cheat the universe. It changes what counts as a win: this family still drinks, still takes medicine, still finds each other, still does not hunt people. That is unbeatable only if you keep scoring the wrong game.",
+    "unwinnable": [
+      "Stopping a great-power war",
+      "Clearing the rumor mill for the whole country",
+      "Holding a border or a sea lane from this table",
+      "Guaranteeing that the nightmare never happens"
+    ],
+    "winnable": [
+      "A check-in hour that still works when apps fail",
+      "Water, medicine, and a sharing floor for your own house",
+      "Stay, move, share, or wait — named out loud, without panic-buying the town",
+      "Refusing to hunt a neighbor when the video says you should"
+    ],
+    "pass": "You pass the hard wall when the group can say: we cannot win the war, and we can still be a family on the worst night."
+  },
   "roles": [
     {
       "id": "facilitator",
@@ -1365,7 +1404,7 @@
     {
       "minutes": "0–10",
       "title": "Why we are here",
-      "do": "Read family-first ethics. Pick a U.S. region. Say out loud: we are a small group, not a war staff."
+      "do": "Read the hard wall. Family first. Pick a U.S. region. Say out loud: we are a small group, not a war staff."
     },
     {
       "minutes": "10–25",
@@ -1734,6 +1773,12 @@
         $("#sessionRoles").innerHTML = HOME.roles.map((role) => `<div class="roster-item" style="margin-bottom:8px;"><strong>${esc(role.title)}.</strong> ${esc(role.job)}</div>`).join("");
         $("#sessionEthics").innerHTML = HOME.ethics.map((rule) => `<li>${esc(rule)}</li>`).join("");
         $("#closeRules").innerHTML = HOME.closeRules.map((rule) => `<li>${esc(rule)}</li>`).join("");
+        if (HOME.hardWall) {
+          $("#hardWallLesson").textContent = HOME.hardWall.lesson;
+          $("#hardWallLose").innerHTML = HOME.hardWall.unwinnable.map((item) => `<li>${esc(item)}</li>`).join("");
+          $("#hardWallWin").innerHTML = HOME.hardWall.winnable.map((item) => `<li>${esc(item)}</li>`).join("");
+          $("#hardWallPass").innerHTML = `<div class="callout-icon">✓</div><div><strong>Pass condition.</strong> ${esc(HOME.hardWall.pass)}</div>`;
+        }
         const due = $("#commitDue");
         if (due && !due.value) {
           const next = new Date();

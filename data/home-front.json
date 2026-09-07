@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Home-front session",
-    "version": "0.4",
+    "version": "0.6",
     "date": "2026-09-06",
     "purpose": "Help a small U.S. family or neighbor group practice staying alive when a Taiwan Strait crisis degrades services at home.",
     "licenseNote": "BLACK MERIDIAN is free. Family first. The intended outcome is living people across generations, not a product sale."
@@ -17,6 +17,24 @@
     "Official alerts beat this dashboard in a real event.",
     "Plans that help in storms, outages, and pharmacy delays still help if the extreme case never happens."
   ],
+  "hardWall": {
+    "title": "The hard wall",
+    "subtitle": "Kobayashi Maru",
+    "lesson": "Some tests are built so you cannot win them as written. The war is that test. You will not out-command fleets, stop bombers, or conscript a nation from a kitchen table. The right mindset does not cheat the universe. It changes what counts as a win: this family still drinks, still takes medicine, still finds each other, still does not hunt people. That is unbeatable only if you keep scoring the wrong game.",
+    "unwinnable": [
+      "Stopping a great-power war",
+      "Clearing the rumor mill for the whole country",
+      "Holding a border or a sea lane from this table",
+      "Guaranteeing that the nightmare never happens"
+    ],
+    "winnable": [
+      "A check-in hour that still works when apps fail",
+      "Water, medicine, and a sharing floor for your own house",
+      "Stay, move, share, or wait — named out loud, without panic-buying the town",
+      "Refusing to hunt a neighbor when the video says you should"
+    ],
+    "pass": "You pass the hard wall when the group can say: we cannot win the war, and we can still be a family on the worst night."
+  },
   "roles": [
     { "id": "facilitator", "title": "Host", "job": "Usually a parent or grandparent. Keep time, one inject at a time, stop targeting talk, write the three family promises." },
     { "id": "households", "title": "Households", "job": "Each person or pair is one house — kids, elders, pets. Use a callsign, not a legal name." },
@@ -25,7 +43,7 @@
     { "id": "civil", "title": "What still works", "job": "Track power, water, fuel, phones, medical access, and payments as they hit people — not as things to attack." }
   ],
   "session": [
-    { "minutes": "0–10", "title": "Why we are here", "do": "Read family-first ethics. Pick a U.S. region. Say out loud: we are a small group, not a war staff." },
+    { "minutes": "0–10", "title": "Why we are here", "do": "Read the hard wall. Family first. Pick a U.S. region. Say out loud: we are a small group, not a war staff." },
     { "minutes": "10–25", "title": "What each house has", "do": "Each household fills the planner. Neighbors note surplus and shortages without addresses." },
     { "minutes": "25–70", "title": "Four hard nights", "do": "Run H-01, H-03, H-04, and H-05. After each, every house says stay, move, share, or wait — and why." },
     { "minutes": "70–90", "title": "Three family promises", "do": "Pick three gaps to close in 14 days. Each promise needs a test. Export the log." }
