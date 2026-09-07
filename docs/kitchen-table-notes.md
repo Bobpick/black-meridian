@@ -74,7 +74,13 @@ Oxygen is not the 30-day problem for this game. Water and food are on the planne
 
 Now scored:
 
-- **Sanitation** — bucket/cover tonight; humanure compost for the long mile; never fresh waste on the food garden
+- **Sanitation** — bucket tonight; humanure ~**a year** to compost; never fresh on the food garden
+- **Cook** — solar cooker, or rocket stove **outside** on sticks
+- **Two Sawyers** — two is one, one is none
+- **IFAK** practiced. Glasses: last year's pair or go without. Pet food is human food
+- **Soap** — stored, or fat and ash know-how (no recipe in this repo). Trash burned outdoors to help boil
+- **Watches** — two 12-hour shifts; the **sun is the clock**
+- **Death** — not all survive. That is not a failure of the family rule
 - **Solar lights** — path and inside
 - **Printed map** — paper is king
 - **Two 12-hour watches**

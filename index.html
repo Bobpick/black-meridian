@@ -935,7 +935,13 @@
                   <div class="form-field"><label for="waterSource">Natural / surface water</label><select id="waterSource"><option value="">Select</option><option value="none">None we can use</option><option value="spring">Spring that usually runs</option><option value="perennial">River/creek that runs through dry months (e.g. PNW)</option><option value="seasonal">Seasonal creek — may go dry</option><option value="lake">Lake / pond</option></select></div>
                   <div class="form-field"><label for="waterAccess">Access to that water</label><select id="waterAccess"><option value="">Select</option><option value="na">Not applicable</option><option value="onsite">On or next to the property</option><option value="walk">Walk with cans — known path</option><option value="drive">Need a vehicle / fuel</option><option value="none">We cannot get there this session</option></select></div>
                   <div class="form-field"><label for="waterTreat">Treat before drinking</label><select id="waterTreat"><option value="">Select</option><option value="na">Not using surface water</option><option value="both">Filter and boil/chem</option><option value="sawyer">Sawyer-class hollow-fiber (high gallon rating)</option><option value="filter">Other filter only</option><option value="boil">Boil or chemical only</option><option value="none">No treatment plan</option></select></div>
-                  <div class="form-field"><label for="cookHeat">Cook / boil heat (no-grid)</label><select id="cookHeat"><option value="">Select</option><option value="none">No off-grid cook heat</option><option value="solar">Solar cooker — sun boils/cooks</option><option value="rocket">Rocket stove — little fuel</option><option value="both">Solar cooker and rocket stove</option><option value="propane">Propane / stored fuel stove</option><option value="grid">Grid or electric only</option></select></div>
+                  <div class="form-field"><label for="cookHeat">Cook / boil heat (no-grid)</label><select id="cookHeat"><option value="">Select</option><option value="none">No off-grid cook heat</option><option value="solar">Solar cooker — sun boils/cooks</option><option value="rocket">Rocket stove OUTSIDE — sticks</option><option value="both">Solar cooker and outdoor rocket</option><option value="propane">Propane / stored fuel stove</option><option value="grid">Grid or electric only</option></select></div>
+                  <div class="form-field"><label for="sawyerCount">Sawyer-class filters</label><select id="sawyerCount"><option value="">Select</option><option value="0">None</option><option value="1">One — one is none</option><option value="2">Two or more — two is one</option></select></div>
+                  <div class="form-field"><label for="ifak">Trauma / IFAK</label><select id="ifak"><option value="">Select</option><option value="none">No kit</option><option value="have">Have a kit</option><option value="practiced">Have a kit and have practiced</option></select></div>
+                  <div class="form-field"><label for="soapWay">Soap</label><select id="soapWay"><option value="">Select</option><option value="none">None</option><option value="store">Stored soap</option><option value="fat-ash">Can render fat; lye from ash (know-how, not a recipe here)</option><option value="both">Stored and can make</option></select></div>
+                  <div class="form-field"><label for="trashBurn">Trash</label><select id="trashBurn"><option value="">Select</option><option value="none">Piles up</option><option value="burn">Burn trash to help boil water (outdoors)</option></select></div>
+                  <div class="form-field"><label for="petFood">Pet food</label><select id="petFood"><option value="">Select</option><option value="na">No pets</option><option value="human">Same as human shelf food</option><option value="separate">Separate pet stock</option><option value="none">Pets, no food plan</option></select></div>
+                  <div class="form-field"><label for="glassesSpare">Glasses / spares</label><select id="glassesSpare"><option value="">Select</option><option value="na">Not needed</option><option value="spare">Last year's pair / spare</option><option value="without">Can go without</option><option value="none">Need them, no spare</option></select></div>
                   <div class="form-field"><label for="waterLift">Lift to the house</label><select id="waterLift"><option value="">Select</option><option value="na">Not lifting surface water</option><option value="gravity">Gravity feed</option><option value="ram">Hydraulic ram pump — no grid (flow + drop)</option><option value="electric">Electric pump (grid or backup)</option><option value="haul">Haul by hand or vehicle</option></select></div>
                   <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="800" placeholder="e.g., 7 or 730" /></div>
                   <div class="form-field"><label for="medicationPlan">Medication / medical plan</label><select id="medicationPlan"><option value="">Select</option><option value="confirmed">Confirmed supply and refill plan</option><option value="partial">Partial plan</option><option value="none">No plan yet</option><option value="na">Not applicable</option></select></div>
@@ -968,10 +974,10 @@
                   <div class="form-field"><label for="localTrust">Nearby households (no ideology labels)</label><select id="localTrust"><option value="">Select</option><option value="cooperative">Cooperative — check-in and sharing floor possible</option><option value="mixed">Mixed / unknown</option><option value="strained">Strained — we do not share stash maps</option><option value="unsafe">Unsafe — crime or threats; second roof and official help, no posse</option></select></div>
                   <div class="form-field"><label for="shareFloor">Sharing floor (days we keep)</label><select id="shareFloor"><option value="">Select</option><option value="14">Keep 14 days, then help</option><option value="30">Keep 30 days, then help</option><option value="90">Keep 90 days, then help</option><option value="365">Keep 1 year, then help</option><option value="none">No floor — we will get drained</option></select></div>
                   <div class="form-field"><label for="helpKind">What we will give an unprepared house</label><select id="helpKind"><option value="">Select</option><option value="skill">Skill only — filter, boil, rocket, where to treat water (no stash tour)</option><option value="day">Skill plus one day of water/food, once</option><option value="small">Small repeating help under the floor</option><option value="open">Open pantry — drain risk</option></select></div>
-                  <div class="form-field"><label for="sanitation">Sanitation</label><select id="sanitation"><option value="">Select</option><option value="none">No plan — sewage dies with the grid</option><option value="bucket">Bucket / cover tonight (sawdust, etc.)</option><option value="humanure">Humanure compost only (not a 72-hour toilet)</option><option value="both">Bucket tonight and humanure for the long mile</option><option value="septic">Septic that still works without municipal sewer</option></select></div>
+                  <div class="form-field"><label for="sanitation">Sanitation</label><select id="sanitation"><option value="">Select</option><option value="none">No plan — sewage dies with the grid</option><option value="bucket">Bucket / cover tonight (sawdust, etc.)</option><option value="humanure">Humanure only — compost takes ~a year; not tonight</option><option value="both">Bucket tonight; humanure ~a year to compost</option><option value="septic">Septic that still works without municipal sewer</option></select></div>
                   <div class="form-field"><label for="lightSolar">Solar lights</label><select id="lightSolar"><option value="">Select</option><option value="none">No off-grid light</option><option value="path">Path lights</option><option value="inside">Inside the house</option><option value="both">Path and inside</option></select></div>
                   <div class="form-field"><label for="printedMap">Printed map</label><select id="printedMap"><option value="">Select</option><option value="none">None — phone map only</option><option value="local">Local paper map</option><option value="regional">Regional paper map</option><option value="both">Local and regional on paper</option></select></div>
-                  <div class="form-field"><label for="watchShift">Sleep / watch</label><select id="watchShift"><option value="">Select</option><option value="none">No watch — everyone sleeps at once</option><option value="adhoc">Ad hoc</option><option value="two12">Two 12-hour shifts</option></select></div>
+                  <div class="form-field"><label for="watchShift">Sleep / watch</label><select id="watchShift"><option value="">Select</option><option value="none">No watch — everyone sleeps at once</option><option value="adhoc">Ad hoc</option><option value="two12">Two 12-hour shifts — sun is the clock</option></select></div>
                   <div class="form-field"><label for="electrolytes">Electrolytes</label><select id="electrolytes"><option value="">Select</option><option value="none">None counted</option><option value="nacl">NaCl (salt)</option><option value="kcl">KCl</option><option value="both">NaCl and KCl</option><option value="sugar-salt">Sugar and salt (NaCl and/or KCl)</option></select></div>
                 </div>
                 <div class="form-actions"><button class="primary" type="submit">Save profile</button><button class="ghost" id="exportFamily" type="button">Export profile</button><button class="danger" id="clearFamily" type="button">Clear</button></div>
@@ -1454,6 +1460,8 @@
     "Do what it takes at the table: water, medicine, contact, a sharing floor. Do not hunt people.",
     "Do not label neighbors Nazis, Muslims, or any people-category in this file. Unsafe is a behavior: threats, crime. Then second roof and official help — never a posse.",
     "Unprepared families are a drain, not automatically a violent threat. Keep a sharing floor. Teach filter and boil. Do not give a stash tour.",
+    "Not all will survive. Death is part of life. It is not a failure of this table if you kept water, the check-in, and you did not hunt people.",
+    "Rocket stoves outside. Two Sawyers. Pet food is people food. Humanure takes a year.",
     "Seeds and sun do not feed you this week. Rain is catch-or-flood, not a miracle.",
     "Talk about services failing, not how to break them.",
     "Do not name real plants, bases, bridges, hospitals, or warehouses as targets.",
@@ -1478,7 +1486,7 @@
       "Stay, move, share, or wait — named out loud, without panic-buying the town",
       "Refusing to hunt a neighbor when the video says you should"
     ],
-    "pass": "You pass the hard wall when the group can say: we cannot win the war, and we can still be a family on the worst night."
+    "pass": "You pass the hard wall when the group can say: we cannot win the war, and we can still be a family on the worst night. Not everyone survives. Death is part of life. It is not a score failure if you kept water, the check-in, and the no-hunt rule."
   },
   "gridDownWater": {
     "title": "Grid-down water",
@@ -1509,15 +1517,17 @@
   "houseKeep": {
     "title": "The house still works",
     "eyebrow": "After water and food",
-    "lead": "Sewer dies with the grid. Humanure is the long compost mile; a bucket with cover is tonight. Solar lights for the path and the room. A printed map is king. Sleep in two 12-hour watches. Electrolytes are sugar and salt — NaCl and/or KCl.",
+    "lead": "Sewer dies with the grid. Humanure takes about a year to become compost; a bucket with cover is tonight. Rocket stove OUTSIDE on sticks, or solar cooker. Two Sawyers (two is one). IFAK. Pet food is people food. Soap from stored bars or fat and ash — no recipe here. Trash burned outdoors to help boil. Sun is the clock for two 12-hour watches. Not all will survive. That is not a failure of the family rule.",
     "steps": [
-      "Sanitation: bucket/cover tonight; humanure compost for weeks — never fresh waste on the food garden",
-      "Solar lights on the path and inside so the bucket and the radio do not break a bone",
-      "Printed local map; regional too if you might move once",
-      "Two 12-hour watches so the drain at the door is not a surprise",
-      "Sugar and salt (NaCl and/or KCl) counted — heat and sickness empty a body"
+      "Sanitation: bucket tonight; humanure ~a year — never fresh on the food garden",
+      "Cook: solar stove, or rocket OUTSIDE on sticks — not in the house",
+      "Two Sawyers — two is one, one is none",
+      "IFAK practiced. Glasses: last year's pair or go without",
+      "Pet food is human food. Soap: stored or fat/ash know-how. Trash: burn outdoors to boil",
+      "Solar path and inside lights. Printed map. Two 12-hour watches — the sun is the clock",
+      "Sugar and salt (NaCl and/or KCl)"
     ],
-    "doNot": "Humanure is not instant fertilizer. A phone map is not a map. Everyone asleep is not a watch."
+    "doNot": "Do not cook a rocket stove indoors. Do not put year-old-or-less humanure on food. Do not treat a death as a game failure if the house kept the rule. Do not publish a lye recipe in this file."
   },
   "roles": [
     {
@@ -1849,7 +1859,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A Sawyer-class filter can treat a huge gallon count from a spring or river. Solar cooker and rocket stove still boil. Sharing floor is written: unprepared houses will ask — that is a drain, not a raid. Teach skills; do not open the pantry to the road. Heat may still be the killer.",
+      "succeed": "PLAN HELD. Shelf food already preserved. Two Sawyers (two is one). Rocket OUTSIDE on sticks or solar cooker. Trash burned outdoors to help boil. Pet food is people food. Soap stored or fat/ash know-how. Sharing floor written. Humanure is a year, not the garden. Not all will survive — that is not a score failure if the family rule held.",
       "mixed": "PLAN PARTIAL. Food or water is decent but the drain rule, cash, sky, or sharing floor is thin. Unprepared neighbors will keep coming — a drain, not automatically a raid. Teach filter and boil. Do not give a stash tour. Sun screens need a clear sky. Reset keep-X-days tonight.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
@@ -2151,6 +2161,12 @@
         if (key === "sanitation") return !value || value === "none" || value === "humanure";
         if (key === "lightSolar" || key === "printedMap" || key === "watchShift") return !value || value === "none";
         if (key === "electrolytes") return !value || value === "none";
+        if (key === "sawyerCount") return !value || value === "0" || value === "1";
+        if (key === "ifak") return !value || value === "none";
+        if (key === "soapWay" || key === "trashBurn") return !value || value === "none";
+        if (key === "petFood") return value === "none";
+        if (key === "glassesSpare") return value === "none";
+        if (key === "rocketInside") return false;
         if (key === "falseHopeGarden") return profile.growPlan === "seeds" && Number(profile.foodDays || 0) < 14;
         if (key === "wildMeatFantasy") return (profile.wildMeat && profile.wildMeat !== "none") && (profile.wildMeatSkill === "none" || !profile.wildMeatSkill) && Number(profile.foodDays || 0) < 14;
         if (key === "scavengerRisk") return profile.wildMeat === "scavenger" && Number(profile.foodDays || 0) < 30;
@@ -2179,11 +2195,11 @@
         const profile = getFamilyProfile();
         const keys = [...((inject && inject.gapKeys) || [])];
         if (injectId === "H-03") keys.push("weatherRadio", "radioBand", "radioPower", "radioPractice", "lightSolar", "watchShift");
-        if (injectId === "H-04") keys.push("medIssue", "powerMedicalBackup", "weatherPlan", "electrolytes", "sanitation");
+        if (injectId === "H-04") keys.push("medIssue", "powerMedicalBackup", "weatherPlan", "electrolytes", "sanitation", "ifak");
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup", "printedMap");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk", "cookDark", "solarCookBlocked", "shareDrain", "sanitation", "electrolytes");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk", "cookDark", "solarCookBlocked", "shareDrain", "sanitation", "electrolytes", "sawyerCount", "soapWay", "trashBurn", "petFood");
         if (injectId === "H-04") keys.push("cookDark");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
@@ -2198,8 +2214,13 @@
             ? "FILTER: Sawyer-class or filter+chem can treat a very large gallon count of clear-enough water. Not magic for all chemicals. Still need a source."
             : "",
           profile.cookHeat === "rocket" || profile.cookHeat === "both"
-            ? "ROCKET STOVE: little fuel can still boil. Good when the sun is wrong."
+            ? "ROCKET STOVE: OUTSIDE, on sticks. Not in the house. Good when the sun is wrong."
             : "",
+          profile.sawyerCount === "2"
+            ? "SAWYER: two is one."
+            : profile.sawyerCount === "1"
+              ? "SAWYER: one is none — a spare is the plan."
+              : "",
           profile.cookHeat === "solar" || profile.cookHeat === "both"
             ? (["freeze", "storm", "smoke"].includes(profile.weatherNow) || profile.sunPlan === "short"
               ? "SOLAR COOKER: blocked this sky."
@@ -2408,13 +2429,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice", "sanitation", "lightSolar", "printedMap", "watchShift", "electrolytes"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice", "sanitation", "lightSolar", "printedMap", "watchShift", "electrolytes", "sawyerCount", "ifak", "soapWay", "trashBurn", "petFood", "glassesSpare"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice", "sanitation", "lightSolar", "printedMap", "watchShift", "electrolytes"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice", "sanitation", "lightSolar", "printedMap", "watchShift", "electrolytes", "sawyerCount", "ifak", "soapWay", "trashBurn", "petFood", "glassesSpare"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2456,7 +2477,13 @@
           { key: "lightSolar", label: "Solar lights", advice: "Path and inside so nobody breaks a leg going to the bucket or the radio.", severity: "medium", bad: !profile.lightSolar || profile.lightSolar === "none" },
           { key: "printedMap", label: "Printed map", advice: "Paper is king when the phone is a brick. Local at least; regional if you might move once.", severity: "high", bad: !profile.printedMap || profile.printedMap === "none" },
           { key: "watchShift", label: "Two 12-hour watches", advice: "Everyone asleep at once is how the drain at the door becomes a surprise. Two 12-hour shifts.", severity: "medium", bad: !profile.watchShift || profile.watchShift === "none" },
-          { key: "electrolytes", label: "Electrolytes", advice: "Sugar and salt. NaCl and/or KCl. Heat and diarrhea empty a house without a shot being fired.", severity: "high", bad: !profile.electrolytes || profile.electrolytes === "none" }
+          { key: "electrolytes", label: "Electrolytes", advice: "Sugar and salt. NaCl and/or KCl. Heat and diarrhea empty a house without a shot being fired.", severity: "high", bad: !profile.electrolytes || profile.electrolytes === "none" },
+          { key: "sawyerCount", label: "Two Sawyers", advice: "Two is one. One is none. A crushed filter is a creek.", severity: "high", bad: !profile.sawyerCount || profile.sawyerCount === "0" || profile.sawyerCount === "1" },
+          { key: "ifak", label: "Trauma kit", advice: "A good IFAK, practiced. Not a hospital. Death can still come; that is not a score failure if you kept the family rule.", severity: "high", bad: !profile.ifak || profile.ifak === "none" },
+          { key: "soapWay", label: "Soap", advice: "Stored soap, or fat rendered with lye from ash — know-how in the house, not a recipe in this file.", severity: "medium", bad: !profile.soapWay || profile.soapWay === "none" },
+          { key: "trashBurn", label: "Trash", advice: "Burn outdoors to help boil. Not a dump in the yard.", severity: "medium", bad: !profile.trashBurn || profile.trashBurn === "none" },
+          { key: "petFood", label: "Pet food", advice: "Pet food is human food on this table unless you stocked separate.", severity: "medium", bad: profile.petFood === "none" },
+          { key: "glassesSpare", label: "Glasses", advice: "Last year's pair, or go without. Need-them with no spare is a gap.", severity: "medium", bad: profile.glassesSpare === "none" }
         ];
         const gaps = checks.filter((check) => check.bad);
         const high = gaps.filter((gap) => gap.severity === "high").length;

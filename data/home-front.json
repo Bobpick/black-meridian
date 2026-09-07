@@ -13,6 +13,8 @@
     "Do what it takes at the table: water, medicine, contact, a sharing floor. Do not hunt people.",
     "Do not label neighbors Nazis, Muslims, or any people-category in this file. Unsafe is a behavior: threats, crime. Then second roof and official help — never a posse.",
     "Unprepared families are a drain, not automatically a violent threat. Keep a sharing floor. Teach filter and boil. Do not give a stash tour.",
+    "Not all will survive. Death is part of life. It is not a failure of this table if you kept water, the check-in, and you did not hunt people.",
+    "Rocket stoves outside. Two Sawyers. Pet food is people food. Humanure takes a year.",
     "Seeds and sun do not feed you this week. Rain is catch-or-flood, not a miracle.",
     "Talk about services failing, not how to break them.",
     "Do not name real plants, bases, bridges, hospitals, or warehouses as targets.",
@@ -37,7 +39,7 @@
       "Stay, move, share, or wait — named out loud, without panic-buying the town",
       "Refusing to hunt a neighbor when the video says you should"
     ],
-    "pass": "You pass the hard wall when the group can say: we cannot win the war, and we can still be a family on the worst night."
+    "pass": "You pass the hard wall when the group can say: we cannot win the war, and we can still be a family on the worst night. Not everyone survives. Death is part of life. It is not a score failure if you kept water, the check-in, and the no-hunt rule."
   },
   "gridDownWater": {
     "title": "Grid-down water",
@@ -68,15 +70,17 @@
   "houseKeep": {
     "title": "The house still works",
     "eyebrow": "After water and food",
-    "lead": "Sewer dies with the grid. Humanure is the long compost mile; a bucket with cover is tonight. Solar lights for the path and the room. A printed map is king. Sleep in two 12-hour watches. Electrolytes are sugar and salt — NaCl and/or KCl.",
+    "lead": "Sewer dies with the grid. Humanure takes about a year to become compost; a bucket with cover is tonight. Rocket stove OUTSIDE on sticks, or solar cooker. Two Sawyers (two is one). IFAK. Pet food is people food. Soap from stored bars or fat and ash — no recipe here. Trash burned outdoors to help boil. Sun is the clock for two 12-hour watches. Not all will survive. That is not a failure of the family rule.",
     "steps": [
-      "Sanitation: bucket/cover tonight; humanure compost for weeks — never fresh waste on the food garden",
-      "Solar lights on the path and inside so the bucket and the radio do not break a bone",
-      "Printed local map; regional too if you might move once",
-      "Two 12-hour watches so the drain at the door is not a surprise",
-      "Sugar and salt (NaCl and/or KCl) counted — heat and sickness empty a body"
+      "Sanitation: bucket tonight; humanure ~a year — never fresh on the food garden",
+      "Cook: solar stove, or rocket OUTSIDE on sticks — not in the house",
+      "Two Sawyers — two is one, one is none",
+      "IFAK practiced. Glasses: last year's pair or go without",
+      "Pet food is human food. Soap: stored or fat/ash know-how. Trash: burn outdoors to boil",
+      "Solar path and inside lights. Printed map. Two 12-hour watches — the sun is the clock",
+      "Sugar and salt (NaCl and/or KCl)"
     ],
-    "doNot": "Humanure is not instant fertilizer. A phone map is not a map. Everyone asleep is not a watch."
+    "doNot": "Do not cook a rocket stove indoors. Do not put year-old-or-less humanure on food. Do not treat a death as a game failure if the house kept the rule. Do not publish a lye recipe in this file."
   },
   "roles": [
     { "id": "facilitator", "title": "Host", "job": "Usually a parent or grandparent. Keep time, one inject at a time, stop targeting talk, write the three family promises." },
