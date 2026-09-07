@@ -13,7 +13,7 @@
 BLACK MERIDIAN is free. You do not need a war plan. You need a line of people who still drink, take their medicine, and find each other. It combines:
 
 - A 90-minute **home-front session** that couples each campaign phase to a civilian effect (comms, medicine, fuel, payments, rumor)
-- **Hotspot radios:** Taiwan Strait (most discussed), Canada / northern trade, Mexico / southern trade — public frames, not forecasts
+- **Hotspot radios:** Taiwan Strait (most discussed), Canada / northern trade, Mexico / southern trade, and **Homeland worst night** (nightmare as home effects — no landing map, no ethnic armies)
 - Group roster by callsign, mutual-aid roles, and a hard cap of three 14-day commitments
 - A named Taiwan Strait campaign frame (U.S., PRC, Taiwan, Japan/Philippines/shipping as gray) with invented events
 - Tactical commander decision records

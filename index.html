@@ -324,7 +324,7 @@
     .clock-card p { margin: 0; font-size: 12px; color: #c1ccd8; }
     .commit-item { border: 1px solid var(--line-soft); border-left: 3px solid var(--teal); background: var(--bg-soft); border-radius: 8px; padding: 12px; font-size: 12px; }
     .roster-item { border: 1px solid var(--line-soft); background: var(--bg-soft); border-radius: 8px; padding: 11px 12px; font-size: 12px; }
-    .hotspot-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+    .hotspot-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
     .hotspot-option { display: block; cursor: pointer; border: 1px solid var(--line-soft); background: var(--bg-soft); border-radius: var(--radius-sm); padding: 14px; }
     .hotspot-option:hover { border-color: #49627d; }
     .hotspot-option:has(input:checked) { border-color: var(--amber); background: var(--amber-soft); }
@@ -440,7 +440,7 @@
             <div>
               <div class="eyebrow">Family first · small groups · version 0.4</div>
               <h2>See them to their grandchildren.</h2>
-              <p>You are not writing a war plan. You are a small group that wants a line of people to live: water, medicine, a check-in when the phones die, and a sharing rule that does not wreck the family. Kitchen table or church basement. Four or five households. Ninety minutes. Three promises you will actually test. Pick a hotspot radio — Taiwan is the most discussed; Canada and Mexico are neighbor-trade shocks. The test is your house.</p>
+              <p>You are not writing a war plan. You are a small group that wants a line of people to live: water, medicine, a check-in when the phones die, and a sharing rule that does not wreck the family. Kitchen table or church basement. Four or five households. Ninety minutes. Three promises you will actually test. Pick a hotspot radio — Taiwan, Canada, Mexico, or the nightmare: Homeland worst night. The test is your house, not who you hunt.</p>
             </div>
             <div class="hero-mark">90<br><span>MIN</span></div>
           </div>
@@ -453,7 +453,7 @@
               <div>
                 <div class="eyebrow">Potential hotspots</div>
                 <h3>Which shock is this table playing?</h3>
-                <p>Taiwan is the most-discussed high-end case. Canada and Mexico are neighbor-trade shocks — likely ways a U.S. house gets cold, hungry, or expensive, not a plan to fight Ottawa or Mexico City. Pick one radio. The family decisions stay the same.</p>
+                <p>Taiwan is the most-discussed high-end case. Canada and Mexico are neighbor-trade shocks. <strong>Homeland worst night</strong> is the nightmare radio: everything feels like it is hitting at once. Canada and Mexico are congestion and rumor, not invasion routes. No landing maps. No armies named by race or religion. Pick one radio. The family decisions stay the same.</p>
               </div>
               <span class="tag amber">Public frame</span>
             </div>
@@ -1590,6 +1590,36 @@
         "H-05": "Pay, fuel, and groceries lag. Cash works; some cards do not. Sharing without a floor bankrupts the givers.",
         "H-06": "A viral border video contradicts official accounts. Arguments get bitter. Insurance, rent, and work still matter."
       }
+    },
+    {
+      "id": "homeland",
+      "label": "Homeland worst night",
+      "short": "Nightmare · effects at home · not an invasion map",
+      "likely": false,
+      "nightmare": true,
+      "why": "This is the kitchen-table nightmare: it feels like everything is coming at once. Distant war, air scare, northern and southern lines jammed with rumor and delayed freight, phones ugly. It is not a landing plan, not a people-hunt, and not a forecast. Canada and Mexico appear as congestion and story — not as conquered corridors.",
+      "hitsHome": [
+        "Sirens, markets, and contradictory official talk",
+        "Phones and data ugly",
+        "Fuel, food, and pharmacy lag",
+        "Roads full of frightened people",
+        "A rumor that 'they are coming through' — the group does not hunt anyone"
+      ],
+      "doNot": "Do not draw landing beaches. Do not name armies by race or religion. Do not name real bases, dams, or crossings as targets. If the rumor names a people, the family test is: we still run the check-in and we do not go looking for someone to hurt.",
+      "mission": "Keep this family a family on the worst night. You cannot stop bombers or fleets. You can keep water, medicine, a check-in hour, a sharing floor, and a rule: we do not hunt people. Official alerts beat the loudest cousin.",
+      "map": {
+        "red": "RUMOR / PRESSURE",
+        "blue": "UNITED STATES",
+        "gray": "NORTH & SOUTH LINES"
+      },
+      "theater": {
+        "H-01": "Feeds disagree: overseas fighting, an air scare, and talk that the northern and southern lines will 'break.' Stores are still open. Nothing official has ordered you to leave. Markets have already moved.",
+        "H-02": "Freight from Canada and Mexico slows. Fuel and some food jump in price. Relatives want a ride or a spare room. Roads are open but filling. Insurers and trucking delay. This is congestion, not a landing.",
+        "H-03": "Phones and data go ugly nationwide. Some texts arrive hours late. Weather radio and one official station still work. Rumors fill the gap, including stories about who is 'coming through.'",
+        "H-04": "Clinics and pharmacies slow. A common refill is late. Emergency rooms are busy with fear as much as injury. Power is mostly on. No hospital is a target in this exercise.",
+        "H-05": "Pay, fuel, and restock lag. Card readers flake. A grocer is short. Neighbors ask to share. Keep a floor of days for your own house. Do not inventory anyone else's stash.",
+        "H-06": "A viral clip claims invaders are using Canada or Mexico, or names a religion or a country as the enemy in your town. Officials say ignore unverified video. The family decision is who we believe — and that we do not hunt anyone. Rent and medicine still come due."
+      }
     }
   ]
 }
@@ -1676,7 +1706,7 @@
         $("#hotspotRadios").innerHTML = HOTSPOTS.hotspots.map((spot) => `
           <label class="hotspot-option">
             <input type="radio" name="hotspot" value="${esc(spot.id)}" ${spot.id === id ? "checked" : ""} />
-            <span class="tag ${spot.likely ? "amber" : "gray"}">${spot.likely ? "Most discussed" : "Neighbor shock"}</span>
+            <span class="tag ${spot.nightmare ? "red" : spot.likely ? "amber" : "gray"}">${spot.nightmare ? "Nightmare" : spot.likely ? "Most discussed" : "Neighbor shock"}</span>
             <h3>${esc(spot.label)}</h3>
             <p>${esc(spot.short)}</p>
           </label>`).join("");
