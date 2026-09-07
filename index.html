@@ -497,6 +497,19 @@
             <div class="callout top-space" id="gridDownWaterDoNot"></div>
             <div class="form-actions"><button class="ghost" type="button" data-view-target="regions">Set source, ram, and treat on the planner</button></div>
           </article>
+          <article class="panel top-space" id="gridDownCommsPanel">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow" id="gridDownCommsEyebrow">Grid-down radio</div>
+                <h3 id="gridDownCommsTitle">SW and ham</h3>
+                <p id="gridDownCommsLead"></p>
+              </div>
+              <span class="tag blue">Internet is gone</span>
+            </div>
+            <ul class="check-list" id="gridDownCommsSteps"></ul>
+            <div class="callout top-space" id="gridDownCommsDoNot"></div>
+            <div class="form-actions"><button class="ghost" type="button" data-view-target="regions">Set NOAA, SW/ham, power, and practice on the planner</button></div>
+          </article>
           <article class="panel top-space">
             <div class="section-head">
               <div>
@@ -926,6 +939,9 @@
                   <div class="form-field"><label for="weatherNow">Weather this session</label><select id="weatherNow"><option value="">Select</option><option value="none">No extra weather</option><option value="heat">Heat wave</option><option value="freeze">Freeze / ice</option><option value="storm">Storm / flood / wind</option><option value="smoke">Smoke / air quality</option></select></div>
                   <div class="form-field"><label for="weatherPlan">Weather / climate plan</label><select id="weatherPlan"><option value="">Select</option><option value="yes">Written for this weather</option><option value="partial">Discussed only</option><option value="no">No plan</option><option value="na">Not needed this session</option></select></div>
                   <div class="form-field"><label for="weatherRadio">Weather radio (no cell tower)</label><select id="weatherRadio"><option value="">Select</option><option value="yes">Yes, tested at check-in hour</option><option value="partial">Have it, untested</option><option value="no">No weather radio</option></select></div>
+                  <div class="form-field"><label for="radioBand">Beyond NOAA: SW / ham</label><select id="radioBand"><option value="">Select</option><option value="none">NOAA / local only</option><option value="sw">Shortwave receive — far news, no internet</option><option value="ham-rx">Ham receive — listen to nets</option><option value="ham">Ham licensed — can check into a net</option><option value="sw-ham">SW receive and ham</option></select></div>
+                  <div class="form-field"><label for="radioPower">Radio power</label><select id="radioPower"><option value="">Select</option><option value="none">Batteries we have not counted</option><option value="cells">Counted cells / pack</option><option value="solar">Solar / crank can run the radio</option><option value="both">Cells and solar/crank</option></select></div>
+                  <div class="form-field"><label for="radioPractice">Radio practice</label><select id="radioPractice"><option value="">Select</option><option value="none">Never used</option><option value="listen">Have listened</option><option value="tested">Tested at the check-in hour</option><option value="net">Have copied or checked into a net</option></select></div>
                   <div class="form-field"><label for="cashDays">Cash on hand, days</label><input id="cashDays" type="number" min="0" max="90" placeholder="e.g., 3" /></div>
                   <div class="form-field"><label for="secondRoof">Named second roof</label><select id="secondRoof"><option value="">Select</option><option value="yes">Callsign has said yes</option><option value="partial">Assumed, not asked</option><option value="no">No second roof</option></select></div>
                   <div class="form-field"><label for="mobilityPickup">Mobility / kid pickup</label><select id="mobilityPickup"><option value="">Select</option><option value="yes">Written who walks, who is carried, who picks up kids</option><option value="partial">Discussed only</option><option value="na">Not applicable</option><option value="no">Unresolved</option></select></div>
@@ -1459,6 +1475,19 @@
     ],
     "doNot": "Do not advertise the intake. An electric well pump is not a ram. Untreated ram water is still creek water."
   },
+  "gridDownComms": {
+    "title": "Grid-down radio",
+    "eyebrow": "Internet is not a radio",
+    "lead": "Phones die. Shortwave is how you hear the far world. Ham is how a licensed, practiced station checks into a net. NOAA is the weather and alert floor. Batteries or solar/crank are part of the radio. Receive first. Do not jam. Follow the law.",
+    "steps": [
+      "NOAA / weather radio tested at the check-in hour — the floor",
+      "Shortwave receive — news and rumor control when the internet is gone",
+      "Ham receive, then licensed transmit if you have a ticket and have copied a net",
+      "Power: counted cells and/or solar or crank — a dead pack is a dead net",
+      "Practice: listen this week, not on D+1"
+    ],
+    "doNot": "Do not transmit on ham without a license except as the law allows in true distress. Do not jam. A scanner is not a net check-in."
+  },
   "roles": [
     {
       "id": "facilitator",
@@ -1775,9 +1804,9 @@
     "H-03": {
       "id": "R-03",
       "time": "D+1 2140 LOCAL",
-      "succeed": "PLAN HELD. Cellular data is ugly. A weather radio that does not need a tower copied at the check-in hour. Out-of-area relay confirmed households. You know who is dark.",
-      "mixed": "PLAN PARTIAL. One text got through four hours late. Phone-only houses missed the hour. A radio existed but was untested. Isolation has started.",
-      "fail": "PLAN DID NOT HOLD. Apps failed. No tested weather radio. This dispatch is late. Two callsigns are unaccounted. A phone is not a radio."
+      "succeed": "PLAN HELD. Cellular data is ugly. NOAA copied at the check-in hour. Shortwave and/or ham had power and practice — far news without internet, or a net check-in if licensed. You know who is dark.",
+      "mixed": "PLAN PARTIAL. A weather radio or a phone got part of the hour. SW/ham is untested or unpowered. Isolation has started. Receive first; do not jam.",
+      "fail": "PLAN DID NOT HOLD. Apps failed. No tested NOAA, no SW, no ham, or dead batteries. This dispatch is late. Two callsigns are unaccounted. A phone is not a radio. Internet is not a radio."
     },
     "H-04": {
       "id": "R-04",
@@ -1927,6 +1956,14 @@
           $("#gridDownWaterSteps").innerHTML = (g.steps || []).map((item) => `<li>${esc(item)}</li>`).join("");
           $("#gridDownWaterDoNot").innerHTML = `<div class="callout-icon">!</div><div>${esc(g.doNot || "")}</div>`;
         }
+        if (HOME.gridDownComms) {
+          const c = HOME.gridDownComms;
+          $("#gridDownCommsEyebrow").textContent = c.eyebrow || "Grid-down radio";
+          $("#gridDownCommsTitle").textContent = c.title || "SW and ham";
+          $("#gridDownCommsLead").textContent = c.lead || "";
+          $("#gridDownCommsSteps").innerHTML = (c.steps || []).map((item) => `<li>${esc(item)}</li>`).join("");
+          $("#gridDownCommsDoNot").innerHTML = `<div class="callout-icon">!</div><div>${esc(c.doNot || "")}</div>`;
+        }
         const due = $("#commitDue");
         if (due && !due.value) {
           const next = new Date();
@@ -2066,6 +2103,9 @@
         if (key === "powerMedicalBackup") return (profile.medIssue === "power" || profile.medIssue === "both") && (!value || ["no", "partial", ""].includes(value));
         if (key === "weatherPlan") return profile.weatherNow && profile.weatherNow !== "none" && (!value || ["no", "partial", "na", ""].includes(value));
         if (key === "weatherRadio" || key === "secondRoof") return !value || ["no", "partial"].includes(value);
+        if (key === "radioBand") return !value || value === "none";
+        if (key === "radioPower") return !value || value === "none";
+        if (key === "radioPractice") return !value || value === "none";
         if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
         if (key === "shareFloor") return !value || value === "none";
         if (key === "helpKind") return !value || value === "open";
@@ -2096,7 +2136,7 @@
         const marker = RADIO.markers[injectId];
         const profile = getFamilyProfile();
         const keys = [...((inject && inject.gapKeys) || [])];
-        if (injectId === "H-03") keys.push("weatherRadio");
+        if (injectId === "H-03") keys.push("weatherRadio", "radioBand", "radioPower", "radioPractice");
         if (injectId === "H-04") keys.push("medIssue", "powerMedicalBackup", "weatherPlan");
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
@@ -2153,7 +2193,7 @@
                 ? "PELTIER: blocked (arid, storm, freeze, smoke, or short days)."
                 : ""
         ].filter(Boolean).join(" ");
-        const late = familyKeyBad(profile, "alternateComms") || familyKeyBad(profile, "weatherRadio");
+        const late = familyKeyBad(profile, "alternateComms") || familyKeyBad(profile, "weatherRadio") || familyKeyBad(profile, "radioPractice") || familyKeyBad(profile, "radioPower");
         return { inject, marker, profile, open, band, world, weather, harvestNote, late };
       }
 
@@ -2168,6 +2208,7 @@
           `${RADIO.net} · ${result.marker.time}`,
           `HOTSPOT ${selectedHotspot().label.toUpperCase()} · MARKER ${result.marker.id} · AFTER ${injectId}`,
           `ROSTER ${roster.length} HOUSEHOLD(S)`,
+          `RADIO: ${result.profile.radioBand || "not set"} · POWER: ${result.profile.radioPower || "not set"} · PRACTICE: ${result.profile.radioPractice || "not set"}`,
           "",
           "— WORLD —",
           result.world,
@@ -2324,13 +2365,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2356,6 +2397,9 @@
           { key: "powerMedicalBackup", label: "Power-dependent medical backup", advice: "If a device needs power, a tested backup is a life-safety item.", severity: "high", bad: (profile.medIssue === "power" || profile.medIssue === "both") && (!profile.powerMedicalBackup || ["no", "partial", ""].includes(profile.powerMedicalBackup)) },
           { key: "weatherPlan", label: "Weather / climate plan", advice: "Heat, freeze, storm, or smoke needs a written plan for this session, not a national weather lecture.", severity: "high", bad: profile.weatherNow && profile.weatherNow !== "none" && (!profile.weatherPlan || ["no", "partial", ""].includes(profile.weatherPlan)) },
           { key: "weatherRadio", label: "Weather radio", advice: "A phone is not a radio. Test a receiver that does not need a cell tower.", severity: "high", bad: !profile.weatherRadio || ["no", "partial"].includes(profile.weatherRadio) },
+          { key: "radioBand", label: "SW / ham", advice: "Shortwave is how far news arrives with no internet. Ham is a two-way net if you are licensed and practiced. Receive first. Do not jam. Follow the law.", severity: "high", bad: !profile.radioBand || profile.radioBand === "none" },
+          { key: "radioPower", label: "Radio power", advice: "A dead battery is a dead net. Count cells or a solar/crank path.", severity: "high", bad: !profile.radioPower || profile.radioPower === "none" },
+          { key: "radioPractice", label: "Radio practice", advice: "Untested radios fail at D+1. Listen, then copy at the check-in hour.", severity: "high", bad: !profile.radioPractice || profile.radioPractice === "none" },
           { key: "cashDays", label: "Cash days", advice: "Cards flake. Keep a conservative cash count in small bills.", severity: "medium", bad: !profile.cashDays || Number(profile.cashDays) < 3 },
           { key: "secondRoof", label: "Named second roof", advice: "Someone has to have said yes. An assumed spare room is not a plan.", severity: "high", bad: !profile.secondRoof || ["no", "partial"].includes(profile.secondRoof) },
           { key: "mobilityPickup", label: "Mobility / kid pickup", advice: "Write who cannot walk far and who gets the children if phones are ugly.", severity: "high", bad: !profile.mobilityPickup || ["no", "partial"].includes(profile.mobilityPickup) },

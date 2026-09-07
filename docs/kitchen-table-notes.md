@@ -60,13 +60,26 @@ After each inject: world bulletin, then whether **this table’s** plan held, mi
 **Weather and medicine**
 
 - Status only: refill risk, power-device, heat/freeze/storm/smoke. No diagnoses, no drug names, no addresses.
-- Weather radio that does not need a cell tower.
+- NOAA weather radio, shortwave receive, ham receive or licensed net, counted batteries or solar/crank, practiced at the check-in hour. Internet is not a radio. Receive first. Do not jam.
 
 **People**
 
 - Unprepared families are a **drain**, not automatically a violent threat.
 - Sharing floor: keep X days, then help.
 - Help kind: teach filter/boil/rocket; maybe one day of water once. Open pantry and stash tours fail the mile.
+
+## Still thin on the table (rule of threes)
+
+Oxygen is not the 30-day problem for this game. Water and food are on the planner (ram, Sawyer, springs/rivers, shelf food, fowl/fish if practiced). Radio is now NOAA + SW + ham.
+
+Still not scored as their own mile, and still can kill a house:
+
+- **Sanitation / sewage** — drinking water is not a toilet plan
+- **Light** after dark (injury, morale, not seeing the radio)
+- **Analog maps** and a compass if you must move
+- **Counted fuel** for the one vehicle move
+- **Sleep and watch** in a drain-heavy neighborhood (not a posse)
+- **Salt, electrolytes, infant/elder special food**
 
 ## 30-day grid-down “survival rate”
 

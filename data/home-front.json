@@ -52,6 +52,19 @@
     ],
     "doNot": "Do not advertise the intake. An electric well pump is not a ram. Untreated ram water is still creek water."
   },
+  "gridDownComms": {
+    "title": "Grid-down radio",
+    "eyebrow": "Internet is not a radio",
+    "lead": "Phones die. Shortwave is how you hear the far world. Ham is how a licensed, practiced station checks into a net. NOAA is the weather and alert floor. Batteries or solar/crank are part of the radio. Receive first. Do not jam. Follow the law.",
+    "steps": [
+      "NOAA / weather radio tested at the check-in hour — the floor",
+      "Shortwave receive — news and rumor control when the internet is gone",
+      "Ham receive, then licensed transmit if you have a ticket and have copied a net",
+      "Power: counted cells and/or solar or crank — a dead pack is a dead net",
+      "Practice: listen this week, not on D+1"
+    ],
+    "doNot": "Do not transmit on ham without a license except as the law allows in true distress. Do not jam. A scanner is not a net check-in."
+  },
   "roles": [
     { "id": "facilitator", "title": "Host", "job": "Usually a parent or grandparent. Keep time, one inject at a time, stop targeting talk, write the three family promises." },
     { "id": "households", "title": "Households", "job": "Each person or pair is one house — kids, elders, pets. Use a callsign, not a legal name." },

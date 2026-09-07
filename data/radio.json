@@ -20,9 +20,9 @@
     "H-03": {
       "id": "R-03",
       "time": "D+1 2140 LOCAL",
-      "succeed": "PLAN HELD. Cellular data is ugly. A weather radio that does not need a tower copied at the check-in hour. Out-of-area relay confirmed households. You know who is dark.",
-      "mixed": "PLAN PARTIAL. One text got through four hours late. Phone-only houses missed the hour. A radio existed but was untested. Isolation has started.",
-      "fail": "PLAN DID NOT HOLD. Apps failed. No tested weather radio. This dispatch is late. Two callsigns are unaccounted. A phone is not a radio."
+      "succeed": "PLAN HELD. Cellular data is ugly. NOAA copied at the check-in hour. Shortwave and/or ham had power and practice — far news without internet, or a net check-in if licensed. You know who is dark.",
+      "mixed": "PLAN PARTIAL. A weather radio or a phone got part of the hour. SW/ham is untested or unpowered. Isolation has started. Receive first; do not jam.",
+      "fail": "PLAN DID NOT HOLD. Apps failed. No tested NOAA, no SW, no ham, or dead batteries. This dispatch is late. Two callsigns are unaccounted. A phone is not a radio. Internet is not a radio."
     },
     "H-04": {
       "id": "R-04",
