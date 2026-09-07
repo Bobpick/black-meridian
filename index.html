@@ -895,7 +895,8 @@
                   <div class="form-field"><label for="airHumidity">Air this session</label><select id="airHumidity"><option value="">Select</option><option value="extreme">PA-style summer — ~90°F / very high humidity</option><option value="humid">Humid — condensation can work</option><option value="mixed">Mixed / seasonal</option><option value="arid">Arid / dry — Peltier will not pay</option></select></div>
                   <div class="form-field"><label for="waterSource">Natural / surface water</label><select id="waterSource"><option value="">Select</option><option value="none">None we can use</option><option value="spring">Spring that usually runs</option><option value="perennial">River/creek that runs through dry months (e.g. PNW)</option><option value="seasonal">Seasonal creek — may go dry</option><option value="lake">Lake / pond</option></select></div>
                   <div class="form-field"><label for="waterAccess">Access to that water</label><select id="waterAccess"><option value="">Select</option><option value="na">Not applicable</option><option value="onsite">On or next to the property</option><option value="walk">Walk with cans — known path</option><option value="drive">Need a vehicle / fuel</option><option value="none">We cannot get there this session</option></select></div>
-                  <div class="form-field"><label for="waterTreat">Treat before drinking</label><select id="waterTreat"><option value="">Select</option><option value="na">Not using surface water</option><option value="both">Filter and boil/chem</option><option value="filter">Filter only</option><option value="boil">Boil or chemical only</option><option value="none">No treatment plan</option></select></div>
+                  <div class="form-field"><label for="waterTreat">Treat before drinking</label><select id="waterTreat"><option value="">Select</option><option value="na">Not using surface water</option><option value="both">Filter and boil/chem</option><option value="sawyer">Sawyer-class hollow-fiber (high gallon rating)</option><option value="filter">Other filter only</option><option value="boil">Boil or chemical only</option><option value="none">No treatment plan</option></select></div>
+                  <div class="form-field"><label for="cookHeat">Cook / boil heat (no-grid)</label><select id="cookHeat"><option value="">Select</option><option value="none">No off-grid cook heat</option><option value="solar">Solar cooker — sun boils/cooks</option><option value="rocket">Rocket stove — little fuel</option><option value="both">Solar cooker and rocket stove</option><option value="propane">Propane / stored fuel stove</option><option value="grid">Grid or electric only</option></select></div>
                   <div class="form-field"><label for="waterLift">Lift to the house</label><select id="waterLift"><option value="">Select</option><option value="na">Not lifting surface water</option><option value="gravity">Gravity feed</option><option value="ram">Hydraulic ram pump — no grid (flow + drop)</option><option value="electric">Electric pump (grid or backup)</option><option value="haul">Haul by hand or vehicle</option></select></div>
                   <div class="form-field"><label for="foodDays">Food on hand, days</label><input id="foodDays" type="number" min="0" max="800" placeholder="e.g., 7 or 730" /></div>
                   <div class="form-field"><label for="medicationPlan">Medication / medical plan</label><select id="medicationPlan"><option value="">Select</option><option value="confirmed">Confirmed supply and refill plan</option><option value="partial">Partial plan</option><option value="none">No plan yet</option><option value="na">Not applicable</option></select></div>
@@ -1758,7 +1759,7 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. Stored gallons, a treated spring or perennial river, a ram pump, and/or a 90/90 Peltier can keep reconstituting. Practiced small game or fish can add later calories — not tonight's only meal. Scavenger birds are not chicken. Heat may still be the killer. Do not advertise the source or the stock.",
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A Sawyer-class filter can treat a huge gallon count from a spring or river. A solar cooker boils in the sun; a rocket stove boils on scraps when the sky is wrong. Ram, Peltier, and stored gallons still matter. Heat may still be the killer. Do not advertise the source or the stock.",
       "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
       "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
@@ -2015,6 +2016,11 @@
         if (key === "seasonalDry") return profile.waterSource === "seasonal" && (profile.rainPlan === "drought" || profile.weatherNow === "heat");
         if (key === "waterWalkFuel") return !ramCanRun(profile) && ((profile.waterAccess === "drive" && familyKeyBad(profile, "transportPlan")) || (profile.waterAccess === "none" && profile.waterSource && profile.waterSource !== "none"));
         if (key === "ramFantasy") return profile.waterLift === "ram" && !ramCanRun(profile);
+        if (key === "cookDark") return !profile.cookHeat || profile.cookHeat === "none" || profile.cookHeat === "grid";
+        if (key === "solarCookBlocked") {
+          if (profile.cookHeat !== "solar") return false;
+          return ["freeze", "storm", "smoke"].includes(profile.weatherNow) || profile.sunPlan === "short";
+        }
         if (key === "documentsPlan") return !value || value === "no";
         if (key === "dependentsPlan" || key === "mobilityPickup") return !value || ["no", "partial"].includes(value);
         if (key === "medIssue") return value && value !== "none" && (!profile.medicationPlan || ["none", "partial", ""].includes(profile.medicationPlan));
@@ -2054,7 +2060,8 @@
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk", "cookDark", "solarCookBlocked");
+        if (injectId === "H-04") keys.push("cookDark");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
         if (injectId === "H-06" || injectId === "H-02") keys.push("unsafeNeighbors");
@@ -2064,6 +2071,17 @@
         const world = (selectedHotspot().theater && selectedHotspot().theater[injectId]) || (inject && inject.theater) || "";
         const weather = [profile.season, profile.weatherNow, profile.airHumidity].filter(Boolean).join(" / ") || "not set";
         const harvestNote = [
+          profile.waterTreat === "sawyer" || profile.waterTreat === "both"
+            ? "FILTER: Sawyer-class or filter+chem can treat a very large gallon count of clear-enough water. Not magic for all chemicals. Still need a source."
+            : "",
+          profile.cookHeat === "rocket" || profile.cookHeat === "both"
+            ? "ROCKET STOVE: little fuel can still boil. Good when the sun is wrong."
+            : "",
+          profile.cookHeat === "solar" || profile.cookHeat === "both"
+            ? (["freeze", "storm", "smoke"].includes(profile.weatherNow) || profile.sunPlan === "short"
+              ? "SOLAR COOKER: blocked this sky."
+              : "SOLAR COOKER: sun can cook and boil with no fuel.")
+            : "",
           ramCanRun(profile)
             ? "RAM PUMP: running — no grid. Flow plus drop from a spring or perennial river can lift water to the house. Still treat."
             : profile.waterLift === "ram"
@@ -2111,7 +2129,7 @@
           `FOOD DAYS: ${result.profile.foodDays || "0"} · PRESERVE: ${result.profile.preserveMethod || "not set"} · MACHINES: ${result.profile.preservePower || "not set"}`,
           `WILD PROTEIN: ${result.profile.wildMeat || "not set"} · SKILL: ${result.profile.wildMeatSkill || "not set"}`,
           `WATER DAYS: ${result.profile.waterDays || "0"} · HARVEST: ${result.profile.waterHarvest || "not set"} · AIR: ${result.profile.airHumidity || "not set"}`,
-          `SPRING/RIVER: ${result.profile.waterSource || "not set"} · ACCESS: ${result.profile.waterAccess || "not set"} · TREAT: ${result.profile.waterTreat || "not set"} · LIFT: ${result.profile.waterLift || "not set"}`,
+          `SPRING/RIVER: ${result.profile.waterSource || "not set"} · ACCESS: ${result.profile.waterAccess || "not set"} · TREAT: ${result.profile.waterTreat || "not set"} · LIFT: ${result.profile.waterLift || "not set"} · COOK: ${result.profile.cookHeat || "not set"}`,
           result.harvestNote || "",
           `RAIN: ${result.profile.rainPlan || "not set"} · SUN: ${result.profile.sunPlan || "not set"} · GARDEN: ${result.profile.growPlan || "not set"}`,
           `NEARBY HOUSEHOLDS: ${result.profile.localTrust || "not set"} (no ideology labels on this net)`,
@@ -2260,13 +2278,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2277,6 +2295,7 @@
           { key: "waterDays", label: "Water continuity", advice: "Stored gallons first. Solar Peltier can wring cups from humid air in the sun — not a well, not an arid-climate plan.", severity: "high", bad: !profile.waterDays || Number(profile.waterDays) < 3 },
           { key: "waterHarvest", label: "Water harvest", advice: "Rain catch and/or solar Peltier. Peltier needs humidity and sun. Treat output as slow recovery, not drums per hour.", severity: "medium", bad: !profile.waterHarvest },
           { key: "waterSource", label: "Spring / river / lake", advice: "PA springs and PNW rivers that run through dry months are real. Seasonal creeks lie in a drought. Treat everything you did not store.", severity: "medium", bad: !profile.waterSource },
+          { key: "cookHeat", label: "Cook / boil heat", advice: "Solar cooker in the sun, rocket stove with little fuel, or stored propane. Grid-only does not boil in a shock. Sawyer-class filters do not replace a boil for every contaminant, but they treat a lot of gallons.", severity: "high", bad: !profile.cookHeat || profile.cookHeat === "none" || profile.cookHeat === "grid" },
           { key: "foodDays", label: "Food continuity", advice: "Shelf food that is already preserved counts. Machines do not run themselves if the grid is down.", severity: "medium", bad: !profile.foodDays || Number(profile.foodDays) < 3 },
           { key: "preserveMethod", label: "Preserved stock", advice: "Bags on the shelf count. Freeze-dryer needs power. Sun/car screens can still dry food with no grid if the sky is clear.", severity: "medium", bad: !profile.preserveMethod || profile.preserveMethod === "none" },
           { key: "wildMeat", label: "Wild protein", advice: "Rabbit, squirrel, groundhog, fish, game birds can add calories if you have skill and can cook. Crow and vulture are scavengers — last resort, not chicken. This file is not a hunting guide. Follow the law until officials say otherwise.", severity: "medium", bad: !profile.wildMeat },
