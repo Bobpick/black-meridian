@@ -34,9 +34,9 @@
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Shelf food already preserved (freeze-dry / dehydrate / cans) covers this mile. Machines are optional now; the bags on the shelf are what count. Water and cash floors still named. A two-year stock is a blessing — do not advertise it. Sharing floor: keep X days, then help.",
-      "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, or a sharing floor is thin. Freeze-dryers and dehydrators do not cycle if the grid is down. Grocer is short. Reset the sharing rule tonight. Do not tell the whole road you have years of food.",
-      "fail": "PLAN DID NOT HOLD. No counted shelf food. A machine with no power is not dinner. Seeds are not dinner. No cash days. The restock lag is not over."
+      "succeed": "PLAN HELD. Shelf food already preserved covers this mile. A freeze-dryer needs power; a dehydrator-style screen in a car or in direct sun does not — if the sky is clear. Bags on the shelf still beat any machine. Do not advertise a long stock. Sharing floor: keep X days, then help.",
+      "mixed": "PLAN PARTIAL. Food on the shelf is decent but water, cash, sky, or a sharing floor is thin. Electric freeze-dryers sit dark without grid or backup. Sun/car screens only work in clear weather, not freeze, storm, or smoke. Do not tell the whole road you have years of food.",
+      "fail": "PLAN DID NOT HOLD. No counted shelf food. Grid machines are dark. Sky is wrong for sun-drying, or nobody set screens. Seeds are not dinner. Dried food still needs water. The restock lag is not over."
     },
     "H-06": {
       "id": "R-06",
