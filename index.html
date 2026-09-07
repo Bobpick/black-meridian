@@ -510,6 +510,19 @@
             <div class="callout top-space" id="gridDownCommsDoNot"></div>
             <div class="form-actions"><button class="ghost" type="button" data-view-target="regions">Set NOAA, SW/ham, power, and practice on the planner</button></div>
           </article>
+          <article class="panel top-space" id="houseKeepPanel">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow" id="houseKeepEyebrow">After water and food</div>
+                <h3 id="houseKeepTitle">The house still works</h3>
+                <p id="houseKeepLead"></p>
+              </div>
+              <span class="tag amber">Sanitation · light · map · watch</span>
+            </div>
+            <ul class="check-list" id="houseKeepSteps"></ul>
+            <div class="callout top-space" id="houseKeepDoNot"></div>
+            <div class="form-actions"><button class="ghost" type="button" data-view-target="regions">Set sanitation, lights, map, watch, salt on the planner</button></div>
+          </article>
           <article class="panel top-space">
             <div class="section-head">
               <div>
@@ -955,6 +968,11 @@
                   <div class="form-field"><label for="localTrust">Nearby households (no ideology labels)</label><select id="localTrust"><option value="">Select</option><option value="cooperative">Cooperative — check-in and sharing floor possible</option><option value="mixed">Mixed / unknown</option><option value="strained">Strained — we do not share stash maps</option><option value="unsafe">Unsafe — crime or threats; second roof and official help, no posse</option></select></div>
                   <div class="form-field"><label for="shareFloor">Sharing floor (days we keep)</label><select id="shareFloor"><option value="">Select</option><option value="14">Keep 14 days, then help</option><option value="30">Keep 30 days, then help</option><option value="90">Keep 90 days, then help</option><option value="365">Keep 1 year, then help</option><option value="none">No floor — we will get drained</option></select></div>
                   <div class="form-field"><label for="helpKind">What we will give an unprepared house</label><select id="helpKind"><option value="">Select</option><option value="skill">Skill only — filter, boil, rocket, where to treat water (no stash tour)</option><option value="day">Skill plus one day of water/food, once</option><option value="small">Small repeating help under the floor</option><option value="open">Open pantry — drain risk</option></select></div>
+                  <div class="form-field"><label for="sanitation">Sanitation</label><select id="sanitation"><option value="">Select</option><option value="none">No plan — sewage dies with the grid</option><option value="bucket">Bucket / cover tonight (sawdust, etc.)</option><option value="humanure">Humanure compost only (not a 72-hour toilet)</option><option value="both">Bucket tonight and humanure for the long mile</option><option value="septic">Septic that still works without municipal sewer</option></select></div>
+                  <div class="form-field"><label for="lightSolar">Solar lights</label><select id="lightSolar"><option value="">Select</option><option value="none">No off-grid light</option><option value="path">Path lights</option><option value="inside">Inside the house</option><option value="both">Path and inside</option></select></div>
+                  <div class="form-field"><label for="printedMap">Printed map</label><select id="printedMap"><option value="">Select</option><option value="none">None — phone map only</option><option value="local">Local paper map</option><option value="regional">Regional paper map</option><option value="both">Local and regional on paper</option></select></div>
+                  <div class="form-field"><label for="watchShift">Sleep / watch</label><select id="watchShift"><option value="">Select</option><option value="none">No watch — everyone sleeps at once</option><option value="adhoc">Ad hoc</option><option value="two12">Two 12-hour shifts</option></select></div>
+                  <div class="form-field"><label for="electrolytes">Electrolytes</label><select id="electrolytes"><option value="">Select</option><option value="none">None counted</option><option value="nacl">NaCl (salt)</option><option value="kcl">KCl</option><option value="both">NaCl and KCl</option><option value="sugar-salt">Sugar and salt (NaCl and/or KCl)</option></select></div>
                 </div>
                 <div class="form-actions"><button class="primary" type="submit">Save profile</button><button class="ghost" id="exportFamily" type="button">Export profile</button><button class="danger" id="clearFamily" type="button">Clear</button></div>
               </form>
@@ -1488,6 +1506,19 @@
     ],
     "doNot": "Do not transmit on ham without a license except as the law allows in true distress. Do not jam. A scanner is not a net check-in."
   },
+  "houseKeep": {
+    "title": "The house still works",
+    "eyebrow": "After water and food",
+    "lead": "Sewer dies with the grid. Humanure is the long compost mile; a bucket with cover is tonight. Solar lights for the path and the room. A printed map is king. Sleep in two 12-hour watches. Electrolytes are sugar and salt — NaCl and/or KCl.",
+    "steps": [
+      "Sanitation: bucket/cover tonight; humanure compost for weeks — never fresh waste on the food garden",
+      "Solar lights on the path and inside so the bucket and the radio do not break a bone",
+      "Printed local map; regional too if you might move once",
+      "Two 12-hour watches so the drain at the door is not a surprise",
+      "Sugar and salt (NaCl and/or KCl) counted — heat and sickness empty a body"
+    ],
+    "doNot": "Humanure is not instant fertilizer. A phone map is not a map. Everyone asleep is not a watch."
+  },
   "roles": [
     {
       "id": "facilitator",
@@ -1811,7 +1842,7 @@
     "H-04": {
       "id": "R-04",
       "time": "D+3 1100 LOCAL",
-      "succeed": "PLAN HELD. Refill path named. Power-device backup tested if one exists. Weather plan matches this session (heat, freeze, storm, or smoke). Dependents covered without the ER.",
+      "succeed": "PLAN HELD. Refill path named. Power-device backup tested if one exists. Weather plan matches this session. Electrolytes counted (sugar and salt — NaCl and/or KCl). Sanitation is a bucket tonight, humanure later — not the garden. Dependents covered without the ER.",
       "mixed": "PLAN PARTIAL. Medicine or weather was discussed, not written. A device may not survive a night without grid power. Heat or freeze is already in the room. Close the medical and weather gaps this week.",
       "fail": "PLAN DID NOT HOLD. Time-critical refill or a power device with no backup — or this weather with no plan. Delay, not a bomb, is how a house fails first."
     },
@@ -1964,6 +1995,14 @@
           $("#gridDownCommsSteps").innerHTML = (c.steps || []).map((item) => `<li>${esc(item)}</li>`).join("");
           $("#gridDownCommsDoNot").innerHTML = `<div class="callout-icon">!</div><div>${esc(c.doNot || "")}</div>`;
         }
+        if (HOME.houseKeep) {
+          const h = HOME.houseKeep;
+          $("#houseKeepEyebrow").textContent = h.eyebrow || "After water and food";
+          $("#houseKeepTitle").textContent = h.title || "The house still works";
+          $("#houseKeepLead").textContent = h.lead || "";
+          $("#houseKeepSteps").innerHTML = (h.steps || []).map((item) => `<li>${esc(item)}</li>`).join("");
+          $("#houseKeepDoNot").innerHTML = `<div class="callout-icon">!</div><div>${esc(h.doNot || "")}</div>`;
+        }
         const due = $("#commitDue");
         if (due && !due.value) {
           const next = new Date();
@@ -2109,6 +2148,9 @@
         if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
         if (key === "shareFloor") return !value || value === "none";
         if (key === "helpKind") return !value || value === "open";
+        if (key === "sanitation") return !value || value === "none" || value === "humanure";
+        if (key === "lightSolar" || key === "printedMap" || key === "watchShift") return !value || value === "none";
+        if (key === "electrolytes") return !value || value === "none";
         if (key === "falseHopeGarden") return profile.growPlan === "seeds" && Number(profile.foodDays || 0) < 14;
         if (key === "wildMeatFantasy") return (profile.wildMeat && profile.wildMeat !== "none") && (profile.wildMeatSkill === "none" || !profile.wildMeatSkill) && Number(profile.foodDays || 0) < 14;
         if (key === "scavengerRisk") return profile.wildMeat === "scavenger" && Number(profile.foodDays || 0) < 30;
@@ -2136,12 +2178,12 @@
         const marker = RADIO.markers[injectId];
         const profile = getFamilyProfile();
         const keys = [...((inject && inject.gapKeys) || [])];
-        if (injectId === "H-03") keys.push("weatherRadio", "radioBand", "radioPower", "radioPractice");
-        if (injectId === "H-04") keys.push("medIssue", "powerMedicalBackup", "weatherPlan");
+        if (injectId === "H-03") keys.push("weatherRadio", "radioBand", "radioPower", "radioPractice", "lightSolar", "watchShift");
+        if (injectId === "H-04") keys.push("medIssue", "powerMedicalBackup", "weatherPlan", "electrolytes", "sanitation");
         if (injectId === "H-05") keys.push("cashDays");
-        if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
+        if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup", "printedMap");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
-        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk", "cookDark", "solarCookBlocked", "shareDrain");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater", "preserveMethod", "machineFantasy", "dryFoodNoWater", "sunDryBlocked", "peltierFantasy", "untreatedSurface", "seasonalDry", "waterWalkFuel", "ramFantasy", "wildMeatFantasy", "scavengerRisk", "cookDark", "solarCookBlocked", "shareDrain", "sanitation", "electrolytes");
         if (injectId === "H-04") keys.push("cookDark");
         if (injectId === "H-02") keys.push("floodMove");
         if (injectId === "H-04") keys.push("heatSun");
@@ -2209,6 +2251,7 @@
           `HOTSPOT ${selectedHotspot().label.toUpperCase()} · MARKER ${result.marker.id} · AFTER ${injectId}`,
           `ROSTER ${roster.length} HOUSEHOLD(S)`,
           `RADIO: ${result.profile.radioBand || "not set"} · POWER: ${result.profile.radioPower || "not set"} · PRACTICE: ${result.profile.radioPractice || "not set"}`,
+          `SANITATION: ${result.profile.sanitation || "not set"} · LIGHT: ${result.profile.lightSolar || "not set"} · MAP: ${result.profile.printedMap || "not set"} · WATCH: ${result.profile.watchShift || "not set"} · ELECTROLYTES: ${result.profile.electrolytes || "not set"}`,
           "",
           "— WORLD —",
           result.world,
@@ -2365,13 +2408,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice", "sanitation", "lightSolar", "printedMap", "watchShift", "electrolytes"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "preserveMethod", "preservePower", "growPlan", "rainPlan", "sunPlan", "localTrust", "waterHarvest", "airHumidity", "waterSource", "waterAccess", "waterTreat", "waterLift", "wildMeat", "wildMeatSkill", "cookHeat", "shareFloor", "helpKind", "radioBand", "radioPower", "radioPractice", "sanitation", "lightSolar", "printedMap", "watchShift", "electrolytes"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2408,7 +2451,12 @@
           { key: "sunPlan", label: "Sun / light", advice: "Heat, short days, or useful sun for charge/grow — pick the one you actually have.", severity: "medium", bad: !profile.sunPlan },
           { key: "localTrust", label: "Nearby households", advice: "No ideology labels. Cooperative / mixed / strained / unsafe. Unsafe means second roof and official help — not a posse.", severity: "high", bad: !profile.localTrust },
           { key: "shareFloor", label: "Sharing floor", advice: "Unprepared houses will ask. That is a drain, not automatically a raid. Keep X days, then help. Open pantry empties a prepared family.", severity: "high", bad: !profile.shareFloor || profile.shareFloor === "none" },
-          { key: "helpKind", label: "Help we will give", advice: "Teach filter, boil, rocket, springs. One day of water once is mercy. A stash tour is how two years becomes two weeks.", severity: "high", bad: !profile.helpKind || profile.helpKind === "open" }
+          { key: "helpKind", label: "Help we will give", advice: "Teach filter, boil, rocket, springs. One day of water once is mercy. A stash tour is how two years becomes two weeks.", severity: "high", bad: !profile.helpKind || profile.helpKind === "open" },
+          { key: "sanitation", label: "Sanitation", advice: "Grid sewer dies. Bucket/cover is tonight. Humanure is the long compost mile — not a 72-hour toilet, and not fresh waste on the garden.", severity: "high", bad: !profile.sanitation || profile.sanitation === "none" || profile.sanitation === "humanure" },
+          { key: "lightSolar", label: "Solar lights", advice: "Path and inside so nobody breaks a leg going to the bucket or the radio.", severity: "medium", bad: !profile.lightSolar || profile.lightSolar === "none" },
+          { key: "printedMap", label: "Printed map", advice: "Paper is king when the phone is a brick. Local at least; regional if you might move once.", severity: "high", bad: !profile.printedMap || profile.printedMap === "none" },
+          { key: "watchShift", label: "Two 12-hour watches", advice: "Everyone asleep at once is how the drain at the door becomes a surprise. Two 12-hour shifts.", severity: "medium", bad: !profile.watchShift || profile.watchShift === "none" },
+          { key: "electrolytes", label: "Electrolytes", advice: "Sugar and salt. NaCl and/or KCl. Heat and diarrhea empty a house without a shot being fired.", severity: "high", bad: !profile.electrolytes || profile.electrolytes === "none" }
         ];
         const gaps = checks.filter((check) => check.bad);
         const high = gaps.filter((gap) => gap.severity === "high").length;

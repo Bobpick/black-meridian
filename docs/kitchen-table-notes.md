@@ -72,14 +72,18 @@ After each inject: world bulletin, then whether **this table’s** plan held, mi
 
 Oxygen is not the 30-day problem for this game. Water and food are on the planner (ram, Sawyer, springs/rivers, shelf food, fowl/fish if practiced). Radio is now NOAA + SW + ham.
 
-Still not scored as their own mile, and still can kill a house:
+Now scored:
 
-- **Sanitation / sewage** — drinking water is not a toilet plan
-- **Light** after dark (injury, morale, not seeing the radio)
-- **Analog maps** and a compass if you must move
+- **Sanitation** — bucket/cover tonight; humanure compost for the long mile; never fresh waste on the food garden
+- **Solar lights** — path and inside
+- **Printed map** — paper is king
+- **Two 12-hour watches**
+- **Electrolytes** — sugar and salt (NaCl and/or KCl)
+
+Still thin:
+
 - **Counted fuel** for the one vehicle move
-- **Sleep and watch** in a drain-heavy neighborhood (not a posse)
-- **Salt, electrolytes, infant/elder special food**
+- **Infant/elder special food** beyond the sharing floor
 
 ## 30-day grid-down “survival rate”
 

@@ -27,7 +27,7 @@
     "H-04": {
       "id": "R-04",
       "time": "D+3 1100 LOCAL",
-      "succeed": "PLAN HELD. Refill path named. Power-device backup tested if one exists. Weather plan matches this session (heat, freeze, storm, or smoke). Dependents covered without the ER.",
+      "succeed": "PLAN HELD. Refill path named. Power-device backup tested if one exists. Weather plan matches this session. Electrolytes counted (sugar and salt — NaCl and/or KCl). Sanitation is a bucket tonight, humanure later — not the garden. Dependents covered without the ER.",
       "mixed": "PLAN PARTIAL. Medicine or weather was discussed, not written. A device may not survive a night without grid power. Heat or freeze is already in the room. Close the medical and weather gaps this week.",
       "fail": "PLAN DID NOT HOLD. Time-critical refill or a power device with no backup — or this weather with no plan. Delay, not a bomb, is how a house fails first."
     },
