@@ -223,7 +223,7 @@ For an immediate real-world emergency, follow official alerts and contact local 
 
 ## Project status
 
-**Version:** 0.7  
+**Version:** 0.8  
 **Date:** 2026-09-06  
 **Format:** Static offline web application  
 **Build step:** None required

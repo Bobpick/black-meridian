@@ -899,6 +899,16 @@
                   <div class="form-field"><label for="transportPlan">Transportation plan</label><select id="transportPlan"><option value="">Select</option><option value="yes">Primary and fallback options</option><option value="partial">Primary option only</option><option value="no">No plan</option></select></div>
                   <div class="form-field"><label for="dependentsPlan">Dependents / pets</label><select id="dependentsPlan"><option value="">Select</option><option value="yes">Needs covered</option><option value="partial">Some needs covered</option><option value="na">Not applicable</option><option value="no">Needs unresolved</option></select></div>
                   <div class="form-field"><label for="documentsPlan">Documents / finances</label><select id="documentsPlan"><option value="">Select</option><option value="yes">Portable and backed up</option><option value="partial">Some backups</option><option value="no">Not prepared</option></select></div>
+                  <div class="form-field full"><p class="small muted" style="margin:0;">Issues — status only. No drug names, diagnoses, or addresses.</p></div>
+                  <div class="form-field"><label for="medIssue">Medication issue this table</label><select id="medIssue"><option value="">Select</option><option value="none">None / not applicable</option><option value="refill">Time-critical refill risk</option><option value="power">Power-dependent device</option><option value="both">Refill and power-device</option></select></div>
+                  <div class="form-field"><label for="powerMedicalBackup">If power-device: backup power</label><select id="powerMedicalBackup"><option value="">Select</option><option value="na">Not applicable</option><option value="yes">Backup exists and tested</option><option value="partial">Partial / untested</option><option value="no">No backup</option></select></div>
+                  <div class="form-field"><label for="season">Home climate</label><select id="season"><option value="">Select</option><option value="heat">Heat is the killer</option><option value="freeze">Freeze is the killer</option><option value="mixed">Heat and freeze both</option></select></div>
+                  <div class="form-field"><label for="weatherNow">Weather this session</label><select id="weatherNow"><option value="">Select</option><option value="none">No extra weather</option><option value="heat">Heat wave</option><option value="freeze">Freeze / ice</option><option value="storm">Storm / flood / wind</option><option value="smoke">Smoke / air quality</option></select></div>
+                  <div class="form-field"><label for="weatherPlan">Weather / climate plan</label><select id="weatherPlan"><option value="">Select</option><option value="yes">Written for this weather</option><option value="partial">Discussed only</option><option value="no">No plan</option><option value="na">Not needed this session</option></select></div>
+                  <div class="form-field"><label for="weatherRadio">Weather radio (no cell tower)</label><select id="weatherRadio"><option value="">Select</option><option value="yes">Yes, tested at check-in hour</option><option value="partial">Have it, untested</option><option value="no">No weather radio</option></select></div>
+                  <div class="form-field"><label for="cashDays">Cash on hand, days</label><input id="cashDays" type="number" min="0" max="90" placeholder="e.g., 3" /></div>
+                  <div class="form-field"><label for="secondRoof">Named second roof</label><select id="secondRoof"><option value="">Select</option><option value="yes">Callsign has said yes</option><option value="partial">Assumed, not asked</option><option value="no">No second roof</option></select></div>
+                  <div class="form-field"><label for="mobilityPickup">Mobility / kid pickup</label><select id="mobilityPickup"><option value="">Select</option><option value="yes">Written who walks, who is carried, who picks up kids</option><option value="partial">Discussed only</option><option value="na">Not applicable</option><option value="no">Unresolved</option></select></div>
                 </div>
                 <div class="form-actions"><button class="primary" type="submit">Save profile</button><button class="ghost" id="exportFamily" type="button">Export profile</button><button class="danger" id="clearFamily" type="button">Clear</button></div>
               </form>
@@ -1718,23 +1728,23 @@
     "H-03": {
       "id": "R-03",
       "time": "D+1 2140 LOCAL",
-      "succeed": "PLAN HELD. Cellular data is ugly. This net still copied because a second method was tested. Check-in hour was kept. Out-of-area relay confirmed three households. You know who is dark.",
-      "mixed": "PLAN PARTIAL. One text got through four hours late. One house never copied. Weather radio worked; the group did not all listen at the same hour. Isolation has started.",
-      "fail": "PLAN DID NOT HOLD. Apps failed and there was no tested fallback. This dispatch is late. Two callsigns are unaccounted. Untested comms are not comms."
+      "succeed": "PLAN HELD. Cellular data is ugly. A weather radio that does not need a tower copied at the check-in hour. Out-of-area relay confirmed households. You know who is dark.",
+      "mixed": "PLAN PARTIAL. One text got through four hours late. Phone-only houses missed the hour. A radio existed but was untested. Isolation has started.",
+      "fail": "PLAN DID NOT HOLD. Apps failed. No tested weather radio. This dispatch is late. Two callsigns are unaccounted. A phone is not a radio."
     },
     "H-04": {
       "id": "R-04",
       "time": "D+3 1100 LOCAL",
-      "succeed": "PLAN HELD. A refill path was already named. Dependents and pets had a 14-day workaround that does not need the ER. Transport to a backup clinic was possible. Delay, not a battlefield, is the danger — and you planned for delay.",
-      "mixed": "PLAN PARTIAL. One household had extra days of a refill. Another did not. A ride existed but was not written. The ER is busy with fear. You still have time if you close the medical gap this week.",
-      "fail": "PLAN DID NOT HOLD. No refill plan. No dependent workaround. No second way to get there. A common bottle is already late. This is how a house fails first — not a bomb, a gap."
+      "succeed": "PLAN HELD. Refill path named. Power-device backup tested if one exists. Weather plan matches this session (heat, freeze, storm, or smoke). Dependents covered without the ER.",
+      "mixed": "PLAN PARTIAL. Medicine or weather was discussed, not written. A device may not survive a night without grid power. Heat or freeze is already in the room. Close the medical and weather gaps this week.",
+      "fail": "PLAN DID NOT HOLD. Time-critical refill or a power device with no backup — or this weather with no plan. Delay, not a bomb, is how a house fails first."
     },
     "H-05": {
       "id": "R-05",
       "time": "D+8 1645 LOCAL",
-      "succeed": "PLAN HELD. Water and food floors were named before anyone shared. Cards flaked; cash and a backup still worked. After helping a neighbor you still have days on the shelf. Mutual aid did not bankrupt the givers.",
+      "succeed": "PLAN HELD. Water and food floors were named before anyone shared. Cards flaked; cash days still covered small bills. After helping a neighbor you still have days on the shelf.",
       "mixed": "PLAN PARTIAL. One house shared past its floor. One hoarded and is now alone. Grocer is short. You can still reset the sharing rule tonight if you write the number.",
-      "fail": "PLAN DID NOT HOLD. No water or food count. No payment backup. Sharing was all-or-nothing. A giver is now. A taker has no neighbor left. The restock lag is not over."
+      "fail": "PLAN DID NOT HOLD. No water or food count. No cash days. Sharing was all-or-nothing. Cards flaked and the grocer is short. The restock lag is not over."
     },
     "H-06": {
       "id": "R-06",
@@ -1933,9 +1943,13 @@
 
       function familyKeyBad(profile, key) {
         const value = profile[key];
-        if (key === "waterDays" || key === "foodDays") return !value || Number(value) < 3;
+        if (key === "waterDays" || key === "foodDays" || key === "cashDays") return !value || Number(value) < 3;
         if (key === "documentsPlan") return !value || value === "no";
-        if (key === "dependentsPlan") return !value || ["no", "partial"].includes(value);
+        if (key === "dependentsPlan" || key === "mobilityPickup") return !value || ["no", "partial"].includes(value);
+        if (key === "medIssue") return value && value !== "none" && (!profile.medicationPlan || ["none", "partial", ""].includes(profile.medicationPlan));
+        if (key === "powerMedicalBackup") return (profile.medIssue === "power" || profile.medIssue === "both") && (!value || ["no", "partial", ""].includes(value));
+        if (key === "weatherPlan") return profile.weatherNow && profile.weatherNow !== "none" && (!value || ["no", "partial", "na", ""].includes(value));
+        if (key === "weatherRadio" || key === "secondRoof") return !value || ["no", "partial"].includes(value);
         if (["medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan"].includes(key)) {
           return !value || ["no", "partial", "none"].includes(value);
         }
@@ -1946,11 +1960,19 @@
         const inject = HOME.injects.find((item) => item.id === injectId);
         const marker = RADIO.markers[injectId];
         const profile = getFamilyProfile();
-        const keys = (inject && inject.gapKeys) || [];
-        const open = keys.filter((key) => familyKeyBad(profile, key));
-        const band = open.length === 0 ? "succeed" : open.length === keys.length ? "fail" : "mixed";
+        const keys = [...((inject && inject.gapKeys) || [])];
+        if (injectId === "H-03") keys.push("weatherRadio");
+        if (injectId === "H-04") keys.push("medIssue", "powerMedicalBackup", "weatherPlan");
+        if (injectId === "H-05") keys.push("cashDays");
+        if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
+        if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
+        const unique = [...new Set(keys)];
+        const open = unique.filter((key) => familyKeyBad(profile, key));
+        const band = open.length === 0 ? "succeed" : open.length === unique.length ? "fail" : "mixed";
         const world = (selectedHotspot().theater && selectedHotspot().theater[injectId]) || (inject && inject.theater) || "";
-        return { inject, marker, profile, open, band, world, late: familyKeyBad(profile, "alternateComms") };
+        const weather = [profile.season, profile.weatherNow].filter(Boolean).join(" / ") || "not set";
+        const late = familyKeyBad(profile, "alternateComms") || familyKeyBad(profile, "weatherRadio");
+        return { inject, marker, profile, open, band, world, weather, late };
       }
 
       function receiveDispatch(injectId) {
@@ -1967,6 +1989,7 @@
           "",
           "— WORLD —",
           result.world,
+          `WEATHER / CLIMATE: ${result.weather}`,
           "",
           `— THIS TABLE · ${bandLabel} —`,
           noise + outcome,
@@ -2112,13 +2135,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2134,7 +2157,14 @@
           { key: "shelterPlan", label: "Shelter or relocation plan", advice: "Write down where you shelter, when you leave, and how you verify the destination.", severity: "high", bad: !profile.shelterPlan || ["no", "partial"].includes(profile.shelterPlan) },
           { key: "transportPlan", label: "Transportation fallback", advice: "Identify a primary and alternate route or mode without relying on one bridge, fuel source, or vehicle.", severity: "medium", bad: !profile.transportPlan || ["no", "partial"].includes(profile.transportPlan) },
           { key: "dependentsPlan", label: "Dependent and pet needs", advice: "Cover food, water, medication, mobility, records, and transport for dependents or pets.", severity: "high", bad: !profile.dependentsPlan || ["no", "partial"].includes(profile.dependentsPlan) },
-          { key: "documentsPlan", label: "Documents and finances", advice: "Keep portable copies, backup access, and a payment option that does not depend on one network.", severity: "medium", bad: !profile.documentsPlan || profile.documentsPlan === "no" }
+          { key: "documentsPlan", label: "Documents and finances", advice: "Keep portable copies, backup access, and a payment option that does not depend on one network.", severity: "medium", bad: !profile.documentsPlan || profile.documentsPlan === "no" },
+          { key: "medIssue", label: "Medication issue", advice: "If someone has a refill or power-device issue, the medical plan must be confirmed. No drug names in this file.", severity: "high", bad: profile.medIssue && profile.medIssue !== "none" && (!profile.medicationPlan || ["none", "partial", ""].includes(profile.medicationPlan)) },
+          { key: "powerMedicalBackup", label: "Power-dependent medical backup", advice: "If a device needs power, a tested backup is a life-safety item.", severity: "high", bad: (profile.medIssue === "power" || profile.medIssue === "both") && (!profile.powerMedicalBackup || ["no", "partial", ""].includes(profile.powerMedicalBackup)) },
+          { key: "weatherPlan", label: "Weather / climate plan", advice: "Heat, freeze, storm, or smoke needs a written plan for this session, not a national weather lecture.", severity: "high", bad: profile.weatherNow && profile.weatherNow !== "none" && (!profile.weatherPlan || ["no", "partial", ""].includes(profile.weatherPlan)) },
+          { key: "weatherRadio", label: "Weather radio", advice: "A phone is not a radio. Test a receiver that does not need a cell tower.", severity: "high", bad: !profile.weatherRadio || ["no", "partial"].includes(profile.weatherRadio) },
+          { key: "cashDays", label: "Cash days", advice: "Cards flake. Keep a conservative cash count in small bills.", severity: "medium", bad: !profile.cashDays || Number(profile.cashDays) < 3 },
+          { key: "secondRoof", label: "Named second roof", advice: "Someone has to have said yes. An assumed spare room is not a plan.", severity: "high", bad: !profile.secondRoof || ["no", "partial"].includes(profile.secondRoof) },
+          { key: "mobilityPickup", label: "Mobility / kid pickup", advice: "Write who cannot walk far and who gets the children if phones are ugly.", severity: "high", bad: !profile.mobilityPickup || ["no", "partial"].includes(profile.mobilityPickup) }
         ];
         const gaps = checks.filter((check) => check.bad);
         const high = gaps.filter((gap) => gap.severity === "high").length;
