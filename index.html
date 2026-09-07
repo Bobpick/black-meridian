@@ -909,6 +909,10 @@
                   <div class="form-field"><label for="cashDays">Cash on hand, days</label><input id="cashDays" type="number" min="0" max="90" placeholder="e.g., 3" /></div>
                   <div class="form-field"><label for="secondRoof">Named second roof</label><select id="secondRoof"><option value="">Select</option><option value="yes">Callsign has said yes</option><option value="partial">Assumed, not asked</option><option value="no">No second roof</option></select></div>
                   <div class="form-field"><label for="mobilityPickup">Mobility / kid pickup</label><select id="mobilityPickup"><option value="">Select</option><option value="yes">Written who walks, who is carried, who picks up kids</option><option value="partial">Discussed only</option><option value="na">Not applicable</option><option value="no">Unresolved</option></select></div>
+                  <div class="form-field"><label for="growPlan">Seed / garden (months, not 72 hours)</label><select id="growPlan"><option value="">Select</option><option value="none">No garden plan</option><option value="seeds">Seeds only — not planted</option><option value="started">Germinating / in ground</option><option value="producing">Already producing calories</option></select></div>
+                  <div class="form-field"><label for="rainPlan">Rainfall issue</label><select id="rainPlan"><option value="">Select</option><option value="none">No extra rain issue</option><option value="collect">We can catch/store rain</option><option value="drought">Drought — no catch, water is tight</option><option value="flood">Flood / too much water</option></select></div>
+                  <div class="form-field"><label for="sunPlan">Sun / light issue</label><select id="sunPlan"><option value="">Select</option><option value="none">No extra sun issue</option><option value="grow">Enough sun to grow if we planted</option><option value="solar">Sun useful for charging / heat</option><option value="heat">Too much sun — heat is the danger</option><option value="short">Short days / little sun</option></select></div>
+                  <div class="form-field"><label for="localTrust">Nearby households (no ideology labels)</label><select id="localTrust"><option value="">Select</option><option value="cooperative">Cooperative — check-in and sharing floor possible</option><option value="mixed">Mixed / unknown</option><option value="strained">Strained — we do not share stash maps</option><option value="unsafe">Unsafe — crime or threats; second roof and official help, no posse</option></select></div>
                 </div>
                 <div class="form-actions"><button class="primary" type="submit">Save profile</button><button class="ghost" id="exportFamily" type="button">Export profile</button><button class="danger" id="clearFamily" type="button">Clear</button></div>
               </form>
@@ -937,7 +941,7 @@
       </main>
     </div>
 
-    <footer class="footer">BLACK MERIDIAN · FAMILY FIRST · HARD WALL · W-BM FAMILY NET · VERSION 0.7 · 2026-09-06</footer>
+    <footer class="footer">BLACK MERIDIAN · FAMILY FIRST · HARD WALL · W-BM FAMILY NET · VERSION 0.9 · 2026-09-06</footer>
   </div>
 
   <script id="scenario-data" type="application/json">
@@ -1388,6 +1392,8 @@
     "Every household that does the work is an asset to its own line of people. This file is an asset to that household.",
     "You are not writing a war plan. You are keeping a line of people alive.",
     "Do what it takes at the table: water, medicine, contact, a sharing floor. Do not hunt people.",
+    "Do not label neighbors Nazis, Muslims, or any people-category in this file. Unsafe is a behavior: threats, crime. Then second roof and official help — never a posse.",
+    "Seeds and sun do not feed you this week. Rain is catch-or-flood, not a miracle.",
     "Talk about services failing, not how to break them.",
     "Do not name real plants, bases, bridges, hospitals, or warehouses as targets.",
     "Do not store legal names, addresses, account numbers, or medical identifiers.",
@@ -1744,7 +1750,7 @@
       "time": "D+8 1645 LOCAL",
       "succeed": "PLAN HELD. Water and food floors were named before anyone shared. Cards flaked; cash days still covered small bills. After helping a neighbor you still have days on the shelf.",
       "mixed": "PLAN PARTIAL. One house shared past its floor. One hoarded and is now alone. Grocer is short. You can still reset the sharing rule tonight if you write the number.",
-      "fail": "PLAN DID NOT HOLD. No water or food count. No cash days. Sharing was all-or-nothing. Cards flaked and the grocer is short. The restock lag is not over."
+      "fail": "PLAN DID NOT HOLD. No water or food count. No cash days. Sharing was all-or-nothing. Cards flaked and the grocer is short. Seeds in a packet do not count as dinner. The restock lag is not over."
     },
     "H-06": {
       "id": "R-06",
@@ -1950,6 +1956,12 @@
         if (key === "powerMedicalBackup") return (profile.medIssue === "power" || profile.medIssue === "both") && (!value || ["no", "partial", ""].includes(value));
         if (key === "weatherPlan") return profile.weatherNow && profile.weatherNow !== "none" && (!value || ["no", "partial", "na", ""].includes(value));
         if (key === "weatherRadio" || key === "secondRoof") return !value || ["no", "partial"].includes(value);
+        if (key === "growPlan" || key === "rainPlan" || key === "sunPlan" || key === "localTrust") return !value;
+        if (key === "falseHopeGarden") return profile.growPlan === "seeds";
+        if (key === "droughtWater") return profile.rainPlan === "drought" && (!profile.waterDays || Number(profile.waterDays) < 7);
+        if (key === "floodMove") return profile.rainPlan === "flood" && familyKeyBad(profile, "weatherPlan") && familyKeyBad(profile, "shelterPlan");
+        if (key === "heatSun") return (profile.sunPlan === "heat" || profile.weatherNow === "heat") && familyKeyBad(profile, "weatherPlan");
+        if (key === "unsafeNeighbors") return profile.localTrust === "unsafe" && familyKeyBad(profile, "secondRoof");
         if (["medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan"].includes(key)) {
           return !value || ["no", "partial", "none"].includes(value);
         }
@@ -1966,6 +1978,10 @@
         if (injectId === "H-05") keys.push("cashDays");
         if (injectId === "H-02") keys.push("secondRoof", "mobilityPickup");
         if (injectId === "H-01" && profile.weatherNow && profile.weatherNow !== "none") keys.push("weatherPlan");
+        if (injectId === "H-05") keys.push("falseHopeGarden", "droughtWater");
+        if (injectId === "H-02") keys.push("floodMove");
+        if (injectId === "H-04") keys.push("heatSun");
+        if (injectId === "H-06" || injectId === "H-02") keys.push("unsafeNeighbors");
         const unique = [...new Set(keys)];
         const open = unique.filter((key) => familyKeyBad(profile, key));
         const band = open.length === 0 ? "succeed" : open.length === unique.length ? "fail" : "mixed";
@@ -1990,6 +2006,8 @@
           "— WORLD —",
           result.world,
           `WEATHER / CLIMATE: ${result.weather}`,
+          `RAIN: ${result.profile.rainPlan || "not set"} · SUN: ${result.profile.sunPlan || "not set"} · GARDEN: ${result.profile.growPlan || "not set"}`,
+          `NEARBY HOUSEHOLDS: ${result.profile.localTrust || "not set"} (no ideology labels on this net)`,
           "",
           `— THIS TABLE · ${bandLabel} —`,
           noise + outcome,
@@ -2135,13 +2153,13 @@
       }
 
       function loadFamilyForm(profile) {
-        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup"];
+        const fields = ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "growPlan", "rainPlan", "sunPlan", "localTrust"];
         fields.forEach((id) => { if ($(`#${id}`)) $(`#${id}`).value = profile[id] ?? ""; });
       }
 
       function familyFormData() {
         const profile = { regionId: $("#regionSelect").value };
-        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup"].forEach((id) => { profile[id] = $(`#${id}`).value; });
+        ["familySize", "waterDays", "foodDays", "medicationPlan", "alternateComms", "contactPlan", "shelterPlan", "transportPlan", "dependentsPlan", "documentsPlan", "medIssue", "powerMedicalBackup", "season", "weatherNow", "weatherPlan", "weatherRadio", "cashDays", "secondRoof", "mobilityPickup", "growPlan", "rainPlan", "sunPlan", "localTrust"].forEach((id) => { profile[id] = $(`#${id}`).value; });
         profile.updatedAt = new Date().toISOString();
         return profile;
       }
@@ -2164,7 +2182,11 @@
           { key: "weatherRadio", label: "Weather radio", advice: "A phone is not a radio. Test a receiver that does not need a cell tower.", severity: "high", bad: !profile.weatherRadio || ["no", "partial"].includes(profile.weatherRadio) },
           { key: "cashDays", label: "Cash days", advice: "Cards flake. Keep a conservative cash count in small bills.", severity: "medium", bad: !profile.cashDays || Number(profile.cashDays) < 3 },
           { key: "secondRoof", label: "Named second roof", advice: "Someone has to have said yes. An assumed spare room is not a plan.", severity: "high", bad: !profile.secondRoof || ["no", "partial"].includes(profile.secondRoof) },
-          { key: "mobilityPickup", label: "Mobility / kid pickup", advice: "Write who cannot walk far and who gets the children if phones are ugly.", severity: "high", bad: !profile.mobilityPickup || ["no", "partial"].includes(profile.mobilityPickup) }
+          { key: "mobilityPickup", label: "Mobility / kid pickup", advice: "Write who cannot walk far and who gets the children if phones are ugly.", severity: "high", bad: !profile.mobilityPickup || ["no", "partial"].includes(profile.mobilityPickup) },
+          { key: "growPlan", label: "Garden / seed plan", advice: "Seeds do not feed you in 72 hours. Stored food is the short mile. Germination is a months play.", severity: "medium", bad: !profile.growPlan },
+          { key: "rainPlan", label: "Rainfall", advice: "Name drought (catch/store) or flood (stay/move). Rain in the barrel is a plan; rain in the living room is a move.", severity: "medium", bad: !profile.rainPlan },
+          { key: "sunPlan", label: "Sun / light", advice: "Heat, short days, or useful sun for charge/grow — pick the one you actually have.", severity: "medium", bad: !profile.sunPlan },
+          { key: "localTrust", label: "Nearby households", advice: "No ideology labels. Cooperative / mixed / strained / unsafe. Unsafe means second roof and official help — not a posse.", severity: "high", bad: !profile.localTrust }
         ];
         const gaps = checks.filter((check) => check.bad);
         const high = gaps.filter((gap) => gap.severity === "high").length;
